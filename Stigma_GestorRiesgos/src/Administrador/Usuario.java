@@ -10,6 +10,7 @@ package Administrador;
  * @author Stigma
  */
 public class Usuario {
+    private int ID;
     private String Nombre;
     private String NomUser;
     private String Email;
@@ -17,12 +18,23 @@ public class Usuario {
     private String TipoUser;
 
     public Usuario() {
+        ID = 0;
         Nombre = "";
         NomUser = "";
         Email = "";
         Password = "";
         TipoUser = "";
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
+    
 
     public String getNombre() {
         return Nombre;

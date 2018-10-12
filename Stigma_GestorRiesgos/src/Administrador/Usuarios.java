@@ -83,6 +83,11 @@ public class Usuarios extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setText("Nombre: ");
 
@@ -95,6 +100,12 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel5.setText("Repetir Contraseña");
 
         jLabel6.setText("Tipo de Usuario: ");
+
+        TxtNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNomActionPerformed(evt);
+            }
+        });
 
         CBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione Un Tipo De Usuario-", "Administrador", "Lider Tecnico", "Desarrollador" }));
 
@@ -370,78 +381,214 @@ public class Usuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void setFilas() {
+    /*private void setFilasBaja() {
         
         BD mBD = new BD();
         Usuario mUsuario = new Usuario();
         
         if (mBD.Conectar()) {
-            ArrayList mListaProductos = mBD.Consulta();
+            ArrayList mLista = mBD.Consulta();
             String[] Datos;
-            ModeloTabla1.addColumn("IdUsuaqio");
+            ModeloTabla1.addColumn("IdUsuario");
             ModeloTabla1.addColumn("Nombre");
             ModeloTabla1.addColumn("Nombre Usuario");
             ModeloTabla1.addColumn("EMail");
             ModeloTabla1.addColumn("Tipo Usuario");
 
-            for (Object mListaProducto : mListaProductos) {
-                Datos = new String[7];
+            for (Object mListaU : mLista) {
+                Datos = new String[5];
 
-                mProducto = (Producto) mListaProducto;
-                Datos[0] = "" + mProducto.getId_Producto();;
-                Datos[1] = mProducto.getNombre();
-                Datos[2] = "" + mProducto.getPrecio();
-                Datos[3] = "" + mProducto.getPrecio_venta();
-                Datos[4] = "" + mProducto.getCantidad();
+                
+                mUsuario = (Usuario) mListaU;
+                Datos[0] = "" + mUsuario.getID();
+                Datos[1] = mUsuario.getNombre();
+                Datos[2] = mUsuario.getNomUser();
+                Datos[3] = mUsuario.getEmail();
+                Datos[4] = mUsuario.getTipoUser();
+                
 
-                ModeloTabla.addRow(Datos);
+                ModeloTabla1.addRow(Datos);
             }
+            //Tabla Baja
+            this.TBUsuarios1 = new javax.swing.JTable();
+            this.TBUsuarios1.setModel(ModeloTabla1);
 
-            this.TBProductos = new javax.swing.JTable();
-            this.TBProductos.setModel(ModeloTabla);
+            this.TBUsuarios1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.TBUsuarios1.getColumnModel().getColumn(1).setPreferredWidth(100);
+            this.TBUsuarios1.getColumnModel().getColumn(2).setPreferredWidth(100);
+            this.TBUsuarios1.getColumnModel().getColumn(3).setPreferredWidth(150);
+            this.TBUsuarios1.getColumnModel().getColumn(4).setPreferredWidth(100);
 
-            this.TBProductos.getColumnModel().getColumn(0).setPreferredWidth(50);
-            this.TBProductos.getColumnModel().getColumn(1).setPreferredWidth(200);
-            this.TBProductos.getColumnModel().getColumn(2).setPreferredWidth(100);
-            this.TBProductos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            this.TBProductos.getColumnModel().getColumn(4).setPreferredWidth(400);
-
-            if (this.TBProductos.getRowCount() > 0) {
-                this.TBProductos.setRowSelectionInterval(0, 0);
+            if (this.TBUsuarios1.getRowCount() > 0) {
+                this.TBUsuarios1.setRowSelectionInterval(0, 0);
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Error al consultar...");
         }
-        mBD.desconectar();
+        mBD.Desconectar();
+    }*/
+    /*private void setFilasMod() {
+        
+        BD mBD = new BD();
+        Usuario mUsuario = new Usuario();
+        
+        if (mBD.Conectar()) {
+            ArrayList mLista = mBD.Consulta();
+            String[] Datos;
+            ModeloTabla2.addColumn("IdUsuario");
+            ModeloTabla2.addColumn("Nombre");
+            ModeloTabla2.addColumn("Nombre Usuario");
+            ModeloTabla2.addColumn("EMail");
+            ModeloTabla2.addColumn("Tipo Usuario");
+
+            for (Object mListaU : mLista) {
+                Datos = new String[5];
+
+                
+                mUsuario = (Usuario) mListaU;
+                Datos[0] = "" + mUsuario.getID();
+                Datos[1] = mUsuario.getNombre();
+                Datos[2] = mUsuario.getNomUser();
+                Datos[3] = mUsuario.getEmail();
+                Datos[4] = mUsuario.getTipoUser();
+                
+
+                ModeloTabla2.addRow(Datos);
+            }
+            //Tabla Baja
+            this.TBUsuarios2 = new javax.swing.JTable();
+            this.TBUsuarios2.setModel(ModeloTabla2);
+
+            this.TBUsuarios2.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.TBUsuarios2.getColumnModel().getColumn(1).setPreferredWidth(100);
+            this.TBUsuarios2.getColumnModel().getColumn(2).setPreferredWidth(100);
+            this.TBUsuarios2.getColumnModel().getColumn(3).setPreferredWidth(150);
+            this.TBUsuarios2.getColumnModel().getColumn(4).setPreferredWidth(100);
+
+            if (this.TBUsuarios2.getRowCount() > 0) {
+                this.TBUsuarios2.setRowSelectionInterval(0, 0);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al consultar...");
+        }
+        mBD.Desconectar();
     }
-    
+*/
+    private void setFilasCon() {
+        
+        BD mBD = new BD();
+        Usuario mUsuario = new Usuario();
+        
+        if (mBD.Conectar()) {
+            ArrayList mLista = mBD.Consulta();
+            String[] Datos;
+            ModeloTabla3.addColumn("IdUsuario");
+            ModeloTabla3.addColumn("Nombre");
+            ModeloTabla3.addColumn("Nombre Usuario");
+            ModeloTabla3.addColumn("EMail");
+            ModeloTabla3.addColumn("Tipo Usuario");
+
+            for (Object mListaU : mLista) {
+                Datos = new String[5];
+
+                
+                mUsuario = (Usuario) mListaU;
+                Datos[0] = "" + mUsuario.getID();
+                Datos[1] = mUsuario.getNombre();
+                Datos[2] = mUsuario.getNomUser();
+                Datos[3] = mUsuario.getEmail();
+                Datos[4] = mUsuario.getTipoUser();
+                
+
+                ModeloTabla3.addRow(Datos);
+            }
+            //Tabla Baja
+            this.TBUsuarios3 = new javax.swing.JTable();
+            this.TBUsuarios3.setModel(ModeloTabla3);
+
+            this.TBUsuarios3.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.TBUsuarios3.getColumnModel().getColumn(1).setPreferredWidth(100);
+            this.TBUsuarios3.getColumnModel().getColumn(2).setPreferredWidth(100);
+            this.TBUsuarios3.getColumnModel().getColumn(3).setPreferredWidth(150);
+            this.TBUsuarios3.getColumnModel().getColumn(4).setPreferredWidth(100);
+
+            if (this.TBUsuarios3.getRowCount() > 0) {
+                this.TBUsuarios3.setRowSelectionInterval(0, 0);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al consultar...");
+        }
+        mBD.Desconectar();
+    }
     
     //Pestaña Alta
     private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
         Usuario mUsuario = new Usuario();
         BD mBD = new BD();
-        
-        
-        if (TxtNom.getText().equals("") || TxtNomUser.getText().equals("") || TxtEmail.getText().equals("") || TxtPass.getText().equals("") || CBTipo.getSelectedItem().equals("-Seleccione Un Tipo De Usuario-") ) {
-            JOptionPane.showMessageDialog(null, "Llene todos los campos para dar de alta al usuario");
+//        
+//        
+//        if (TxtNom.getText().equals("") || TxtNomUser.getText().equals("") || TxtEmail.getText().equals("") || TxtPass.getText().equals("") || CBTipo.getSelectedItem().equals("-Seleccione Un Tipo De Usuario-") ) {
+//            JOptionPane.showMessageDialog(null, "Llene todos los campos para dar de alta al usuario");
+//        } else{
+//            if (mBD.Conectar()) {
+//
+//                mUsuario.setNombre(TxtNom.getText());
+//                mUsuario.setNomUser(TxtNomUser.getText());
+//                mUsuario.setEmail(TxtEmail.getText());
+//                mUsuario.setPassword(TxtPass.getText());
+//                mUsuario.setTipoUser(CBTipo.getSelectedItem().toString());
+//                
+//                if (mBD.AgregarUsuario(mUsuario)) {
+//                    JOptionPane.showMessageDialog(null, "Usuario Dado de Alta de Manera Exitosa");
+//                    TxtNom.setText("");
+//                    TxtNomUser.setText("");
+//                    TxtEmail.setText("");
+//                    TxtPass.setText("");
+//                    CBTipo.setSelectedIndex(0);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Error al dar de alta");
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Error");
+//            }
+//            mBD.Desconectar();
+//        }
+
+ if (this.TxtNom.getText().isEmpty()||this.TxtNomUser.getText().isEmpty()||this.TxtEmail.getText().isEmpty()
+                ||this.TxtPass.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Asegurese de llenar todos los campos");
         } else{
-            if (mBD.Conectar()) {
-
-                mUsuario.setNombre(TxtNom.getText());
-                mUsuario.setNomUser(TxtNomUser.getText());
-                mUsuario.setEmail(TxtEmail.getText());
-                mUsuario.setPassword(TxtPass.getText());
-                mUsuario.setTipoUser(CBTipo.getSelectedItem().toString());
-                mBD.AgregarUsuario(mUsuario);
-                JOptionPane.showMessageDialog(null, "Usuario Dado de Alta de Manera Exitosa");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Error");
+            mUsuario.setNombre(this.TxtNom.getText());
+            mUsuario.setNomUser(this.TxtNomUser.getText());
+            mUsuario.setEmail(this.TxtEmail.getText());
+            mUsuario.setPassword(this.TxtPass.getText());
+            mUsuario.setTipoUser(this.CBTipo.getSelectedItem().toString());
+         
+        if (mBD.Conectar()) {
+            if (mBD.AgregarUsuario(mUsuario)) {
+                JOptionPane.showMessageDialog(rootPane, "Usuario Guardado con Exito");
+                this.TxtNom.setText(null);
+                this.TxtNomUser.setText(null);
+                this.TxtEmail.setText(null);
+                this.TxtPass.setText(null);
+                this.TxtTemp.setText(null);
+                this.CBTipo.setSelectedIndex(0);
             }
-            mBD.Desconectar();
         }
+      
+        }
+                              
     }//GEN-LAST:event_BtnAceptarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //setFilasBaja();
+        //setFilasMod();
+        setFilasCon();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void TxtNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtNomActionPerformed
 
     
     
