@@ -5,6 +5,7 @@
  */
 package Administrador;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +19,7 @@ public class Usuarios extends javax.swing.JFrame {
     DefaultTableModel ModeloTabla1 = new DefaultTableModel();
     DefaultTableModel ModeloTabla2 = new DefaultTableModel();
     DefaultTableModel ModeloTabla3 = new DefaultTableModel();
-    
+    BD mBD = new BD();
     public Usuarios() {
         initComponents();
     }
@@ -38,16 +39,14 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         TxtNom = new javax.swing.JTextField();
         TxtNomUser = new javax.swing.JTextField();
         TxtEmail = new javax.swing.JTextField();
-        TxtPass = new javax.swing.JTextField();
-        TxtTemp = new javax.swing.JTextField();
         CBTipo = new javax.swing.JComboBox<>();
-        BtnAceptar = new javax.swing.JButton();
         BtnCancelar = new javax.swing.JButton();
+        TxtPass = new javax.swing.JPasswordField();
+        BtnAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         TxtEliminar = new javax.swing.JTextField();
         BtnEliminar = new javax.swing.JButton();
@@ -60,18 +59,18 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         TxtEmail1 = new javax.swing.JTextField();
-        TxtPass1 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        TxtTemp1 = new javax.swing.JTextField();
         CBTipo1 = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TBUsuarios2 = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         TxtID = new javax.swing.JTextField();
-        BtnAceptar2 = new javax.swing.JButton();
         BtnCancelar2 = new javax.swing.JButton();
+        TxtPass1 = new javax.swing.JPasswordField();
+        TxtTemp1 = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         TxtCriterio = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -89,6 +88,8 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
+        jTabbedPane1.setBackground(new java.awt.Color(0, 153, 255));
+
         jLabel1.setText("Nombre: ");
 
         jLabel2.setText("Nombre de Usuario: ");
@@ -96,8 +97,6 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel3.setText("Correo Electronico: ");
 
         jLabel4.setText("Contraseña: ");
-
-        jLabel5.setText("Repetir Contraseña");
 
         jLabel6.setText("Tipo de Usuario: ");
 
@@ -109,84 +108,100 @@ public class Usuarios extends javax.swing.JFrame {
 
         CBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione Un Tipo De Usuario-", "Administrador", "Lider Tecnico", "Desarrollador" }));
 
-        BtnAceptar.setText("Aceptar");
-        BtnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAceptarActionPerformed(evt);
+        BtnCancelar.setText("Cancelar");
+
+        BtnAdd.setText("Aceptar");
+        BtnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnAddMouseClicked(evt);
             }
         });
-
-        BtnCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BtnAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BtnCancelar)
+                        .addGap(52, 52, 52))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtNom)
-                            .addComponent(TxtNomUser)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(12, 12, 12)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(TxtEmail)
                             .addComponent(TxtPass)
-                            .addComponent(TxtTemp)
-                            .addComponent(CBTipo, 0, 260, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BtnAceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnCancelar)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                            .addComponent(CBTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, 282, Short.MAX_VALUE)
+                            .addComponent(TxtNom, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtNomUser, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(53, 53, 53))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(TxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(TxtNomUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtNomUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
                     .addComponent(TxtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(TxtPass)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(TxtTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(CBTipo))
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(CBTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnAceptar)
-                    .addComponent(BtnCancelar))
-                .addContainerGap(174, Short.MAX_VALUE))
+                    .addComponent(BtnCancelar)
+                    .addComponent(BtnAdd))
+                .addGap(139, 139, 139))
         );
 
         jTabbedPane1.addTab("Alta", jPanel1);
 
+        TxtEliminar.setEnabled(false);
+
         BtnEliminar.setText("Eliminar");
+        BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarActionPerformed(evt);
+            }
+        });
 
         TBUsuarios1.setModel(ModeloTabla1);
+        TBUsuarios1.setEnabled(false);
+        TBUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBUsuarios1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TBUsuarios1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -194,9 +209,9 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TxtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(BtnEliminar)
                 .addGap(46, 46, 46))
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -207,11 +222,11 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnEliminar))
-                .addGap(38, 38, 38)
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(84, Short.MAX_VALUE))
         );
@@ -224,7 +239,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         jLabel9.setText("Correo Electronico: ");
 
-        jLabel10.setText("Contraseña: ");
+        jLabel10.setText("Contraseña Actual: ");
 
         jLabel11.setText("Repetir Contraseña");
 
@@ -232,24 +247,27 @@ public class Usuarios extends javax.swing.JFrame {
 
         jLabel12.setText("Tipo de Usuario: ");
 
-        TBUsuarios2.setModel(ModeloTabla2);
+        TBUsuarios2.setModel(ModeloTabla1);
+        TBUsuarios2.setEnabled(false);
+        TBUsuarios2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBUsuarios2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TBUsuarios2);
 
         jLabel13.setText("ID:");
 
         TxtID.setEnabled(false);
 
-        BtnAceptar2.setText("Aceptar");
-
         BtnCancelar2.setText("Cancelar");
+
+        jButton1.setText("Modificar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,16 +283,19 @@ public class Usuarios extends javax.swing.JFrame {
                     .addComponent(TxtNom1)
                     .addComponent(TxtNomUser1)
                     .addComponent(TxtEmail1)
-                    .addComponent(TxtPass1)
-                    .addComponent(TxtTemp1)
                     .addComponent(CBTipo1, 0, 260, Short.MAX_VALUE)
-                    .addComponent(TxtID))
+                    .addComponent(TxtID)
+                    .addComponent(TxtPass1)
+                    .addComponent(TxtTemp1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(BtnAceptar2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnCancelar2))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 18, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(304, 304, 304)
+                        .addComponent(BtnCancelar2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,14 +332,21 @@ public class Usuarios extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnAceptar2)
-                    .addComponent(BtnCancelar2))
+                    .addComponent(BtnCancelar2)
+                    .addComponent(jButton1))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Modificacion", jPanel3);
 
-        TBUsuarios3.setModel(ModeloTabla3);
+        TxtCriterio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtCriterioKeyTyped(evt);
+            }
+        });
+
+        TBUsuarios3.setModel(ModeloTabla1);
+        TBUsuarios3.setEnabled(false);
         jScrollPane3.setViewportView(TBUsuarios3);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -381,7 +409,8 @@ public class Usuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*private void setFilasBaja() {
+    
+    private void setFilas() {
         
         BD mBD = new BD();
         Usuario mUsuario = new Usuario();
@@ -409,7 +438,7 @@ public class Usuarios extends javax.swing.JFrame {
 
                 ModeloTabla1.addRow(Datos);
             }
-            //Tabla Baja
+            
             this.TBUsuarios1 = new javax.swing.JTable();
             this.TBUsuarios1.setModel(ModeloTabla1);
 
@@ -422,42 +451,9 @@ public class Usuarios extends javax.swing.JFrame {
             if (this.TBUsuarios1.getRowCount() > 0) {
                 this.TBUsuarios1.setRowSelectionInterval(0, 0);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al consultar...");
-        }
-        mBD.Desconectar();
-    }*/
-    /*private void setFilasMod() {
-        
-        BD mBD = new BD();
-        Usuario mUsuario = new Usuario();
-        
-        if (mBD.Conectar()) {
-            ArrayList mLista = mBD.Consulta();
-            String[] Datos;
-            ModeloTabla2.addColumn("IdUsuario");
-            ModeloTabla2.addColumn("Nombre");
-            ModeloTabla2.addColumn("Nombre Usuario");
-            ModeloTabla2.addColumn("EMail");
-            ModeloTabla2.addColumn("Tipo Usuario");
-
-            for (Object mListaU : mLista) {
-                Datos = new String[5];
-
-                
-                mUsuario = (Usuario) mListaU;
-                Datos[0] = "" + mUsuario.getID();
-                Datos[1] = mUsuario.getNombre();
-                Datos[2] = mUsuario.getNomUser();
-                Datos[3] = mUsuario.getEmail();
-                Datos[4] = mUsuario.getTipoUser();
-                
-
-                ModeloTabla2.addRow(Datos);
-            }
-            //Tabla Baja
+            
             this.TBUsuarios2 = new javax.swing.JTable();
-            this.TBUsuarios2.setModel(ModeloTabla2);
+            this.TBUsuarios2.setModel(ModeloTabla1);
 
             this.TBUsuarios2.getColumnModel().getColumn(0).setPreferredWidth(50);
             this.TBUsuarios2.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -468,43 +464,9 @@ public class Usuarios extends javax.swing.JFrame {
             if (this.TBUsuarios2.getRowCount() > 0) {
                 this.TBUsuarios2.setRowSelectionInterval(0, 0);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al consultar...");
-        }
-        mBD.Desconectar();
-    }
-*/
-    private void setFilasCon() {
-        
-        BD mBD = new BD();
-        Usuario mUsuario = new Usuario();
-        
-        if (mBD.Conectar()) {
-            ArrayList mLista = mBD.Consulta();
-            String[] Datos;
-            ModeloTabla3.addColumn("IdUsuario");
-            ModeloTabla3.addColumn("Nombre");
-            ModeloTabla3.addColumn("Nombre Usuario");
-            ModeloTabla3.addColumn("EMail");
-            ModeloTabla3.addColumn("Tipo Usuario");
-
-            for (Object mListaU : mLista) {
-                Datos = new String[5];
-
-                
-                mUsuario = (Usuario) mListaU;
-                Datos[0] = "" + mUsuario.getID();
-                Datos[1] = mUsuario.getNombre();
-                Datos[2] = mUsuario.getNomUser();
-                Datos[3] = mUsuario.getEmail();
-                Datos[4] = mUsuario.getTipoUser();
-                
-
-                ModeloTabla3.addRow(Datos);
-            }
-            //Tabla Baja
+            
             this.TBUsuarios3 = new javax.swing.JTable();
-            this.TBUsuarios3.setModel(ModeloTabla3);
+            this.TBUsuarios3.setModel(ModeloTabla1);
 
             this.TBUsuarios3.getColumnModel().getColumn(0).setPreferredWidth(50);
             this.TBUsuarios3.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -515,80 +477,222 @@ public class Usuarios extends javax.swing.JFrame {
             if (this.TBUsuarios3.getRowCount() > 0) {
                 this.TBUsuarios3.setRowSelectionInterval(0, 0);
             }
+            
         } else {
             JOptionPane.showMessageDialog(null, "Error al consultar...");
         }
         mBD.Desconectar();
     }
-    
-    //Pestaña Alta
-    private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
-        Usuario mUsuario = new Usuario();
-        BD mBD = new BD();
-//        
-//        
-//        if (TxtNom.getText().equals("") || TxtNomUser.getText().equals("") || TxtEmail.getText().equals("") || TxtPass.getText().equals("") || CBTipo.getSelectedItem().equals("-Seleccione Un Tipo De Usuario-") ) {
-//            JOptionPane.showMessageDialog(null, "Llene todos los campos para dar de alta al usuario");
-//        } else{
-//            if (mBD.Conectar()) {
-//
-//                mUsuario.setNombre(TxtNom.getText());
-//                mUsuario.setNomUser(TxtNomUser.getText());
-//                mUsuario.setEmail(TxtEmail.getText());
-//                mUsuario.setPassword(TxtPass.getText());
-//                mUsuario.setTipoUser(CBTipo.getSelectedItem().toString());
-//                
-//                if (mBD.AgregarUsuario(mUsuario)) {
-//                    JOptionPane.showMessageDialog(null, "Usuario Dado de Alta de Manera Exitosa");
-//                    TxtNom.setText("");
-//                    TxtNomUser.setText("");
-//                    TxtEmail.setText("");
-//                    TxtPass.setText("");
-//                    CBTipo.setSelectedIndex(0);
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Error al dar de alta");
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Error");
-//            }
-//            mBD.Desconectar();
-//        }
-
- if (this.TxtNom.getText().isEmpty()||this.TxtNomUser.getText().isEmpty()||this.TxtEmail.getText().isEmpty()
-                ||this.TxtPass.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Asegurese de llenar todos los campos");
-        } else{
-            mUsuario.setNombre(this.TxtNom.getText());
-            mUsuario.setNomUser(this.TxtNomUser.getText());
-            mUsuario.setEmail(this.TxtEmail.getText());
-            mUsuario.setPassword(this.TxtPass.getText());
-            mUsuario.setTipoUser(this.CBTipo.getSelectedItem().toString());
-         
+    private void Llenar() {
         if (mBD.Conectar()) {
-            if (mBD.AgregarUsuario(mUsuario)) {
-                JOptionPane.showMessageDialog(rootPane, "Usuario Guardado con Exito");
-                this.TxtNom.setText(null);
-                this.TxtNomUser.setText(null);
-                this.TxtEmail.setText(null);
-                this.TxtPass.setText(null);
-                this.TxtTemp.setText(null);
-                this.CBTipo.setSelectedIndex(0);
-            }
-        }
-      
-        }
-                              
-    }//GEN-LAST:event_BtnAceptarActionPerformed
+            ArrayList mLista = mBD.Consulta();
+            Usuario mUsuario = new Usuario();
+            String[] Datos;
 
+            for (Object mListaUsuarios : mLista) {
+                Datos = new String[4];
+
+                mUsuario = (Usuario) mListaUsuarios;
+                Datos[0] = "" + mUsuario.getID();
+                Datos[1] = mUsuario.getNombre();
+                Datos[2] = mUsuario.getNomUser();
+                Datos[3] = mUsuario.getEmail();
+                Datos[4] = mUsuario.getTipoUser();
+                
+
+                ModeloTabla1.addRow(Datos);
+            }
+            
+            this.TBUsuarios1 = new javax.swing.JTable();
+            this.TBUsuarios1.setModel(ModeloTabla1);
+
+            this.TBUsuarios1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.TBUsuarios1.getColumnModel().getColumn(1).setPreferredWidth(100);
+            this.TBUsuarios1.getColumnModel().getColumn(2).setPreferredWidth(100);
+            this.TBUsuarios1.getColumnModel().getColumn(3).setPreferredWidth(150);
+            this.TBUsuarios1.getColumnModel().getColumn(4).setPreferredWidth(100);
+
+            if (this.TBUsuarios1.getRowCount() > 0) {
+                this.TBUsuarios1.setRowSelectionInterval(0, 0);
+            }
+            
+            this.TBUsuarios2 = new javax.swing.JTable();
+            this.TBUsuarios2.setModel(ModeloTabla1);
+
+            this.TBUsuarios2.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.TBUsuarios2.getColumnModel().getColumn(1).setPreferredWidth(100);
+            this.TBUsuarios2.getColumnModel().getColumn(2).setPreferredWidth(100);
+            this.TBUsuarios2.getColumnModel().getColumn(3).setPreferredWidth(150);
+            this.TBUsuarios2.getColumnModel().getColumn(4).setPreferredWidth(100);
+
+            if (this.TBUsuarios2.getRowCount() > 0) {
+                this.TBUsuarios2.setRowSelectionInterval(0, 0);
+            }
+            
+            this.TBUsuarios3 = new javax.swing.JTable();
+            this.TBUsuarios3.setModel(ModeloTabla1);
+
+            this.TBUsuarios3.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.TBUsuarios3.getColumnModel().getColumn(1).setPreferredWidth(100);
+            this.TBUsuarios3.getColumnModel().getColumn(2).setPreferredWidth(100);
+            this.TBUsuarios3.getColumnModel().getColumn(3).setPreferredWidth(150);
+            this.TBUsuarios3.getColumnModel().getColumn(4).setPreferredWidth(100);
+
+            if (this.TBUsuarios3.getRowCount() > 0) {
+                this.TBUsuarios3.setRowSelectionInterval(0, 0);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al consultar...");
+        }
+        mBD.Desconectar();
+    }
+    void Borrar() {
+        DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBUsuarios1.getModel();
+        DefaultTableModel LimpiadoTabla2 = (DefaultTableModel) TBUsuarios2.getModel();
+        DefaultTableModel LimpiadoTabla3 = (DefaultTableModel) TBUsuarios3.getModel();
+        //Borramosla tabla...
+        int a = TBUsuarios1.getRowCount() - 1;
+        int b = TBUsuarios2.getRowCount() - 1;
+        int c = TBUsuarios3.getRowCount() - 1;
+
+        for (int i = a; i >= 0; i--) {
+            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+        
+        for (int i = a; i >= 0; i--) {
+            LimpiadoTabla2.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+        
+        for (int i = a; i >= 0; i--) {
+            LimpiadoTabla3.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+    }    
+    
+   
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //setFilasBaja();
-        //setFilasMod();
-        setFilasCon();
+        setFilas();
     }//GEN-LAST:event_formWindowActivated
+
+    private void TBUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios1MouseClicked
+        int Seleccion = 0;
+        this.TxtEliminar.setText("");
+        Seleccion = this.TBUsuarios1.rowAtPoint(evt.getPoint());
+        this.TxtEliminar.setText(this.TBUsuarios1.getModel().getValueAt(Seleccion, 1).toString());
+    }//GEN-LAST:event_TBUsuarios1MouseClicked
+
+    private void TBUsuarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios2MouseClicked
+        int Seleccion = 0;
+        this.TxtID.setText("");
+        this.TxtNom.setText(null);
+        this.TxtNomUser.setText(null);
+        this.TxtEmail.setText(null);
+        this.TxtPass.setText(null);
+        this.CBTipo.setSelectedIndex(0);
+        
+        Seleccion = this.TBUsuarios2.rowAtPoint(evt.getPoint());
+        this.TxtID.setText(this.TBUsuarios2.getModel().getValueAt(Seleccion, 0).toString());
+    }//GEN-LAST:event_TBUsuarios2MouseClicked
+
+    private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        if (this.TxtEliminar.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Selecione un usuario antes");
+        } else {
+            int ID = Integer.parseInt(TxtEliminar.getText());
+            if (mBD.Conectar()) {
+                if (mBD.EliminarUsuario(ID)) {
+                    JOptionPane.showMessageDialog(null, "Usuario dado de baja");
+                    TxtEliminar.setText("");
+                    Borrar();
+                    Llenar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+            mBD.Desconectar();
+        }
+    }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void TxtNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtNomActionPerformed
+
+    private void TxtCriterioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCriterioKeyTyped
+        // TODO add your handling code here:
+        if (TxtCriterio.equals("")) {
+            Borrar();
+            Llenar();
+            JOptionPane.showMessageDialog(null, "Indique un criterio para realizar busqueda");
+        } else {
+            if (mBD.Conectar()) {
+
+            ArrayList Lista = mBD.ConsultaFiltro(TxtCriterio.getText());
+            Usuario mUsuario = new Usuario();
+            String[] Datos;
+
+            for (Object mListaUsuarios : Lista) {
+                Datos = new String[4];
+
+                mUsuario = (Usuario) mListaUsuarios;
+                Datos[0] = "" + mUsuario.getID();
+                Datos[1] = mUsuario.getNombre();
+                Datos[2] = mUsuario.getNomUser();
+                Datos[3] = mUsuario.getEmail();
+                Datos[4] = mUsuario.getTipoUser();
+                
+
+                ModeloTabla1.addRow(Datos);
+            }
+ 
+            this.TBUsuarios1 = new javax.swing.JTable();
+            this.TBUsuarios1.setModel(ModeloTabla1);
+            this.TBUsuarios1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            this.TBUsuarios1.getColumnModel().getColumn(1).setPreferredWidth(300);
+            this.TBUsuarios1.getColumnModel().getColumn(2).setPreferredWidth(300);
+            this.TBUsuarios1.getColumnModel().getColumn(3).setPreferredWidth(300);
+            this.TBUsuarios1.getColumnModel().getColumn(4).setPreferredWidth(300);
+                    if (this.TBUsuarios1.getRowCount() > 0) {
+                        this.TBUsuarios1.setRowSelectionInterval(0, 0);
+                    }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la Base de Datos");
+            }
+            mBD.Desconectar();
+        }
+    }//GEN-LAST:event_TxtCriterioKeyTyped
+
+    private void BtnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAddMouseClicked
+        // TODO add your handling code here:
+        if ((this.TxtNom.equals(null)) || (this.TxtNomUser.equals(null)) || (this.TxtEmail.equals(null)) || (TxtPass.equals(null))) {
+            JOptionPane.showMessageDialog(null, "Llene todos los campos antes de guardar");
+        } else {
+            Usuario mUsuario = new Usuario();
+            mUsuario.setNombre(TxtNom.getText());
+            mUsuario.setNomUser(TxtNomUser.getText());
+            mUsuario.setEmail(TxtEmail.getText());
+            mUsuario.setPassword(TxtPass.getText());
+            
+            if (mBD.Conectar()) {
+                if (mBD.AgregarUsuario(mUsuario)) {
+                    JOptionPane.showMessageDialog(null, "Usuario Dado de alta de forma exitosa");
+                    TxtNom.setText(null);
+                    TxtNomUser.setText(null);
+                    TxtEmail.setText(null);
+                    TxtPass.setText(null);
+                    CBTipo.setSelectedIndex(0);
+                    Borrar();
+                    Llenar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al dar de Alta");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+            mBD.Desconectar();
+        }
+    }//GEN-LAST:event_BtnAddMouseClicked
 
     
     
@@ -628,8 +732,7 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAceptar;
-    private javax.swing.JButton BtnAceptar2;
+    private javax.swing.JButton BtnAdd;
     private javax.swing.JButton BtnCancelar;
     private javax.swing.JButton BtnCancelar2;
     private javax.swing.JButton BtnEliminar;
@@ -647,10 +750,10 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JTextField TxtNom1;
     private javax.swing.JTextField TxtNomUser;
     private javax.swing.JTextField TxtNomUser1;
-    private javax.swing.JTextField TxtPass;
-    private javax.swing.JTextField TxtPass1;
-    private javax.swing.JTextField TxtTemp;
-    private javax.swing.JTextField TxtTemp1;
+    private javax.swing.JPasswordField TxtPass;
+    private javax.swing.JPasswordField TxtPass1;
+    private javax.swing.JPasswordField TxtTemp1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -659,7 +762,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

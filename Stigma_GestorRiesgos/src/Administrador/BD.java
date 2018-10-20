@@ -46,7 +46,6 @@ public class BD {
         }
     }
 
-    
     public boolean AgregarUsuario(Usuario mUsuario) {
         Statement consulta;
         try {
@@ -67,23 +66,7 @@ public class BD {
             return false;
         }
     }
-//    public boolean AgregarUsuario(Usuario mUsuario) {
-//        Statement consulta;
-//
-//        try {
-//            consulta = Conexion.createStatement();
-//            consulta.execute("insert into  usuarios" + 
-//                        "(nombre,nombre_user,email,password,tipo_user)" +
-//                        "values ('" + mUsuario.getNombre()+ "'," +
-//                        "'" + mUsuario.getNomUser() + "'," +
-//                        "'" + mUsuario.getEmail() + "'," +
-//                        "'" + mUsuario.getPassword()+"');");
-//            return true;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
+
     public ArrayList Consulta() {
         ArrayList mLista = new ArrayList();
         Usuario mUsuario = new Usuario();
@@ -151,4 +134,54 @@ public class BD {
         }
     }
 
+    public boolean ModificarUsuario(Usuario mUsuario, Usuario nUsuario){
+        Statement consulta;
+        try {
+            consulta = Conexion.createStatement();
+            String SQL = "UPDATE INTO riesgos.usuarios "
+                    + "(idusuario,nombre,nombreuser,email,password,tipouser) "
+                    + "VALUES ("
+                    + "null" + ",'"
+                    + nUsuario.getNombre() + "','" 
+                    + nUsuario.getNomUser() + "','" 
+                    + nUsuario.getEmail() + "','" 
+                    + mUsuario.getPassword() + "','" 
+                    + nUsuario.getTipoUser() + "');";
+            consulta.execute(SQL);
+            return true; 
+        } catch (Exception e) {
+              e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean DuplicidadNombre(Usuario mUsuario)
+    {Statement consulta;
+        ResultSet resultado;
+        String Res = "";
+        String Sentencia = null;
+        try {
+            consulta = Conexion.createStatement();
+            Sentencia = "SELECT nombre FROM usuarios " +"WHERE nombre == '" + mUsuario.getNombre() + "';";
+                    
+            resultado = consulta.executeQuery(Sentencia);
+            while (resultado.next()) {
+               Res = resultado.getString("nombre");
+            }
+            if (Res.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        
+    }
+    
+    /*public boolean ModificarUsuario(Usuario mUsuario){
+        
+    }*/
 }
