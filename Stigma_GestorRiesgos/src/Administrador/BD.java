@@ -181,6 +181,102 @@ public class BD {
         
     }
     
+    public boolean DuplicidadNombUser(Usuario mUsuario) {
+        Statement consulta;
+        ResultSet resultado;
+        String Res = "";
+        String Sentencia = null;
+        try {
+            consulta = Conexion.createStatement();
+            Sentencia = ("SELECT nombre_usuario FROM usuarios where nombreuser = '" + mUsuario.getNomUser() + "';");
+            resultado = consulta.executeQuery(Sentencia);
+            while (resultado.next()) {
+                Res = resultado.getString("nombreuser");
+            }
+
+            if (Res.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean DuplicidadEmail(Usuario mUsuario) {
+        Statement consulta;
+        ResultSet resultado;
+        String Res = "";
+        String Sentencia = null;
+        try {
+            consulta = Conexion.createStatement();
+            Sentencia = ("SELECT email FROM usuarios where email = '" + mUsuario.getEmail() + "';");
+            resultado = consulta.executeQuery(Sentencia);
+            while (resultado.next()) {
+                Res = resultado.getString("email");
+            }
+
+            if (Res.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean DuplicidadPassword(String Password) {
+        Statement consulta;
+        ResultSet resultado;
+        String Res = "";
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("SELECT password FROM usuario wWHERE paswword = '" + Password + "';");
+            while (resultado.next()) {
+                Res = resultado.getString("Password");
+            }
+
+            if (Res.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean DuplicidadTipoUsuario(String TipoUsuario) {
+        Statement consulta;
+        ResultSet resultado;
+        String Res = "";
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("SELECT tipouser FROM usuario WHERE tipouser = '" + TipoUsuario + "';");
+            while (resultado.next()) {
+                Res = resultado.getString("tipouser");
+            }
+
+            if (Res.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     /*public boolean ModificarUsuario(Usuario mUsuario){
         
     }*/
