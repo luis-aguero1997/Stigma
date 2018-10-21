@@ -30,6 +30,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TBAdmin = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -41,6 +42,9 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         TBAdmin.setModel(ModeloTabla);
         jScrollPane1.setViewportView(TBAdmin);
+
+        jMenu5.setText("Inicio");
+        jMenuBar1.add(jMenu5);
 
         jMenu1.setText("Proyectos");
         jMenuBar1.add(jMenu1);
@@ -117,6 +121,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
