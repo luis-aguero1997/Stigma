@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -44,5 +45,80 @@ public class BD {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+    
+    public String ConsultaUser(String User) {
+        String Usuario = "Incorrecto";
+        Statement consulta;
+        ResultSet resultado;
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select nombre from usuarioa where nombreuser  = '" + User + "' or email = '" + User + "';");
+            while (resultado.next()) {
+                Usuario = resultado.getString("nombre");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No Existe");
+            e.printStackTrace();
+        }
+
+        return Usuario;
+    }
+    
+     public String ConsultaCorreo(String User) {
+        String Email = "";
+        Statement consulta;
+        ResultSet resultado;
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select email from usuarios where nombreuser  = '" + User + "' or email = '" + User + "';");
+            while (resultado.next()) {
+                Email = resultado.getString("email");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No Existe");
+            e.printStackTrace();
+        }
+
+        return Email;
+    }
+     
+    public String ConsultaPassword(String User) {
+        String Pass = "";
+        Statement consulta;
+        ResultSet resultado;
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select password from usuarios where nombreuser  = '" + User + "' or email = '" + User + "';");
+            while (resultado.next()) {
+                Pass = resultado.getString("password");
+            }
+            //JOptionPane.showMessageDialog(null, "Existe");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
+            e.printStackTrace();
+        }
+
+        return Pass;
+    } 
+    
+    public String ConsultaTipo(String User) {
+        String Tipo = "";
+        Statement consulta;
+        ResultSet resultado;
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select tipouser from usuarios where nombreuser = '" + User + "' or email = '" + User + "';");
+            while (resultado.next()) {
+                Tipo = resultado.getString("tipouser");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No Existe");
+            e.printStackTrace();
+        }
+
+        return Tipo;
     }
 }

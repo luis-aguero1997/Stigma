@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Login.FrmLogin;
 
 /**
  *
@@ -20,8 +21,10 @@ public class Usuarios extends javax.swing.JFrame {
     DefaultTableModel ModeloTabla2 = new DefaultTableModel();
     DefaultTableModel ModeloTabla3 = new DefaultTableModel();
     BD mBD = new BD();
+    int ID = 0;
     public Usuarios() {
         initComponents();
+        setFilas();
     }
 
     /**
@@ -55,14 +58,8 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         TxtNom1 = new javax.swing.JTextField();
-        TxtNomUser1 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        TxtEmail1 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        CBTipo1 = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TBUsuarios2 = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
@@ -239,19 +236,11 @@ public class Usuarios extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Baja", jPanel2);
 
-        jLabel7.setText("Nombre: ");
-
-        jLabel8.setText("Nombre de Usuario: ");
-
-        jLabel9.setText("Correo Electronico: ");
+        jLabel7.setText("Nombre Usuario: ");
 
         jLabel10.setText("Contraseña Actual: ");
 
         jLabel11.setText("Repetir Contraseña");
-
-        CBTipo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione Un Tipo De Usuario-", "Administrador", "Lider Tecnico", "Desarrollador" }));
-
-        jLabel12.setText("Tipo de Usuario: ");
 
         TBUsuarios2.setModel(ModeloTabla1);
         TBUsuarios2.setEnabled(false);
@@ -277,19 +266,13 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel12)
                     .addComponent(jLabel7)
                     .addComponent(jLabel13))
-                .addGap(31, 31, 31)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TxtNom1)
-                    .addComponent(TxtNomUser1)
-                    .addComponent(TxtEmail1)
-                    .addComponent(CBTipo1, 0, 260, Short.MAX_VALUE)
+                    .addComponent(TxtNom1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                     .addComponent(TxtID)
                     .addComponent(TxtPass1)
                     .addComponent(TxtTemp1))
@@ -310,31 +293,19 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13)
                     .addComponent(TxtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtNom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(TxtNomUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9)
-                    .addComponent(TxtEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(TxtPass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(TxtTemp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(CBTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -381,19 +352,46 @@ public class Usuarios extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Consulta", jPanel4);
 
+        jMenuBar1.setEnabled(false);
+
         jMenu5.setText("Inicio");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu5);
 
         jMenu1.setText("Proyectos");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Usuarios");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Matriz De Riesgos");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Salir");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -499,7 +497,7 @@ public class Usuarios extends javax.swing.JFrame {
             String[] Datos;
 
             for (Object mListaUsuarios : mLista) {
-                Datos = new String[4];
+                Datos = new String[5];
 
                 mUsuario = (Usuario) mListaUsuarios;
                 Datos[0] = "" + mUsuario.getID();
@@ -569,35 +567,35 @@ public class Usuarios extends javax.swing.JFrame {
             LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
         }
         
-        for (int i = a; i >= 0; i--) {
-            LimpiadoTabla2.removeRow(LimpiadoTabla.getRowCount() - 1);
+        for (int i = b; i >= 0; i--) {
+            LimpiadoTabla2.removeRow(LimpiadoTabla2.getRowCount() - 1);
         }
         
-        for (int i = a; i >= 0; i--) {
-            LimpiadoTabla3.removeRow(LimpiadoTabla.getRowCount() - 1);
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla3.removeRow(LimpiadoTabla3.getRowCount() - 1);
         }
     }    
     
    
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        setFilas();
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void TBUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios1MouseClicked
         int Seleccion = 0;
+        ID = 0;
         this.TxtEliminar.setText("");
         Seleccion = this.TBUsuarios1.rowAtPoint(evt.getPoint());
         this.TxtEliminar.setText(this.TBUsuarios1.getModel().getValueAt(Seleccion, 1).toString());
+        ID = Integer.parseInt(TBUsuarios1.getModel().getValueAt(Seleccion, 0).toString()); 
     }//GEN-LAST:event_TBUsuarios1MouseClicked
 
     private void TBUsuarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios2MouseClicked
         int Seleccion = 0;
         this.TxtID.setText("");
-        this.TxtNom.setText(null);
+        
         this.TxtNomUser.setText(null);
-        this.TxtEmail.setText(null);
         this.TxtPass.setText(null);
-        this.CBTipo.setSelectedIndex(0);
         
         Seleccion = this.TBUsuarios2.rowAtPoint(evt.getPoint());
         this.TxtID.setText(this.TBUsuarios2.getModel().getValueAt(Seleccion, 0).toString());
@@ -607,7 +605,6 @@ public class Usuarios extends javax.swing.JFrame {
         if (this.TxtEliminar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Selecione un usuario antes");
         } else {
-            int ID = Integer.parseInt(TxtEliminar.getText());
             if (mBD.Conectar()) {
                 if (mBD.EliminarUsuario(ID)) {
                     JOptionPane.showMessageDialog(null, "Usuario dado de baja");
@@ -642,7 +639,7 @@ public class Usuarios extends javax.swing.JFrame {
             String[] Datos;
 
             for (Object mListaUsuarios : Lista) {
-                Datos = new String[4];
+                Datos = new String[5];
 
                 mUsuario = (Usuario) mListaUsuarios;
                 Datos[0] = "" + mUsuario.getID();
@@ -709,6 +706,38 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnAddActionPerformed
 
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        PrincipalAdmin mAdmin = new PrincipalAdmin();
+        mAdmin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        Proyectos mProyectos = new Proyectos();
+        this.dispose();
+        mProyectos.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        Usuarios mUsuarios = new Usuarios();
+        mUsuarios.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        FrmLogin Login = new FrmLogin();
+        Login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+        Matriz mMatriz = new Matriz();
+        mMatriz.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu3MouseClicked
+
     
     
     /**
@@ -752,19 +781,16 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JButton BtnCancelar2;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JComboBox<String> CBTipo;
-    private javax.swing.JComboBox<String> CBTipo1;
     private javax.swing.JTable TBUsuarios1;
     private javax.swing.JTable TBUsuarios2;
     private javax.swing.JTable TBUsuarios3;
     private javax.swing.JTextField TxtCriterio;
     private javax.swing.JTextField TxtEliminar;
     private javax.swing.JTextField TxtEmail;
-    private javax.swing.JTextField TxtEmail1;
     private javax.swing.JTextField TxtID;
     private javax.swing.JTextField TxtNom;
     private javax.swing.JTextField TxtNom1;
     private javax.swing.JTextField TxtNomUser;
-    private javax.swing.JTextField TxtNomUser1;
     private javax.swing.JPasswordField TxtPass;
     private javax.swing.JPasswordField TxtPass1;
     private javax.swing.JPasswordField TxtTemp1;
@@ -772,15 +798,12 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

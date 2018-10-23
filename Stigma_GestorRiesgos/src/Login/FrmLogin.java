@@ -5,15 +5,18 @@
  */
 package Login;
 
+import Administrador.PrincipalAdmin;
+import Desarrollador.PrincipalDesarrollador;
+import Lider_Tecnico.PrincipalLider;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Stigma
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmLogin
-     */
+    BD mBD = new BD();
     public FrmLogin() {
         initComponents();
     }
@@ -28,27 +31,36 @@ public class FrmLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         TxtUser = new javax.swing.JTextField();
-        TxtPass = new javax.swing.JTextField();
         BtnAcceder = new javax.swing.JButton();
+        TxtPass = new javax.swing.JPasswordField();
+        BtnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setEnabled(false);
+        setResizable(false);
 
         BtnAcceder.setText("Acceder");
+        BtnAcceder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnAccederMouseClicked(evt);
+            }
+        });
+
+        BtnExit.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtUser)
-                            .addComponent(TxtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(BtnAcceder)))
+                        .addComponent(BtnAcceder)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(TxtPass))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -56,15 +68,66 @@ public class FrmLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(204, Short.MAX_VALUE)
                 .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(40, 40, 40)
                 .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(BtnAcceder)
-                .addGap(55, 55, 55))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnAcceder)
+                    .addComponent(BtnExit))
+                .addGap(56, 56, 56))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnAccederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAccederMouseClicked
+        // TODO add your handling code here:
+        if (TxtUser.equals("") || TxtPass.equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese Nombre de usuario o Correo Electronico y Contraseña");
+        } else {
+            if (mBD.Conectar()) {
+                String User, Pass, UserC, PassC, Tipo, Email = "";
+                
+                User = TxtUser.getText();
+                Pass = TxtPass.getText();
+                UserC = mBD.ConsultaUser(User);
+                PassC = mBD.ConsultaPassword(User);
+                Email = mBD.ConsultaCorreo(User);
+                
+                if (User.equals(UserC) || User.equals(Email) ) {
+                    if (Pass.equals(PassC)) {
+                        Tipo = mBD.ConsultaTipo(User);
+                        
+                        switch (Tipo){
+                            case "Administrador":
+                                PrincipalAdmin Admin = new PrincipalAdmin();
+                                Admin.setVisible(true);
+                                this.dispose();
+                                break;
+                            case "Lider Tecnico":
+                                PrincipalLider Lider = new PrincipalLider();
+                                Lider.setVisible(true);
+                                this.dispose();
+                                break;
+                            case "Desarrollador":
+                                PrincipalDesarrollador Des = new PrincipalDesarrollador();
+                                Des.setVisible(true);;
+                                this.dispose();
+                                break;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Contraseña Invalida");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario o Correo Invalidos");
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+            mBD.Desconectar();
+        }
+    }//GEN-LAST:event_BtnAccederMouseClicked
 
     /**
      * @param args the command line arguments
@@ -103,7 +166,8 @@ public class FrmLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAcceder;
-    private javax.swing.JTextField TxtPass;
+    private javax.swing.JButton BtnExit;
+    private javax.swing.JPasswordField TxtPass;
     private javax.swing.JTextField TxtUser;
     // End of variables declaration//GEN-END:variables
 }

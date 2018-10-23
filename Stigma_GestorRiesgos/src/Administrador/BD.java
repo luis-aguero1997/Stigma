@@ -79,7 +79,7 @@ public class BD {
 
             while (resultado.next()) {
                 mUsuario = new Usuario();
-
+                mUsuario.setID(resultado.getInt("idusuario"));
                 mUsuario.setNombre(resultado.getString("nombre"));
                 mUsuario.setNomUser(resultado.getString("nombreuser"));
                 mUsuario.setEmail(resultado.getString("email"));
@@ -139,14 +139,11 @@ public class BD {
         try {
             consulta = Conexion.createStatement();
             String SQL = "UPDATE INTO riesgos.usuarios "
-                    + "(idusuario,nombre,nombreuser,email,password,tipouser) "
-                    + "VALUES ("
-                    + "null" + ",'"
-                    + nUsuario.getNombre() + "','" 
+                    + "(nombreuser,password) "
+                    + "VALUES ('" 
                     + nUsuario.getNomUser() + "','" 
-                    + nUsuario.getEmail() + "','" 
-                    + mUsuario.getPassword() + "','" 
-                    + nUsuario.getTipoUser() + "');";
+                    + nUsuario.getPassword() + "'"
+                    + "where idusuario = " + mUsuario.getID() + ");";
             consulta.execute(SQL);
             return true; 
         } catch (Exception e) {
@@ -277,7 +274,23 @@ public class BD {
         }
     }
     
-    /*public boolean ModificarUsuario(Usuario mUsuario){
-        
-    }*/
+    public boolean AgregarProyecto(Proyecto mProyecto) {
+        Statement consulta;
+        try {
+            consulta = Conexion.createStatement();
+            String SQL = "INSERT INTO riesgos.proyecto "
+                    + "(clave,nombre,descripcion,fecha_inicio,fecha_inicio) "
+                    + "VALUES ('"
+                    + mProyecto.getClave() + "','"
+                    + mProyecto.getNombre() + "','" 
+                    + mProyecto.getDescripcion() + "','" 
+                    + mProyecto.getFechaInicio() + "','" 
+                    + mProyecto.getFechaFin() + "');";
+            consulta.execute(SQL);
+            return true; 
+        } catch (Exception e) {
+              e.printStackTrace();
+            return false;
+        }
+    }
 }
