@@ -53,9 +53,9 @@ public class BD {
         ResultSet resultado;
         try {
             consulta = Conexion.createStatement();
-            resultado = consulta.executeQuery("select nombre from usuarioa where nombreuser  = '" + User + "' or email = '" + User + "';");
+            resultado = consulta.executeQuery("select nombreuser from usuarios where nombreuser  = '" + User + "' or email = '" + User + "';");
             while (resultado.next()) {
-                Usuario = resultado.getString("nombre");
+                Usuario = resultado.getString("nombreuser");
             }
 
         } catch (Exception e) {

@@ -5,7 +5,7 @@
  */
 package Administrador;
 
-import Login.FrmLogin;
+import Login.Login;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -128,8 +128,8 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        FrmLogin Login = new FrmLogin();
-        Login.setVisible(true);
+        Login mLogin = new Login();
+        mLogin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu4MouseClicked
 

@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Login.FrmLogin;
+import Login.Login;
 
 /**
  *
@@ -258,6 +258,11 @@ public class Usuarios extends javax.swing.JFrame {
         BtnCancelar2.setText("Cancelar");
 
         jButton1.setText("Modificar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -632,6 +637,7 @@ public class Usuarios extends javax.swing.JFrame {
             Llenar();
             JOptionPane.showMessageDialog(null, "Indique un criterio para realizar busqueda");
         } else {
+            Borrar();
             if (mBD.Conectar()) {
 
             ArrayList Lista = mBD.ConsultaFiltro(TxtCriterio.getText());
@@ -726,8 +732,8 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        FrmLogin Login = new FrmLogin();
-        Login.setVisible(true);
+        Login mLogin = new Login();
+        mLogin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu4MouseClicked
 
@@ -737,6 +743,10 @@ public class Usuarios extends javax.swing.JFrame {
         mMatriz.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
 
     
     

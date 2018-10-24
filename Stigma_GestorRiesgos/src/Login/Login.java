@@ -12,12 +12,15 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Stigma
+ * @author Luis
  */
-public class FrmLogin extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
+    /**
+     * Creates new form Login
+     */
     BD mBD = new BD();
-    public FrmLogin() {
+    public Login() {
         initComponents();
     }
 
@@ -31,57 +34,54 @@ public class FrmLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         TxtUser = new javax.swing.JTextField();
-        BtnAcceder = new javax.swing.JButton();
         TxtPass = new javax.swing.JPasswordField();
-        BtnExit = new javax.swing.JButton();
+        BtnLogin = new javax.swing.JButton();
+        BtnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setEnabled(false);
-        setResizable(false);
 
-        BtnAcceder.setText("Acceder");
-        BtnAcceder.addMouseListener(new java.awt.event.MouseAdapter() {
+        BtnLogin.setText("Aceptar");
+        BtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnAccederMouseClicked(evt);
+                BtnLoginMouseClicked(evt);
             }
         });
 
-        BtnExit.setText("Salir");
+        BtnSalir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnAcceder)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TxtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                        .addComponent(BtnLogin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addComponent(BtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtUser)
                     .addComponent(TxtPass))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(204, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(217, 217, 217)
                 .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(60, 60, 60)
                 .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnAcceder)
-                    .addComponent(BtnExit))
-                .addGap(56, 56, 56))
+                    .addComponent(BtnLogin)
+                    .addComponent(BtnSalir))
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnAccederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAccederMouseClicked
-        // TODO add your handling code here:
+    private void BtnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnLoginMouseClicked
         if (TxtUser.equals("") || TxtPass.equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese Nombre de usuario o Correo Electronico y Contraseña");
         } else {
@@ -127,7 +127,8 @@ public class FrmLogin extends javax.swing.JFrame {
             }
             mBD.Desconectar();
         }
-    }//GEN-LAST:event_BtnAccederMouseClicked
+        
+    }//GEN-LAST:event_BtnLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -146,27 +147,27 @@ public class FrmLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmLogin().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAcceder;
-    private javax.swing.JButton BtnExit;
+    private javax.swing.JButton BtnLogin;
+    private javax.swing.JButton BtnSalir;
     private javax.swing.JPasswordField TxtPass;
     private javax.swing.JTextField TxtUser;
     // End of variables declaration//GEN-END:variables

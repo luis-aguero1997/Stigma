@@ -82,8 +82,7 @@ public class BD {
                 mUsuario.setID(resultado.getInt("idusuario"));
                 mUsuario.setNombre(resultado.getString("nombre"));
                 mUsuario.setNomUser(resultado.getString("nombreuser"));
-                mUsuario.setEmail(resultado.getString("email"));
-                mUsuario.setPassword(resultado.getString("password"));
+                mUsuario.setEmail(resultado.getString("email"));                
                 mUsuario.setTipoUser(resultado.getString("tipouser"));
 
                 mLista.add(mUsuario);
@@ -279,7 +278,7 @@ public class BD {
         try {
             consulta = Conexion.createStatement();
             String SQL = "INSERT INTO riesgos.proyecto "
-                    + "(clave,nombre,descripcion,fecha_inicio,fecha_inicio) "
+                    + "(clave,nombre,descripcion,fecha_inicio,fecha_fin) "
                     + "VALUES ('"
                     + mProyecto.getClave() + "','"
                     + mProyecto.getNombre() + "','" 

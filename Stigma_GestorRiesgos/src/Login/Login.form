@@ -3,8 +3,6 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="enabled" type="boolean" value="false"/>
-    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -26,33 +24,33 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="BtnAcceder" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="BtnExit" min="-2" pref="71" max="-2" attributes="0"/>
+                      <Component id="BtnLogin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="97" max="32767" attributes="0"/>
+                      <Component id="BtnSalir" min="-2" pref="71" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="TxtUser" pref="229" max="32767" attributes="0"/>
+                  <Component id="TxtUser" max="32767" attributes="0"/>
                   <Component id="TxtPass" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="64" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="204" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
               <Component id="TxtUser" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               <Component id="TxtPass" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace pref="90" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="BtnAcceder" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BtnExit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnSalir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,17 +58,17 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="TxtUser">
     </Component>
-    <Component class="javax.swing.JButton" name="BtnAcceder">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Acceder"/>
-      </Properties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnAccederMouseClicked"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JPasswordField" name="TxtPass">
     </Component>
-    <Component class="javax.swing.JButton" name="BtnExit">
+    <Component class="javax.swing.JButton" name="BtnLogin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Aceptar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnLoginMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnSalir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
