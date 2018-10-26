@@ -10,19 +10,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 /**
  *
- * @author Stigma
+ * @author Luis
  */
-public class BD {
-
+public class BDUsuario {
+    
     static Connection Conection = null;
     static Statement Sentencia;
     static ResultSet Resultado;
     private Connection Conexion;
 
-    public boolean Conectar() {
+    public boolean ConectarUsuario() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Conexion = DriverManager.getConnection(
@@ -38,7 +37,7 @@ public class BD {
         }
     }
 
-    public void Desconectar() {
+    public void DesconectarUsuario() {
         try {
             this.Conexion.close();
         } catch (Exception e) {
@@ -67,16 +66,16 @@ public class BD {
         }
     }
 
-    public ArrayList Consulta() {
+    public ResultSet Consulta() {
         ArrayList mLista = new ArrayList();
         Usuario mUsuario = new Usuario();
         Statement consulta;
-        ResultSet resultado;
+        ResultSet resultado = null;
 
         try {
             consulta = Conexion.createStatement();
-            resultado = consulta.executeQuery("select * from usuarios;");
-
+            resultado = consulta.executeQuery("select idusuario, nombre, nombreuser, email, tipouser from usuarios;");
+            /*
             while (resultado.next()) {
                 mUsuario = new Usuario();
                 mUsuario.setID(resultado.getInt("idusuario"));
@@ -86,38 +85,31 @@ public class BD {
                 mUsuario.setTipoUser(resultado.getString("tipouser"));
 
                 mLista.add(mUsuario);
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mLista;
+        return resultado;
     }
 
-    public ArrayList ConsultaFiltro(String Criterio) {
+    public ResultSet ConsultaFiltro(String Criterio) {
         Usuario mUsuario = null;
         Statement consulta;
-        ResultSet resultado;
+        ResultSet resultado = null;
         ArrayList Lista = new ArrayList();
 
         try {
             mUsuario = new Usuario();
             consulta = Conexion.createStatement();
-            resultado = consulta.executeQuery("select * from usuarios where idusuario like '%" + Criterio + "%' "
-                    + "or nombre like '%" + Criterio + "%' or nombreuser like '%" + Criterio + "%' or email like'%" + Criterio + "%';");
-            while (resultado.next()) {
-                mUsuario = new Usuario();
-
-                mUsuario.setNombre(resultado.getString("nombre"));
-                mUsuario.setNomUser(resultado.getString("nombreuser"));
-                mUsuario.setEmail(resultado.getString("email"));
-                mUsuario.setTipoUser(resultado.getString("tipouser"));
-                Lista.add(mUsuario);
-            }
+            resultado = consulta.executeQuery("select idusuario, nombre, nombreuser, email, tipouser"
+                    + " from usuarios where idusuario like '%" + Criterio + "%' "
+                    + "or nombre like '%" + Criterio + "%' or nombreuser like '%" + Criterio + 
+                    "%' or email like'%" + Criterio + "%';");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return Lista;
+        return resultado;
     }
 
     public boolean EliminarUsuario(int ID) {
@@ -137,12 +129,10 @@ public class BD {
         Statement consulta;
         try {
             consulta = Conexion.createStatement();
-            String SQL = "UPDATE INTO riesgos.usuarios "
-                    + "(nombreuser,password) "
-                    + "VALUES ('" 
-                    + nUsuario.getNomUser() + "','" 
-                    + nUsuario.getPassword() + "'"
-                    + "where idusuario = " + mUsuario.getID() + ");";
+            String SQL = "UPDATE riesgos.usuarios SET "
+                    + "nombreuser = '" + nUsuario.getNomUser() + "'," 
+                    + "password = '" + nUsuario.getPassword() + "'"
+                    + " where idusuario = '" + mUsuario.getID() + "';";
             consulta.execute(SQL);
             return true; 
         } catch (Exception e) {
@@ -269,26 +259,6 @@ public class BD {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
-        }
-    }
-    
-    public boolean AgregarProyecto(Proyecto mProyecto) {
-        Statement consulta;
-        try {
-            consulta = Conexion.createStatement();
-            String SQL = "INSERT INTO riesgos.proyecto "
-                    + "(clave,nombre,descripcion,fecha_inicio,fecha_fin) "
-                    + "VALUES ('"
-                    + mProyecto.getClave() + "','"
-                    + mProyecto.getNombre() + "','" 
-                    + mProyecto.getDescripcion() + "','" 
-                    + mProyecto.getFechaInicio() + "','" 
-                    + mProyecto.getFechaFin() + "');";
-            consulta.execute(SQL);
-            return true; 
-        } catch (Exception e) {
-              e.printStackTrace();
             return false;
         }
     }

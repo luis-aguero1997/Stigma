@@ -6,20 +6,24 @@
 package Administrador;
 import Login.Login;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
 /**
  *
  * @author Luis
  */
 public class Proyectos extends javax.swing.JFrame {
 
-    BD mBD = new BD();
+    BDProyecto mBD = new BDProyecto();
     SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy/MM/dd");
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     String Clave = "";
     public Proyectos() {
         initComponents();
+        Llenar();
+        
     }
 
     /**
@@ -195,6 +199,11 @@ public class Proyectos extends javax.swing.JFrame {
         TxtEliminar.setEnabled(false);
 
         BtnEliminar.setText("Eliminar");
+        BtnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnEliminarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -205,11 +214,11 @@ public class Proyectos extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(TxtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(TxtEliminar)
                 .addGap(18, 18, 18)
                 .addComponent(BtnEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,7 +456,7 @@ public class Proyectos extends javax.swing.JFrame {
         if (TxtClave.equals("") || TxtNom.equals("") || TxtDes.equals("") || Inicio.equals(null) || Fin.equals(null)) {
             JOptionPane.showMessageDialog(null, "Llena los campos antes de guardar");
         } else {
-            if (mBD.Conectar()) {
+            if (mBD.ConectarProyecto()) {
                 Proyecto mProyecto = new Proyecto();
                 mProyecto.setClave(TxtClave.getText());
                 mProyecto.setNombre(TxtNom.getText());
@@ -457,7 +466,8 @@ public class Proyectos extends javax.swing.JFrame {
                 
                 if (mBD.AgregarProyecto(mProyecto)) {
                     JOptionPane.showMessageDialog(null, "Proyecto Agreagado con Exito");
-                    
+                    Borrar();
+                    Llenar();
                     TxtClave.setText("");
                     TxtNom.setText("");
                     TxtDes.setText("");
@@ -469,7 +479,7 @@ public class Proyectos extends javax.swing.JFrame {
             } else{
                 JOptionPane.showMessageDialog(null, "Error en BD");
             }
-            mBD.Desconectar();
+            mBD.DesconectarProyecto();
         }
     }//GEN-LAST:event_BtnAddMouseClicked
 
@@ -491,6 +501,55 @@ public class Proyectos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnAdd1MouseClicked
 
+    private void BtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEliminarMouseClicked
+        // TODO add your handling code here:
+        if (TxtEliminar.equals("")) {
+            JOptionPane.showMessageDialog(null, "Seleccine un proyecto");
+        } else {
+            if (mBD.ConectarProyecto()) {
+                if (mBD.EliminarProyecto(Clave)) {
+                    JOptionPane.showMessageDialog(null, "Proyecto Dado de Baja");
+                    TxtEliminar.setText("");
+                    Borrar();
+                    Llenar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al dar de Baja");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en a BD");
+            }
+        }
+    }//GEN-LAST:event_BtnEliminarMouseClicked
+
+    private void Llenar() {
+        if (mBD.ConectarProyecto()) {
+            ResultSet ListaE = mBD.ConsultaProyectos();
+            ResultSet ListaM = mBD.ConsultaProyectos();
+            
+            this.TBProyecto.setModel(Convertidor.convertir(ListaE));
+            this.TBProyecto3.setModel(Convertidor.convertir(ListaM));
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al consultar...");
+        }
+        mBD.DesconectarProyecto();
+    }
+    void Borrar() {
+        DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBProyecto.getModel();
+        DefaultTableModel LimpiadoTabla2 = (DefaultTableModel) TBProyecto3.getModel();
+        //Borramosla tabla...
+        int a = TBProyecto.getRowCount() - 1;
+        int c = TBProyecto3.getRowCount() - 1;
+
+        for (int i = a; i >= 0; i--) {
+            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+        
+        
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla2.removeRow(LimpiadoTabla2.getRowCount() - 1);
+        }
+    }    
+    
     /**
      * @param args the command line arguments
      */
