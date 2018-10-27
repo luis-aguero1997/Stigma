@@ -89,6 +89,7 @@ public class Proyectos extends javax.swing.JFrame {
         jLabel3.setText("Descripcion: ");
 
         TxtDes.setColumns(20);
+        TxtDes.setLineWrap(true);
         TxtDes.setRows(5);
         jScrollPane1.setViewportView(TxtDes);
 

@@ -4,25 +4,22 @@
  * and open the template in the editor.
  */
 package Lider_Tecnico;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 /**
  *
- * @author Stigma
+ * @author Luis
  */
-public class BD {
-    
+public class BDAcciones {
     static Connection Conection = null;
     static Statement Sentencia;
     static ResultSet Resultado;
     private Connection Conexion;
     
-    public boolean Conectar() {
+    public boolean ConectarAcciones() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Conexion = DriverManager.getConnection(
@@ -38,11 +35,13 @@ public class BD {
         }
     }
 
-    public void Desconectar() {
+    public void DesconectarAcciones() {
         try {
             this.Conexion.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
+ 
+    
 }
