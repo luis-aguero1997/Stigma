@@ -22,6 +22,7 @@ public class Proyectos extends javax.swing.JFrame {
     String Clave = "";
     public Proyectos() {
         initComponents();
+        this.setLocationRelativeTo(null);
         Llenar();
         
     }

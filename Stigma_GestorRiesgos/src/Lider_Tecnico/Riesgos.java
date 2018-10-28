@@ -19,6 +19,7 @@ public class Riesgos extends javax.swing.JFrame {
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     public Riesgos() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

@@ -16,6 +16,7 @@ public class PrincipalLider extends javax.swing.JFrame {
      */
     public PrincipalLider() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

@@ -22,6 +22,7 @@ public class Login extends javax.swing.JFrame {
     BD mBD = new BD();
     public Login() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -37,8 +38,24 @@ public class Login extends javax.swing.JFrame {
         TxtPass = new javax.swing.JPasswordField();
         BtnLogin = new javax.swing.JButton();
         BtnSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
+        setSize(new java.awt.Dimension(500, 500));
+        getContentPane().setLayout(null);
+
+        TxtUser.setBackground(new java.awt.Color(0, 0, 0));
+        TxtUser.setForeground(new java.awt.Color(255, 255, 255));
+        TxtUser.setBorder(null);
+        getContentPane().add(TxtUser);
+        TxtUser.setBounds(80, 200, 160, 30);
+
+        TxtPass.setBackground(new java.awt.Color(0, 0, 0));
+        TxtPass.setForeground(new java.awt.Color(255, 255, 255));
+        TxtPass.setBorder(null);
+        getContentPane().add(TxtPass);
+        TxtPass.setBounds(80, 250, 160, 30);
 
         BtnLogin.setText("Aceptar");
         BtnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -46,37 +63,16 @@ public class Login extends javax.swing.JFrame {
                 BtnLoginMouseClicked(evt);
             }
         });
+        getContentPane().add(BtnLogin);
+        BtnLogin.setBounds(60, 320, 71, 23);
 
         BtnSalir.setText("Salir");
+        getContentPane().add(BtnSalir);
+        BtnSalir.setBounds(170, 320, 71, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnLogin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(BtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(TxtUser)
-                    .addComponent(TxtPass))
-                .addContainerGap(64, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnLogin)
-                    .addComponent(BtnSalir))
-                .addGap(35, 35, 35))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/login.jpg"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, -30, 300, 470);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -170,5 +166,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton BtnSalir;
     private javax.swing.JPasswordField TxtPass;
     private javax.swing.JTextField TxtUser;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

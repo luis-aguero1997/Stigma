@@ -17,6 +17,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     public PrincipalAdmin() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

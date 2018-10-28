@@ -17,6 +17,7 @@ public class Matriz extends javax.swing.JFrame {
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     public Matriz() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
