@@ -5,6 +5,7 @@
  */
 package Lider_Tecnico;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,10 +17,22 @@ public class Riesgos extends javax.swing.JFrame {
     /**
      * Creates new form Riesgos
      */
+    BDRiesgos mBD = new BDRiesgos();
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     public Riesgos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        CBProyecto.removeAllItems();
+        CBProyecto1.removeAllItems();
+        CBProyecto2.removeAllItems();
+        if (mBD.ConectarRiesgos()) {
+            mBD.ComboClaveProyecto(CBProyecto);
+            mBD.ComboClaveProyecto(CBProyecto1);
+            mBD.ComboClaveProyecto(CBProyecto2);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.DesconectarRiesgos();
     }
 
     /**
