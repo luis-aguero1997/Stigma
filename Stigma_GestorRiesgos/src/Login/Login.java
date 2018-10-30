@@ -68,6 +68,11 @@ public class Login extends javax.swing.JFrame {
         BtnLogin.setBounds(60, 320, 71, 23);
 
         BtnSalir.setText("Salir");
+        BtnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSalirActionPerformed(evt);
+            }
+        });
         getContentPane().add(BtnSalir);
         BtnSalir.setBounds(170, 320, 71, 23);
 
@@ -126,6 +131,11 @@ public class Login extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_BtnLoginMouseClicked
+
+    private void BtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_BtnSalirActionPerformed
 
     /**
      * @param args the command line arguments
