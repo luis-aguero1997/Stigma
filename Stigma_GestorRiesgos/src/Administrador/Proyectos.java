@@ -25,6 +25,15 @@ public class Proyectos extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Llenar();
         
+        this.setLocationRelativeTo(null);
+        CBClave.removeAllItems();
+        if (mBD.ConectarProyecto()) {
+            mBD.ComboClaveProyecto(CBClave);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.DesconectarProyecto();
+        
     }
 
     /**
@@ -254,6 +263,11 @@ public class Proyectos extends javax.swing.JFrame {
         BtnAdd1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnAdd1MouseClicked(evt);
+            }
+        });
+        BtnAdd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAdd1ActionPerformed(evt);
             }
         });
 
@@ -522,6 +536,11 @@ public class Proyectos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_BtnEliminarMouseClicked
+
+    private void BtnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAdd1ActionPerformed
+        //Modificar
+        
+    }//GEN-LAST:event_BtnAdd1ActionPerformed
 
     private void Llenar() {
         if (mBD.ConectarProyecto()) {

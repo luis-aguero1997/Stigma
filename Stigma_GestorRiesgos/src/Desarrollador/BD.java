@@ -10,6 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+
+
 
 /**
  *
@@ -44,5 +47,24 @@ public class BD {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+    public void ConsultarCombo(JComboBox CBProyecto)
+    {
+        Statement consulta;
+        ResultSet resultado = null;
+        
+        try{
+            String SQL = "select clave from proyecto order by clave";
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery(SQL);
+            CBProyecto.addItem("Seleccione un Proyecto");
+            
+            while(resultado.next()){
+                CBProyecto.addItem(resultado.getString("clave"));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 }

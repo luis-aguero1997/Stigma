@@ -5,6 +5,9 @@
  */
 package Desarrollador;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Aaron
@@ -14,8 +17,19 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     /**
      * Creates new form AsignarProbabilidad
      */
+    BD mBD = new BD();
+    DefaultTableModel ModeloTabla = new DefaultTableModel();
+    
     public AsignarProbabilidad() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        CBProyecto.removeAllItems();
+        if (mBD.Conectar()) {
+            mBD.ConsultarCombo(CBProyecto);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.Desconectar();
     }
 
     /**
@@ -58,13 +72,13 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TBRisgos);
 
-        CBProbabailidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBProbabailidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
 
         jLabel2.setText("Asignar Probabilidad:");
 
         jLabel3.setText("Impacto:");
 
-        CBImpacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBImpacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
 
         BTNAceptar.setText("Aceptar");
 

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -109,4 +110,39 @@ public class BDProyecto {
         }
         return resultado;
     }
+     public boolean ModificarProyecto(Proyecto mProyecto, Proyecto nProyecto){
+        Statement consulta;
+        try {
+            consulta = Conexion.createStatement();
+            String SQL = "UPDATE riesgos.Proyecto SET " 
+                    + "nombre = '" + nProyecto.getNombre()+ "'"
+                    + "descripcion = '" + nProyecto.getDescripcion()+ "'"
+                    + "fecha_inicio = '" + nProyecto.getFechaInicio()+ "'"
+                    + "fecha_fin = '" + nProyecto.getFechaFin()+ "'"
+                    + " where clave = '" + mProyecto.getClave()+ "';";
+            consulta.execute(SQL);
+            return true; 
+        } catch (Exception e) {
+              e.printStackTrace();
+            return false;
+        }
+    }
+    public void ComboClaveProyecto(JComboBox CBProyecto){
+        Statement consulta;
+        ResultSet resultado = null;
+        
+        try{
+            String SQL = "select clave from proyecto order by clave";
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery(SQL);
+            CBProyecto.addItem("Seleccione un Proyecto");
+            
+            while(resultado.next()){
+                CBProyecto.addItem(resultado.getString("clave"));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

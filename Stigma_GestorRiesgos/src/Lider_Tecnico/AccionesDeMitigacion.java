@@ -5,6 +5,9 @@
  */
 package Lider_Tecnico;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Aaron
@@ -14,8 +17,19 @@ public class AccionesDeMitigacion extends javax.swing.JFrame {
     /**
      * Creates new form AccionesDeMitigacion
      */
+    BDAcciones mBDAcciones = new BDAcciones();
+    DefaultTableModel ModeloTabla = new DefaultTableModel();
+    
     public AccionesDeMitigacion() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        CBProyecto.removeAllItems();
+        if (mBDAcciones.ConectarAcciones()) {
+            mBDAcciones.ConsultarCombo(CBProyecto);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBDAcciones.DesconectarAcciones();
     }
 
     /**

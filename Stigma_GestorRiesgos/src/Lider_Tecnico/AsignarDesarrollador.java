@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Desarrollador;
+package Lider_tecnico;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,9 +17,21 @@ public class AsignarDesarrollador extends javax.swing.JFrame {
     /**
      * Creates new form AsignarDesarrollador
      */
+    BDAcciones mBDAcciones = new BDAcciones();
+    DefaultTableModel ModeloTabla = new DefaultTableModel();
+    
     public AsignarDesarrollador() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        CBproyecto.removeAllItems();
+        if (mBDAcciones.ConectarAcciones()) {
+            mBDAcciones.ConsultarCombo(CBproyecto);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBDAcciones.DesconectarAcciones();
     }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -5,6 +5,9 @@
  */
 package Desarrollador;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Aaron
@@ -14,8 +17,19 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
     /**
      * Creates new form SegumientoDeRiesgo
      */
+    BD mBD = new BD();
+    DefaultTableModel ModeloTabla = new DefaultTableModel();
+    
     public SegumientoDeRiesgo() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        CBproyecto.removeAllItems();
+        if (mBD.Conectar()) {
+            mBD.ConsultarCombo(CBproyecto);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.Desconectar();
     }
 
     /**
@@ -57,7 +71,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TBProyecto);
 
-        CBEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un estado", "Presentado", "No presentado", "Controlado", " " }));
 
         jLabel2.setText("Estado:");
 
