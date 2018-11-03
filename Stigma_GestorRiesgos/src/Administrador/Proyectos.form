@@ -52,6 +52,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Gesti&#xf3;n de Proyectos"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -577,6 +578,9 @@
               </SubComponents>
             </Container>
             <Component class="javax.swing.JTextField" name="TxtCriterio">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtCriterioKeyTyped"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

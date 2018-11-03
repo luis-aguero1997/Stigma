@@ -91,6 +91,7 @@ public class Proyectos extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión de Proyectos");
 
         jLabel1.setText("Clave: ");
 
@@ -192,12 +193,12 @@ public class Proyectos extends javax.swing.JFrame {
         TBProyecto.setModel(ModeloTabla);
         TBProyecto.setEnabled(false);
         TBProyecto.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 TBProyectoAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         TBProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -347,6 +348,12 @@ public class Proyectos extends javax.swing.JFrame {
 
         TBProyecto3.setModel(ModeloTabla);
         jScrollPane3.setViewportView(TBProyecto3);
+
+        TxtCriterio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtCriterioKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -542,13 +549,31 @@ public class Proyectos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_BtnAdd1ActionPerformed
 
+    private void TxtCriterioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCriterioKeyTyped
+        // TODO add your handling code here:
+        if (this.TxtCriterio.equals("")) {
+            Borrar();
+            Llenar();
+        }
+        BorrarC();
+        if (this.mBD.ConectarProyecto()) {
+            ResultSet Lista = null;
+            Lista = mBD.ConsultaFiltroP(TxtCriterio.getText());
+            this.TBProyecto3.setModel(Convertidor.convertir(Lista));
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en BD");
+        }
+    }//GEN-LAST:event_TxtCriterioKeyTyped
+
     private void Llenar() {
         if (mBD.ConectarProyecto()) {
             ResultSet ListaE = mBD.ConsultaProyectos();
             ResultSet ListaM = mBD.ConsultaProyectos();
+            ResultSet ListaC = mBD.ConsultaProyectos();
             
             this.TBProyecto.setModel(Convertidor.convertir(ListaE));
             this.TBProyecto3.setModel(Convertidor.convertir(ListaM));
+            this.TBProyecto3.setModel(Convertidor.convertir(ListaC));
         } else {
             JOptionPane.showMessageDialog(null, "Error al consultar...");
         }
@@ -570,7 +595,16 @@ public class Proyectos extends javax.swing.JFrame {
             LimpiadoTabla2.removeRow(LimpiadoTabla2.getRowCount() - 1);
         }
     }    
-    
+    void BorrarC() {
+        
+        DefaultTableModel LimpiadoTabla2 = (DefaultTableModel) TBProyecto3.getModel();
+        //Borramosla tabla...        
+        int c = TBProyecto3.getRowCount() - 1;
+
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla2.removeRow(LimpiadoTabla2.getRowCount() - 1);
+        }
+    }
     /**
      * @param args the command line arguments
      */

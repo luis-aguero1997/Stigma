@@ -40,6 +40,19 @@ public class Usuarios extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        TxtNom = new javax.swing.JTextField();
+        TxtNomUser = new javax.swing.JTextField();
+        TxtEmail = new javax.swing.JTextField();
+        CBTipo = new javax.swing.JComboBox<>();
+        BtnCancelar = new javax.swing.JButton();
+        TxtPass = new javax.swing.JPasswordField();
+        BtnAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         TxtEliminar = new javax.swing.JTextField();
         BtnEliminar = new javax.swing.JButton();
@@ -60,19 +73,6 @@ public class Usuarios extends javax.swing.JFrame {
         TxtCriterio = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         TBUsuarios3 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        TxtNom = new javax.swing.JTextField();
-        TxtNomUser = new javax.swing.JTextField();
-        TxtEmail = new javax.swing.JTextField();
-        CBTipo = new javax.swing.JComboBox<>();
-        BtnCancelar = new javax.swing.JButton();
-        TxtPass = new javax.swing.JPasswordField();
-        BtnAdd = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -90,6 +90,67 @@ public class Usuarios extends javax.swing.JFrame {
         });
 
         jTabbedPane1.setBackground(new java.awt.Color(0, 153, 255));
+
+        jPanel1.setLayout(null);
+
+        jLabel1.setText("Nombre: ");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(30, 35, 44, 14);
+
+        jLabel2.setText("Nombre de Usuario: ");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(30, 90, 98, 14);
+
+        jLabel3.setText("Correo Electronico: ");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(30, 146, 95, 14);
+
+        jLabel4.setText("Contraseña: ");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(30, 191, 180, 14);
+
+        jLabel6.setText("Tipo de Usuario: ");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(30, 240, 180, 14);
+
+        TxtNom.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        TxtNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNomActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TxtNom);
+        TxtNom.setBounds(214, 32, 254, 30);
+        jPanel1.add(TxtNomUser);
+        TxtNomUser.setBounds(214, 87, 254, 30);
+        jPanel1.add(TxtEmail);
+        TxtEmail.setBounds(214, 143, 254, 30);
+
+        CBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione Un Tipo De Usuario-", "Administrador", "Lider Tecnico", "Desarrollador" }));
+        jPanel1.add(CBTipo);
+        CBTipo.setBounds(214, 234, 254, 20);
+
+        BtnCancelar.setText("Cancelar");
+        jPanel1.add(BtnCancelar);
+        BtnCancelar.setBounds(360, 320, 75, 23);
+        jPanel1.add(TxtPass);
+        TxtPass.setBounds(214, 188, 254, 30);
+
+        BtnAdd.setText("Aceptar");
+        BtnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnAddMouseClicked(evt);
+            }
+        });
+        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAddActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnAdd);
+        BtnAdd.setBounds(270, 320, 71, 23);
+
+        jTabbedPane1.addTab("Alta", jPanel1);
 
         TxtEliminar.setEnabled(false);
 
@@ -252,73 +313,6 @@ public class Usuarios extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Consulta", jPanel4);
 
-        jPanel1.setLayout(null);
-
-        jLabel1.setText("Nombre: ");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(30, 35, 44, 14);
-
-        jLabel2.setText("Nombre de Usuario: ");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(30, 90, 98, 14);
-
-        jLabel3.setText("Correo Electronico: ");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(30, 146, 95, 14);
-
-        jLabel4.setText("Contraseña: ");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(30, 191, 180, 14);
-
-        jLabel6.setText("Tipo de Usuario: ");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(30, 240, 180, 14);
-
-        TxtNom.setForeground(new java.awt.Color(255, 255, 255));
-        TxtNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtNomActionPerformed(evt);
-            }
-        });
-        jPanel1.add(TxtNom);
-        TxtNom.setBounds(214, 32, 254, 20);
-
-        TxtNomUser.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(TxtNomUser);
-        TxtNomUser.setBounds(214, 87, 254, 20);
-
-        TxtEmail.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(TxtEmail);
-        TxtEmail.setBounds(214, 143, 254, 20);
-
-        CBTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione Un Tipo De Usuario-", "Administrador", "Lider Tecnico", "Desarrollador" }));
-        jPanel1.add(CBTipo);
-        CBTipo.setBounds(214, 234, 254, 20);
-
-        BtnCancelar.setText("Cancelar");
-        jPanel1.add(BtnCancelar);
-        BtnCancelar.setBounds(360, 320, 75, 23);
-
-        TxtPass.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(TxtPass);
-        TxtPass.setBounds(214, 188, 254, 20);
-
-        BtnAdd.setText("Aceptar");
-        BtnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnAddMouseClicked(evt);
-            }
-        });
-        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAddActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BtnAdd);
-        BtnAdd.setBounds(270, 320, 71, 23);
-
-        jTabbedPane1.addTab("Alta", jPanel1);
-
         jMenuBar1.setEnabled(false);
 
         jMenu5.setText("Inicio");
@@ -386,7 +380,7 @@ public class Usuarios extends javax.swing.JFrame {
     
     private void setFilas() {
         
-        BDUsuario mBD = new BDUsuario();
+        
         
         if (mBD.ConectarUsuario()) {
             
@@ -424,6 +418,15 @@ public class Usuarios extends javax.swing.JFrame {
         }
     }    
     
+    void BorrarC() {
+        DefaultTableModel LimpiadoTabla3 = (DefaultTableModel) TBUsuarios3.getModel();
+        //Borramosla tabla...
+        int c = TBUsuarios3.getRowCount() - 1;
+        
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla3.removeRow(LimpiadoTabla3.getRowCount() - 1);
+        }
+    }
    
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         
@@ -480,10 +483,10 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (TxtCriterio.equals("")) {
             Borrar();
-            this.setFilas();
+            setFilas();
             JOptionPane.showMessageDialog(null, "Indique un criterio para realizar busqueda");
         } else {
-            Borrar();
+            BorrarC();
             if (mBD.ConectarUsuario()) {
                 
                 ResultSet Lista = null;

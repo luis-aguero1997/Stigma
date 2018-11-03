@@ -50,10 +50,10 @@ public class Riesgos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         CBProyecto = new javax.swing.JComboBox<>();
-        TxtTituo = new javax.swing.JTextField();
+        TxtTitulo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtDes = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        BtnAceptar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BtnDel = new javax.swing.JButton();
@@ -64,11 +64,21 @@ public class Riesgos extends javax.swing.JFrame {
         TxtID = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        CBProyecto3 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        TxtTituo1 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TxtDes1 = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TBRiesgosM = new javax.swing.JTable();
+        BtnModificar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         CBProyecto2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TBRiesgosC = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de Riesgos");
@@ -86,7 +96,12 @@ public class Riesgos extends javax.swing.JFrame {
         TxtDes.setRows(5);
         jScrollPane1.setViewportView(TxtDes);
 
-        jButton1.setText("Aceptar");
+        BtnAceptar.setText("Aceptar");
+        BtnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BtnAceptarMouseExited(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -100,16 +115,17 @@ public class Riesgos extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                        .addComponent(BtnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136)
                         .addComponent(jButton2))
-                    .addComponent(CBProyecto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TxtTituo)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(CBProyecto, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TxtTitulo, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1)))
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +137,7 @@ public class Riesgos extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(TxtTituo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(113, 113, 113)
@@ -132,7 +148,7 @@ public class Riesgos extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(BtnAceptar))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
@@ -146,6 +162,8 @@ public class Riesgos extends javax.swing.JFrame {
 
         TBRiesgos.setModel(ModeloTabla);
         jScrollPane2.setViewportView(TBRiesgos);
+
+        TxtID.setEnabled(false);
 
         jLabel4.setText("ID de Riesgo");
 
@@ -189,15 +207,77 @@ public class Riesgos extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Baja", jPanel2);
 
+        jLabel7.setText("Clave de Proyecto: ");
+
+        CBProyecto3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel8.setText("Titulo: ");
+
+        jLabel9.setText("Descripcion: ");
+
+        TxtDes1.setColumns(20);
+        TxtDes1.setLineWrap(true);
+        TxtDes1.setRows(5);
+        jScrollPane4.setViewportView(TxtDes1);
+
+        TBRiesgosM.setModel(ModeloTabla);
+        jScrollPane5.setViewportView(TBRiesgosM);
+
+        BtnModificar.setText("Modificar");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(CBProyecto3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TxtTituo1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(BtnModificar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(CBProyecto3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(TxtTituo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel9)
+                        .addGap(67, 67, 67)
+                        .addComponent(BtnModificar)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))))
         );
 
         jTabbedPane1.addTab("Modificacion", jPanel3);
@@ -206,8 +286,8 @@ public class Riesgos extends javax.swing.JFrame {
 
         jLabel5.setText("Clave de Proyecto: ");
 
-        jTable1.setModel(ModeloTabla);
-        jScrollPane3.setViewportView(jTable1);
+        TBRiesgosC.setModel(ModeloTabla);
+        jScrollPane3.setViewportView(TBRiesgosC);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -257,6 +337,32 @@ public class Riesgos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnAceptarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAceptarMouseExited
+        // TODO add your handling code here:
+        if (CBProyecto.getSelectedIndex() == 0 || this.TxtTitulo.equals("") || TxtDes.equals("")) {
+            JOptionPane.showMessageDialog(null, "Llene los Campos antes de Guardar");
+        } else{
+            Riesgo mRiesgo = new Riesgo();
+            mRiesgo.setClave(CBProyecto.getSelectedItem().toString());
+            mRiesgo.setTitulo(TxtTitulo.getText());
+            mRiesgo.setDetalles(TxtDes.getText());
+            
+            if (mBD.ConectarRiesgos()) {
+                if (mBD.AgregarRiesgo(mRiesgo)) {
+                    JOptionPane.showMessageDialog(null, "Riesgo dado de Alta exitosamente");
+                    CBProyecto.setSelectedIndex(0);
+                    TxtTitulo.setText("");
+                    TxtDes.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al dar de Alta");
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en BD");
+            }
+        }
+    }//GEN-LAST:event_BtnAceptarMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -293,15 +399,21 @@ public class Riesgos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAceptar;
     private javax.swing.JButton BtnDel;
+    private javax.swing.JButton BtnModificar;
     private javax.swing.JComboBox<String> CBProyecto;
     private javax.swing.JComboBox<String> CBProyecto1;
     private javax.swing.JComboBox<String> CBProyecto2;
+    private javax.swing.JComboBox<String> CBProyecto3;
     private javax.swing.JTable TBRiesgos;
+    private javax.swing.JTable TBRiesgosC;
+    private javax.swing.JTable TBRiesgosM;
     private javax.swing.JTextArea TxtDes;
+    private javax.swing.JTextArea TxtDes1;
     private javax.swing.JTextField TxtID;
-    private javax.swing.JTextField TxtTituo;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField TxtTitulo;
+    private javax.swing.JTextField TxtTituo1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -309,6 +421,9 @@ public class Riesgos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -316,7 +431,8 @@ public class Riesgos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

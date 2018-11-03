@@ -51,11 +51,13 @@ public class BDRiesgos {
         try {
             consulta = Conexion.createStatement();
             String SQL = "INSERT INTO riesgos.riesgo "
-                    + "(clave,titulo,detalles) "
-                    + "VALUES ('"
+                    + "(idriesgo,clave,nombre,detalles)"
+                    + "VALUES ("
+                    + "NULL" + ",'"
                     + mRiesgo.getClave() + "','" 
                     + mRiesgo.getTitulo() + "','" 
-                    + mRiesgo.getDetalles() + "');";
+                    + mRiesgo.getDetalles() + "'"
+                    + ");";
             consulta.execute(SQL);
             return true; 
         } catch (Exception e) {
