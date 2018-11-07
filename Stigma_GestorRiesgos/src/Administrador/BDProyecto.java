@@ -117,8 +117,6 @@ public class BDProyecto {
             String SQL = "UPDATE riesgos.Proyecto SET " 
                     + "nombre = '" + nProyecto.getNombre()+ "'"
                     + "descripcion = '" + nProyecto.getDescripcion()+ "'"
-                    + "fecha_inicio = '" + nProyecto.getFechaInicio()+ "'"
-                    + "fecha_fin = '" + nProyecto.getFechaFin()+ "'"
                     + " where clave = '" + mProyecto.getClave()+ "';";
             consulta.execute(SQL);
             return true; 
@@ -126,6 +124,18 @@ public class BDProyecto {
               e.printStackTrace();
             return false;
         }
+    }
+    public ResultSet ComboProyecto(String C){
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select clave, nombre, descripcion, fecha_inicio, fecha_fin from proyecto where clave ='" + C + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
     }
     public void ComboClaveProyecto(JComboBox CBProyecto){
         Statement consulta;
@@ -144,5 +154,5 @@ public class BDProyecto {
             e.printStackTrace();
         }
     }
-    
+
 }
