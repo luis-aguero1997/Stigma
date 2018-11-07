@@ -20,16 +20,21 @@ public class Riesgos extends javax.swing.JFrame {
      */
     BDRiesgos mBD = new BDRiesgos();
     DefaultTableModel ModeloTabla = new DefaultTableModel();
+    boolean listo=false;
+    int ID = 0;
     public Riesgos() {
         initComponents();
         this.setLocationRelativeTo(null);
         CBProyecto.removeAllItems();
         CBProyecto1.removeAllItems();
         CBProyecto2.removeAllItems();
+        CBProyecto3.removeAllItems();
         if (mBD.ConectarRiesgos()) {
             mBD.ComboClaveProyecto(CBProyecto);
             mBD.ComboClaveProyecto(CBProyecto1);
             mBD.ComboClaveProyecto(CBProyecto2);
+            mBD.ComboClaveProyecto(CBProyecto3);
+            listo=true;
         } else {
             JOptionPane.showMessageDialog(null, "Error BD");
         }
@@ -72,9 +77,9 @@ public class Riesgos extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         TxtDes1 = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TBRiesgosM = new javax.swing.JTable();
         BtnModificar = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        TBRiesgo = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         CBProyecto2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -91,6 +96,11 @@ public class Riesgos extends javax.swing.JFrame {
         jLabel3.setText("Descripcion: ");
 
         CBProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBProyecto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBProyectoItemStateChanged(evt);
+            }
+        });
 
         TxtDes.setColumns(20);
         TxtDes.setLineWrap(true);
@@ -156,12 +166,28 @@ public class Riesgos extends javax.swing.JFrame {
         jTabbedPane1.addTab("Alta", jPanel1);
 
         BtnDel.setText("Eliminar");
+        BtnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnDelMouseClicked(evt);
+            }
+        });
 
         CBProyecto1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBProyecto1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBProyecto1ItemStateChanged(evt);
+            }
+        });
 
         jLabel6.setText("Clave de Proyecto: ");
 
         TBRiesgos.setModel(ModeloTabla);
+        TBRiesgos.setEnabled(false);
+        TBRiesgos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBRiesgosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TBRiesgos);
 
         TxtID.setEnabled(false);
@@ -182,12 +208,12 @@ public class Riesgos extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CBProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TxtID, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(72, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(TxtID, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CBProyecto1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,9 +237,9 @@ public class Riesgos extends javax.swing.JFrame {
         jLabel7.setText("Clave de Proyecto: ");
 
         CBProyecto3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CBProyecto3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBProyecto3ActionPerformed(evt);
+        CBProyecto3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBProyecto3ItemStateChanged(evt);
             }
         });
 
@@ -226,51 +252,40 @@ public class Riesgos extends javax.swing.JFrame {
         TxtDes1.setRows(5);
         jScrollPane4.setViewportView(TxtDes1);
 
-        BtnModificar.setText("Modificar");
+        TBRiesgosM.setModel(ModeloTabla);
+        jScrollPane5.setViewportView(TBRiesgosM);
 
-        TBRiesgo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane6.setViewportView(TBRiesgo);
+        BtnModificar.setText("Modificar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(284, 284, 284))
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(CBProyecto3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(CBProyecto3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addGap(50, 50, 50)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TxtTituo1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(186, 186, 186)
-                                .addComponent(BtnModificar)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TxtTituo1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(BtnModificar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,27 +294,32 @@ public class Riesgos extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(CBProyecto3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(TxtTituo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel9)))
-                .addGap(45, 45, 45)
-                .addComponent(BtnModificar)
-                .addGap(47, 47, 47))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(TxtTituo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel9)
+                        .addGap(67, 67, 67)
+                        .addComponent(BtnModificar)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67))))
         );
 
         jTabbedPane1.addTab("Modificacion", jPanel3);
 
         CBProyecto2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBProyecto2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBProyecto2ItemStateChanged(evt);
+            }
+        });
 
         jLabel5.setText("Clave de Proyecto: ");
 
@@ -314,7 +334,7 @@ public class Riesgos extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(CBProyecto2, 0, 294, Short.MAX_VALUE)
+                .addComponent(CBProyecto2, 0, 240, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
@@ -328,8 +348,8 @@ public class Riesgos extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(CBProyecto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
         );
 
@@ -339,13 +359,16 @@ public class Riesgos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 22, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -377,34 +400,105 @@ public class Riesgos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnAceptarMouseExited
 
-    private void CBProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBProyecto3ActionPerformed
+    private void CBProyecto1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto1ItemStateChanged
         // TODO add your handling code here:
-         
-        if (CBProyecto3.getSelectedItem().equals("Seleccione un Proyecto")) {
+      if(listo) {
+       if (mBD.ConectarRiesgos())  {
+            String C = "";
+            C = CBProyecto1.getSelectedItem().toString();
+            ResultSet ListaE = mBD.ConsultaRiesgos(C);
             
-             ResultSet rs;
-             DefaultTableModel ModeloTabla = new DefaultTableModel();
-             
-            try{
-                ModeloTabla.addColumn("clave");
-                ModeloTabla.addColumn("nombre");
-                ModeloTabla.addColumn("detalles");
-                rs = mBD.createStatement().executeQuery("select * from proyecto");
-                
-                while(rs.next())
-                {
-                    ModeloTabla.addRow(new Objetc[] (rs.getString(1) , rs.getString(2), rs.getString(3) ));
-                }
-                TBRiesgos.setModel(ModeloTabla);
-                
-            }
-            catch(Exception ex)
-            {
-                JOptionPane.showMessageDialog(null, ex);
-            }
+            this.TBRiesgos.setModel(Convertidor.convertir(ListaE));
         }
-    }//GEN-LAST:event_CBProyecto3ActionPerformed
+        mBD.DesconectarRiesgos();
+      }
+    }//GEN-LAST:event_CBProyecto1ItemStateChanged
 
+    private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBProyectoItemStateChanged
+
+    private void CBProyecto3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto3ItemStateChanged
+        // TODO add your handling code here:
+         if(listo) {
+       if (mBD.ConectarRiesgos())  {
+            String C = "";
+            C = CBProyecto3.getSelectedItem().toString();
+            ResultSet ListaM = mBD.ConsultaRiesgos(C);
+            
+            this.TBRiesgosM.setModel(Convertidor.convertir(ListaM));
+        }
+        mBD.DesconectarRiesgos();
+      }
+    }//GEN-LAST:event_CBProyecto3ItemStateChanged
+
+    private void CBProyecto2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto2ItemStateChanged
+        // TODO add your handling code here:
+        if(listo) {
+       if (mBD.ConectarRiesgos())  {
+            String C = "";
+            C = CBProyecto2.getSelectedItem().toString();
+            ResultSet ListaC = mBD.ConsultaRiesgos(C);
+            
+            this.TBRiesgosC.setModel(Convertidor.convertir(ListaC));
+        }
+        mBD.DesconectarRiesgos();
+      }
+    }//GEN-LAST:event_CBProyecto2ItemStateChanged
+
+    private void TBRiesgosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMouseClicked
+        // TODO add your handling code here:
+                int Seleccion = 0;
+        ID = 0;
+        this.TxtID.setText("");
+        Seleccion = this.TBRiesgos.rowAtPoint(evt.getPoint());
+        this.TxtID.setText(this.TBRiesgos.getModel().getValueAt(Seleccion, 1).toString());
+        ID = Integer.parseInt(TBRiesgos.getModel().getValueAt(Seleccion,0).toString()); 
+    }//GEN-LAST:event_TBRiesgosMouseClicked
+
+    private void BtnDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDelMouseClicked
+        // TODO add your handling code here:
+                if (this.TxtID.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Selecione un riesgo antes");
+        } else {
+            if (mBD.ConectarRiesgos()) {
+                if (mBD.EliminarRiesgo(ID)) {
+                    JOptionPane.showMessageDialog(null, "Riesgo dado de baja");
+                    TxtID.setText("");
+                    BorrarE();
+                    CBProyecto1.setSelectedIndex(0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Eliminar");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+            mBD.DesconectarRiesgos();
+        }
+    }//GEN-LAST:event_BtnDelMouseClicked
+
+    void BorrarE() {
+        DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgos.getModel();
+        //Borramosla tabla...
+        int c = TBRiesgos.getRowCount() - 1;
+        
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+    }
+    
+    void BorrarM() {
+        DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgosM.getModel();
+        //Borramosla tabla...
+        int c = TBRiesgosM.getRowCount() - 1;
+        
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -448,9 +542,9 @@ public class Riesgos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBProyecto1;
     private javax.swing.JComboBox<String> CBProyecto2;
     private javax.swing.JComboBox<String> CBProyecto3;
-    private javax.swing.JTable TBRiesgo;
     private javax.swing.JTable TBRiesgos;
     private javax.swing.JTable TBRiesgosC;
+    private javax.swing.JTable TBRiesgosM;
     private javax.swing.JTextArea TxtDes;
     private javax.swing.JTextArea TxtDes1;
     private javax.swing.JTextField TxtID;
@@ -474,7 +568,7 @@ public class Riesgos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

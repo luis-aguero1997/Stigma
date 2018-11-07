@@ -193,12 +193,12 @@ public class Proyectos extends javax.swing.JFrame {
         TBProyecto.setModel(ModeloTabla);
         TBProyecto.setEnabled(false);
         TBProyecto.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 TBProyectoAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         TBProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,11 +275,6 @@ public class Proyectos extends javax.swing.JFrame {
         BtnCan1.setText("Cancelar");
 
         CBClave.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CBClave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBClaveActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -570,15 +565,6 @@ public class Proyectos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TxtCriterioKeyTyped
 
-    private void CBClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBClaveActionPerformed
-        // TODO add your handling code here:
-        int res = this.CBClave.getSelectedIndex();
-        this.TxtNom1.setText(CBClave.toString());
-        this.TxtDes1.setText(CBClave.toString());
-        this.Inicio1.setToolTipText(CBClave.toString());
-        this.Fin1.setToolTipText(CBClave.toString());   
-    }//GEN-LAST:event_CBClaveActionPerformed
-        
     private void Llenar() {
         if (mBD.ConectarProyecto()) {
             ResultSet ListaE = mBD.ConsultaProyectos();

@@ -35,8 +35,8 @@ public class PrincipalLider extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -58,21 +58,21 @@ public class PrincipalLider extends javax.swing.JFrame {
 
         jMenu2.setText("Riesgos");
 
-        jMenuItem5.setText("Gestión");
-        jMenuItem5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu4.setText("Gestion");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem5MouseClicked(evt);
+                jMenu4MouseClicked(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jMenu2.add(jMenu4);
 
-        jMenuItem2.setText("Asignacion");
-        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu7.setText("Asignacion");
+        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem2MouseClicked(evt);
+                jMenu7MouseClicked(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(jMenu7);
 
         jMenuBar1.add(jMenu2);
 
@@ -130,14 +130,6 @@ public class PrincipalLider extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void jMenuItem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseClicked
-        /* TODO add your handling code here:
-        Asignaciones Asignar = new Asignaciones();       
-        Asignar.setVisible(true);
-        this.dispose();
-        */
-    }//GEN-LAST:event_jMenuItem2MouseClicked
-
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         // TODO add your handling code here:
         Matriz mMatriz = new Matriz();
@@ -159,12 +151,17 @@ public class PrincipalLider extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem4MouseClicked
 
-    private void jMenuItem5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseClicked
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         // TODO add your handling code here:
-        Riesgos mRiesgo = new Riesgos();
-        mRiesgo.setVisible(true);
+        Riesgos mR = new Riesgos();
+        mR.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem5MouseClicked
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu7MouseClicked
 
     /**
      * @param args the command line arguments
@@ -205,12 +202,12 @@ public class PrincipalLider extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

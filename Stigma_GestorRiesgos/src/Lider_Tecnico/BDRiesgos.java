@@ -96,4 +96,17 @@ public class BDRiesgos {
             e.printStackTrace();
         }
     }
+    
+     public ResultSet ConsultaRiesgos(String C){
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, nombre, detalles from riesgo where clave ='" + C + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
 }
