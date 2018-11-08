@@ -62,6 +62,60 @@ public class BDAcciones {
         }
         
     }
- 
     
+    public ResultSet ConsultaRiesgos1(String C){
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, nombre, acccontingencia  from riesgo where clave ='" + C + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    
+    public ResultSet ConsultaRiesgos(String C){
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, nombre, accmitigacion from riesgo where clave ='" + C + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    
+    public boolean AgregarMitigacion(Riesgo mRiesgo) {
+        Statement consulta;
+
+        try {
+            consulta = Conexion.createStatement();
+            consulta.execute("update riesgo set " + 
+                        "accmitigacion = '" + mRiesgo.getMitigacion() + "'" +
+                        " where clave = '" + mRiesgo.getID() + "';");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean AgregarContingencia(Riesgo mRiesgo) {
+        Statement consulta;
+
+        try {
+            consulta = Conexion.createStatement();
+            consulta.execute("update riesgo set " + 
+                        "acccontingencia = '" + mRiesgo.getContingencia() + "'" +
+                        " where clave = '" + mRiesgo.getID() + "';");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

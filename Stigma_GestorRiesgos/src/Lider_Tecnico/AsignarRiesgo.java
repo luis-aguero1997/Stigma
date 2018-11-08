@@ -3,24 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Lider_tecnico;
-
-import javax.swing.JOptionPane;
-//import javax.swing.table.DefaultTableModel;
+package Lider_Tecnico;
 
 /**
  *
- * @author Aaron
+ * @author Luis
  */
-public class Asignaciones extends javax.swing.JFrame {
-        //DefaultTableModel ModeloTabla = new DefaultTableModel();
-  
-    public Asignaciones() {
-        
+public class AsignarRiesgo extends javax.swing.JFrame {
+
+    /**
+     * Creates new form AsignarRiesgo
+     */
+    public AsignarRiesgo() {
         initComponents();
-        
     }
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,30 +27,16 @@ public class Asignaciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        CBDesarrolladores = new javax.swing.JComboBox<>();
-        BTNasignar = new javax.swing.JButton();
-        BTNCancelar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TBrisgos = new javax.swing.JTable();
         CBproyecto = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        CBDesarrolladores = new javax.swing.JComboBox<>();
+        BTNasignar = new javax.swing.JButton();
+        BTNCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Asignar Riesgo a Desarrollador");
-
-        jLabel1.setText("Clave De Proyecto:");
-
-        CBDesarrolladores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CBDesarrolladores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBDesarrolladoresActionPerformed(evt);
-            }
-        });
-
-        BTNasignar.setText("Asignar");
-
-        BTNCancelar.setText("Cancelar");
 
         TBrisgos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,6 +54,19 @@ public class Asignaciones extends javax.swing.JFrame {
         CBproyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setText("Desarrollador a cargo");
+
+        jLabel1.setText("Clave De Proyecto:");
+
+        CBDesarrolladores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBDesarrolladores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBDesarrolladoresActionPerformed(evt);
+            }
+        });
+
+        BTNasignar.setText("Asignar");
+
+        BTNCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,7 +92,7 @@ public class Asignaciones extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(44, 44, 44)
                         .addComponent(CBDesarrolladores, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +103,7 @@ public class Asignaciones extends javax.swing.JFrame {
                     .addComponent(CBproyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(CBDesarrolladores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -116,7 +111,7 @@ public class Asignaciones extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTNasignar)
                     .addComponent(BTNCancelar))
-                .addContainerGap())
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,21 +138,20 @@ public class Asignaciones extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Asignaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AsignarRiesgo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Asignaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AsignarRiesgo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Asignaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AsignarRiesgo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Asignaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AsignarRiesgo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Asignaciones().setVisible(true);
+                new AsignarRiesgo().setVisible(true);
             }
         });
     }
