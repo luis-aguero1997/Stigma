@@ -1,12 +1,11 @@
-package Lider_Tecnico;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Login.Login;
+package Lider_Tecnico;
 
+import Login.Login;
 
 /**
  *
@@ -19,7 +18,6 @@ public class PrincipalLider extends javax.swing.JFrame {
      */
     public PrincipalLider() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,109 +29,78 @@ public class PrincipalLider extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        I = new javax.swing.JMenu();
-        R = new javax.swing.JMenu();
-        R1 = new javax.swing.JMenuItem();
-        R2 = new javax.swing.JMenuItem();
-        A = new javax.swing.JMenu();
-        A1 = new javax.swing.JMenuItem();
-        A2 = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
 
-        jMenu1.setText("File");
-        jMenuBar2.add(jMenu1);
+        jMenuItem1.setText("jMenuItem1");
 
-        jMenu2.setText("Edit");
-        jMenuBar2.add(jMenu2);
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lider Tecnico");
-        setLocationByPlatform(true);
-        setResizable(false);
 
-        I.setText("Inicio");
-        I.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu1.setText("Inicio");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                IMouseClicked(evt);
+                jMenu1MouseClicked(evt);
             }
         });
-        jMenuBar1.add(I);
+        jMenuBar1.add(jMenu1);
 
-        R.setText("Riesgos");
-        R.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu2.setText("Gestion de Riesgos");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RMouseClicked(evt);
+                jMenu2MouseClicked(evt);
             }
         });
-        R.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RActionPerformed(evt);
-            }
-        });
+        jMenuBar1.add(jMenu2);
 
-        R1.setText("Gestion");
-        R1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu9.setText("Asignacion de Riesgos");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                R1MouseClicked(evt);
+                jMenu9MouseClicked(evt);
             }
         });
-        R.add(R1);
+        jMenuBar1.add(jMenu9);
 
-        R2.setText("Asignacion");
-        R2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu3.setText("Acciones de Mitigacion");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                R2MouseClicked(evt);
+                jMenu3MouseClicked(evt);
             }
         });
-        R.add(R2);
+        jMenuBar1.add(jMenu3);
 
-        jMenuBar1.add(R);
-
-        A.setText("Acciones");
-        A.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu10.setText("Acciones de Contingencia");
+        jMenu10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AMouseClicked(evt);
+                jMenu10MouseClicked(evt);
             }
         });
+        jMenuBar1.add(jMenu10);
 
-        A1.setText("Mitigacion");
-        A1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu4.setText("Matriz de Riesgos");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                A1MouseClicked(evt);
+                jMenu4MouseClicked(evt);
             }
         });
-        A.add(A1);
+        jMenuBar1.add(jMenu4);
 
-        A2.setText("Contingencia");
-        A2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                A2MouseClicked(evt);
-            }
-        });
-        A.add(A2);
-
-        jMenuBar1.add(A);
-
-        jMenu5.setText("Matriz de Riesgos");
+        jMenu5.setText("Salir");
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu5MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu5);
-
-        jMenu6.setText("Salir");
-        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu6MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
 
@@ -145,74 +112,60 @@ public class PrincipalLider extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addGap(0, 331, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         // TODO add your handling code here:
-        Login mLogin = new Login();
-        mLogin.setVisible(true);
+        PrincipalLider mP = new PrincipalLider();
+        mP.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenu6MouseClicked
+    }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        // TODO add your handling code here:
-        Matriz mMatriz = new Matriz();
-        mMatriz.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenu5MouseClicked
-
-    private void AMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_AMouseClicked
-
-    private void A2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A2MouseClicked
-        // TODO add your handling code here:
-        Contingencia mC = new Contingencia();
-        mC.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_A2MouseClicked
-
-    private void A1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_A1MouseClicked
-        // TODO add your handling code here:
-        Mitigacion mMitigacion = new Mitigacion();
-        mMitigacion.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_A1MouseClicked
-
-    private void RActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RActionPerformed
-
-    private void RMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_RMouseClicked
-
-    private void R2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_R2MouseClicked
-        // TODO add your handling code here:
-        AsignarRiesgo mAR = new AsignarRiesgo();
-        mAR.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_R2MouseClicked
-
-    private void R1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_R1MouseClicked
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
         Riesgos mR = new Riesgos();
         mR.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_R1MouseClicked
+    }//GEN-LAST:event_jMenu2MouseClicked
 
-    private void IMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IMouseClicked
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
         // TODO add your handling code here:
-        PrincipalLider Lider = new PrincipalLider();
-        Lider.setVisible(true);
+        AsignarRiesgo mAR = new AsignarRiesgo();
+        mAR.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_IMouseClicked
+    }//GEN-LAST:event_jMenu9MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+        Mitigacion mM = new Mitigacion();
+        mM.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
+        // TODO add your handling code here:
+        Contingencia mC = new Contingencia();
+        mC.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu10MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        // TODO add your handling code here:
+        Matriz mMZ = new Matriz();
+        mMZ.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        // TODO add your handling code here:
+        Login mL = new Login();
+        mL.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -250,18 +203,15 @@ public class PrincipalLider extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu A;
-    private javax.swing.JMenuItem A1;
-    private javax.swing.JMenuItem A2;
-    private javax.swing.JMenu I;
-    private javax.swing.JMenu R;
-    private javax.swing.JMenuItem R1;
-    private javax.swing.JMenuItem R2;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }

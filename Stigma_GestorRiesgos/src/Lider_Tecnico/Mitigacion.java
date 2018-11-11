@@ -37,6 +37,14 @@ public class Mitigacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
         BtnCan = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         CBProyecto = new javax.swing.JComboBox<>();
@@ -47,16 +55,69 @@ public class Mitigacion extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         TXTmit = new javax.swing.JTextArea();
         BTNagrear = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu11 = new javax.swing.JMenu();
+        jMenu12 = new javax.swing.JMenu();
+        jMenu14 = new javax.swing.JMenu();
+        jMenu15 = new javax.swing.JMenu();
+        jMenu16 = new javax.swing.JMenu();
+
+        jMenu1.setText("Inicio");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Gestion de Riesgos");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
+
+        jMenu9.setText("Asignacion de Riesgos");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu9MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu9);
+
+        jMenu3.setText("Acciones de Mitigacion");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu3);
+
+        jMenu10.setText("Acciones de Contingencia");
+        jMenu10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu10MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu10);
+
+        jMenu4.setText("Matriz de Riesgos");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Salir");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,81 +155,55 @@ public class Mitigacion extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("Inicio");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu8.setText("Inicio");
+        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                jMenu8MouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenuBar2.add(jMenu8);
 
-        jMenu2.setText("Riesgos");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu11.setText("Gestion de Riesgos");
+        jMenu11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
+                jMenu11MouseClicked(evt);
             }
         });
+        jMenuBar2.add(jMenu11);
 
-        jMenu4.setText("Gestion");
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu12.setText("Asignacion de Riesgos");
+        jMenu12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu4MouseClicked(evt);
+                jMenu12MouseClicked(evt);
             }
         });
-        jMenu2.add(jMenu4);
+        jMenuBar2.add(jMenu12);
 
-        jMenu7.setText("Asignacion");
-        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu14.setText("Acciones de Contingencia");
+        jMenu14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu7MouseClicked(evt);
+                jMenu14MouseClicked(evt);
             }
         });
-        jMenu2.add(jMenu7);
+        jMenuBar2.add(jMenu14);
 
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Acciones");
-        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu15.setText("Matriz de Riesgos");
+        jMenu15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu3MouseClicked(evt);
+                jMenu15MouseClicked(evt);
             }
         });
+        jMenuBar2.add(jMenu15);
 
-        jMenuItem4.setText("Mitigacion");
-        jMenuItem4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu16.setText("Salir");
+        jMenu16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem4MouseClicked(evt);
+                jMenu16MouseClicked(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        jMenuBar2.add(jMenu16);
 
-        jMenuItem3.setText("Contingencia");
-        jMenuItem3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem3MouseClicked(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu3);
-
-        jMenu5.setText("Matriz de Riesgos");
-        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu5MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu5);
-
-        jMenu6.setText("Salir");
-        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu6MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu6);
-
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,68 +260,6 @@ public class Mitigacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        // TODO add your handling code here:
-        PrincipalLider Lider = new PrincipalLider();
-        Lider.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenu1MouseClicked
-
-    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        // TODO add your handling code here:
-        Riesgos mR = new Riesgos();
-        mR.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenu4MouseClicked
-
-    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jMenu7MouseClicked
-
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        // TODO add your handling code here:
-        AsignarRiesgo mAR = new AsignarRiesgo();
-        mAR.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenu2MouseClicked
-
-    private void jMenuItem4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem4MouseClicked
-        // TODO add your handling code here:
-        Mitigacion mMitigacion = new Mitigacion();
-        mMitigacion.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem4MouseClicked
-
-    private void jMenuItem3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MouseClicked
-        // TODO add your handling code here:
-        Contingencia mC = new Contingencia();
-        mC.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem3MouseClicked
-
-    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        // TODO add your handling code here:
-        Mitigacion mM = new Mitigacion();
-        mM.setVisible(true);
-        this.dispose();
-
-    }//GEN-LAST:event_jMenu3MouseClicked
-
-    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        // TODO add your handling code here:
-        Matriz mMatriz = new Matriz();
-        mMatriz.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenu5MouseClicked
-
-    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
-        // TODO add your handling code here:
-        Login mLogin = new Login();
-        mLogin.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenu6MouseClicked
-
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
         // TODO add your handling code here:
         if(listo) {
@@ -335,6 +308,97 @@ public class Mitigacion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error en BD");
         }
     }//GEN-LAST:event_BTNagrearMouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        PrincipalLider mP = new PrincipalLider();
+        mP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        Riesgos mR = new Riesgos();
+        mR.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
+        // TODO add your handling code here:
+        AsignarRiesgo mAR = new AsignarRiesgo();
+        mAR.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu9MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+        Mitigacion mM = new Mitigacion();
+        mM.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
+        // TODO add your handling code here:
+        Contingencia mC = new Contingencia();
+        mC.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu10MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        // TODO add your handling code here:
+        Matriz mMZ = new Matriz();
+        mMZ.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        // TODO add your handling code here:
+        Login mL = new Login();
+        mL.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
+        // TODO add your handling code here:
+        PrincipalLider mP = new PrincipalLider();
+        mP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu8MouseClicked
+
+    private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
+        // TODO add your handling code here:
+        Riesgos mR = new Riesgos();
+        mR.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu11MouseClicked
+
+    private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
+        // TODO add your handling code here:
+        AsignarRiesgo mAR = new AsignarRiesgo();
+        mAR.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu12MouseClicked
+
+    private void jMenu14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu14MouseClicked
+        // TODO add your handling code here:
+        Contingencia mC = new Contingencia();
+        mC.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu14MouseClicked
+
+    private void jMenu15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu15MouseClicked
+        // TODO add your handling code here:
+        Matriz mMZ = new Matriz();
+        mMZ.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu15MouseClicked
+
+    private void jMenu16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu16MouseClicked
+        // TODO add your handling code here:
+        Login mL = new Login();
+        mL.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu16MouseClicked
 
     void LlenarC(){
         this.setLocationRelativeTo(null);
@@ -402,15 +466,20 @@ public class Mitigacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu14;
+    private javax.swing.JMenu jMenu15;
+    private javax.swing.JMenu jMenu16;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
