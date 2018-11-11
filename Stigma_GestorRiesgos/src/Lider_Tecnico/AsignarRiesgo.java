@@ -5,6 +5,11 @@
  */
 package Lider_Tecnico;
 
+import Administrador.BDUsuario;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Luis
@@ -14,8 +19,16 @@ public class AsignarRiesgo extends javax.swing.JFrame {
     /**
      * Creates new form AsignarRiesgo
      */
+    DefaultTableModel ModeloTabla = new DefaultTableModel();
+    boolean listo=false;
+    boolean listo2=false;
+    int ID = 0;
+    BDUsuario mBDU = new BDUsuario();
+    BDAcciones mBD = new BDAcciones();
     public AsignarRiesgo() {
         initComponents();
+        LlenarC();
+        LlenarD();
     }
 
     /**
@@ -38,20 +51,20 @@ public class AsignarRiesgo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        TBrisgos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        TBrisgos.setModel(ModeloTabla);
         jScrollPane2.setViewportView(TBrisgos);
 
         CBproyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBproyecto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBproyectoItemStateChanged(evt);
+            }
+        });
+        CBproyecto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CBproyectoMouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("Desarrollador a cargo");
 
@@ -121,6 +134,50 @@ public class AsignarRiesgo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CBDesarrolladoresActionPerformed
 
+    private void CBproyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CBproyectoMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_CBproyectoMouseClicked
+
+    private void CBproyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBproyectoItemStateChanged
+        // TODO add your handling code here:
+        if(listo) {
+       if (mBD.ConectarAcciones())  {
+            String C = "";
+            C = CBproyecto.getSelectedItem().toString();
+            ResultSet Lista = mBD.ConsultaRiesgos2(C);
+            
+            this.TBrisgos.setModel(Convertidor.convertir(Lista));
+        }
+        mBD.DesconectarAcciones();
+      }
+    }//GEN-LAST:event_CBproyectoItemStateChanged
+
+    void LlenarC(){
+        this.setLocationRelativeTo(null);
+        CBproyecto.removeAllItems();
+        if (mBD.ConectarAcciones() ) {
+            mBD.ConsultarCombo(CBproyecto);
+            listo=true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.DesconectarAcciones();
+    }
+
+    void LlenarD(){
+        this.setLocationRelativeTo(null);
+        CBDesarrolladores.removeAllItems();
+        if (mBDU.ConectarUsuario() ) {
+            mBDU.ConsultarComboU(this.CBDesarrolladores);
+            listo2=true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.DesconectarAcciones();
+    }
+
+    
     /**
      * @param args the command line arguments
      */

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 /**
  *
  * @author Luis
@@ -75,17 +76,6 @@ public class BDUsuario {
         try {
             consulta = Conexion.createStatement();
             resultado = consulta.executeQuery("select idusuario, nombre, nombreuser, email, tipouser from usuarios;");
-            /*
-            while (resultado.next()) {
-                mUsuario = new Usuario();
-                mUsuario.setID(resultado.getInt("idusuario"));
-                mUsuario.setNombre(resultado.getString("nombre"));
-                mUsuario.setNomUser(resultado.getString("nombreuser"));
-                mUsuario.setEmail(resultado.getString("email"));                
-                mUsuario.setTipoUser(resultado.getString("tipouser"));
-
-                mLista.add(mUsuario);
-            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -261,5 +251,25 @@ public class BDUsuario {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public void ConsultarComboU(JComboBox CBDesarrolladores)
+    {
+        Statement consulta;
+        ResultSet resultado = null;
+        
+        try{
+            String SQL = "select nombreuser from usuarios where tipouser = 'Desarrollador' order by nombreuser;";
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery(SQL);
+            CBDesarrolladores.addItem("Seleccione un Usuario");
+            
+            while(resultado.next()){
+                CBDesarrolladores.addItem(resultado.getString("nombreuser"));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 }

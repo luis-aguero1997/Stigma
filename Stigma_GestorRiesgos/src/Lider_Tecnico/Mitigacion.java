@@ -25,15 +25,7 @@ public class Mitigacion extends javax.swing.JFrame {
     BDAcciones mBD = new BDAcciones();
     public Mitigacion() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        CBProyecto.removeAllItems();
-        if (mBD.ConectarAcciones()) {
-            mBD.ConsultarCombo(CBProyecto);
-            listo=true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Error BD");
-        }
-        mBD.DesconectarAcciones();
+        LlenarC();
         
     }
     /**
@@ -314,7 +306,11 @@ public class Mitigacion extends javax.swing.JFrame {
         int Seleccion = 0;
         ID = 0;
         Seleccion = this.TBproyecto.rowAtPoint(evt.getPoint());
-        this.TXTmit.setText(this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString());
+        if (!this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString().equals("-")) {
+            this.TXTmit.setText(this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString());
+        } else {
+            TXTmit.setText("");
+        }
         ID = Integer.parseInt(TBproyecto.getModel().getValueAt(Seleccion,0).toString()); 
     }//GEN-LAST:event_TBproyectoMouseClicked
 
@@ -326,6 +322,8 @@ public class Mitigacion extends javax.swing.JFrame {
         
         if (mBD.ConectarAcciones()) {
             if (mBD.AgregarMitigacion(mR)) {
+                listo = false;
+                LlenarC();
                 JOptionPane.showMessageDialog(null, "Se agrego Accion de Mitigacion\n\tcon Exito");
                 TXTmit.setText("");
                 CBProyecto.setSelectedIndex(0);
@@ -338,6 +336,18 @@ public class Mitigacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BTNagrearMouseClicked
 
+    void LlenarC(){
+        this.setLocationRelativeTo(null);
+        CBProyecto.removeAllItems();
+        if (mBD.ConectarAcciones()) {
+            mBD.ConsultarCombo(CBProyecto);
+            listo=true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.DesconectarAcciones();
+    }
+    
     void Borrar() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBproyecto.getModel();
         //Borramosla tabla...

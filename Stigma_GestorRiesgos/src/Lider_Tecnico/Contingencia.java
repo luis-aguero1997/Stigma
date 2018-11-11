@@ -23,15 +23,7 @@ public class Contingencia extends javax.swing.JFrame {
     BDAcciones mBD = new BDAcciones();
     public Contingencia() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        CBProyecto.removeAllItems();
-        if (mBD.ConectarAcciones()) {
-            mBD.ConsultarCombo(CBProyecto);
-            listo=true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Error BD");
-        }
-        mBD.DesconectarAcciones();
+       LlenarC();
         
     }
 
@@ -303,6 +295,8 @@ public class Contingencia extends javax.swing.JFrame {
         if (mBD.ConectarAcciones()) {
             if (mBD.AgregarContingencia(mR)) {
                 JOptionPane.showMessageDialog(null, "Se agrego Accion de Contingencia\ncon Exito");
+                listo = false;
+                LlenarC();
                 TXTmit.setText("");
                 CBProyecto.setSelectedIndex(0);
                 Borrar();
@@ -333,13 +327,27 @@ public class Contingencia extends javax.swing.JFrame {
         int Seleccion = 0;
         ID = 0;
         Seleccion = this.TBproyecto.rowAtPoint(evt.getPoint());
-        if (this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString() != null) {
+        if (!this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString().equals("-")) {
             this.TXTmit.setText(this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString());
+        } else {
+            TXTmit.setText("");
         }
         
         ID = Integer.parseInt(TBproyecto.getModel().getValueAt(Seleccion,0).toString());
     }//GEN-LAST:event_TBproyectoMouseClicked
 
+    void LlenarC(){
+        this.setLocationRelativeTo(null);
+        CBProyecto.removeAllItems();
+        if (mBD.ConectarAcciones()) {
+            mBD.ConsultarCombo(CBProyecto);
+            listo=true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.DesconectarAcciones();
+    }
+    
     void Borrar() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBproyecto.getModel();
         //Borramosla tabla...

@@ -43,6 +43,7 @@ public class BDAcciones {
             System.err.println(e.getMessage());
         }
     }
+    
     public void ConsultarCombo(JComboBox CBProyecto)
     {
         Statement consulta;
@@ -89,14 +90,28 @@ public class BDAcciones {
         return resultado;
     }
     
-    public boolean AgregarMitigacion(Riesgo mRiesgo) {
+    public ResultSet ConsultaRiesgos2(String C){
         Statement consulta;
+        ResultSet resultado = null;
 
         try {
             consulta = Conexion.createStatement();
-            consulta.execute("update riesgo set " + 
+            resultado = consulta.executeQuery("select idriesgo, nombre, nombreuser  from riesgo where clave ='" + C + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    
+    public boolean AgregarMitigacion(Riesgo mRiesgo) {
+        Statement consulta;
+        String sql = "";
+        try {
+            consulta = Conexion.createStatement();
+            sql = "update riesgo set " + 
                         "accmitigacion = '" + mRiesgo.getMitigacion() + "'" +
-                        " where clave = '" + mRiesgo.getID() + "';");
+                        " where idriesgo = '" + mRiesgo.getID() + "';";
+            consulta.execute(sql);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,7 +126,22 @@ public class BDAcciones {
             consulta = Conexion.createStatement();
             consulta.execute("update riesgo set " + 
                         "acccontingencia = '" + mRiesgo.getContingencia() + "'" +
-                        " where clave = '" + mRiesgo.getID() + "';");
+                        " where idriesgo = '" + mRiesgo.getID() + "';");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean AgregarUsuario(Riesgo mRiesgo) {
+        Statement consulta;
+
+        try {
+            consulta = Conexion.createStatement();
+            consulta.execute("update riesgo set " + 
+                        "nombreuser = '" + mRiesgo.getNombreUser() + "'" +
+                        " where idriesgo = '" + mRiesgo.getID() + "';");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
