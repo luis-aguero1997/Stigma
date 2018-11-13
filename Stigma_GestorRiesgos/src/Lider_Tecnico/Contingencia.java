@@ -72,6 +72,7 @@ public class Contingencia extends javax.swing.JFrame {
         jLabel2.setText("Accion De Contingencia:");
 
         TXTmit.setColumns(20);
+        TXTmit.setLineWrap(true);
         TXTmit.setRows(5);
         jScrollPane3.setViewportView(TXTmit);
 

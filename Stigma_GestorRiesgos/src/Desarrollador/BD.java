@@ -73,7 +73,7 @@ public class BD {
 
         try {
             consulta = Conexion.createStatement();
-            resultado = consulta.executeQuery("select idriesgo, nombre, accmitigacion from riesgo where clave ='" + C + "';");
+            resultado = consulta.executeQuery("select idriesgo, nombre, estado, fecharevicion from riesgo where clave ='" + C + "';");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -260,6 +260,12 @@ public class Riesgos extends javax.swing.JFrame {
         jScrollPane4.setViewportView(TxtDes1);
 
         TBRiesgosM.setModel(ModeloTabla);
+        TBRiesgosM.setEnabled(false);
+        TBRiesgosM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBRiesgosMMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(TBRiesgosM);
 
         BtnModificar.setText("Modificar");
@@ -576,6 +582,17 @@ public class Riesgos extends javax.swing.JFrame {
         mL.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void TBRiesgosMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMMouseClicked
+        // TODO add your handling code here:
+        int Seleccion = 0;
+        ID = 0;
+        Seleccion = this.TBRiesgosM.rowAtPoint(evt.getPoint());
+        this.TxtTituo1.setText(this.TBRiesgosM.getModel().getValueAt(Seleccion, 1).toString());
+        this.TxtDes1.setText(this.TBRiesgosM.getModel().getValueAt(Seleccion, 2).toString());
+        ID = Integer.parseInt(TBRiesgosM.getModel().getValueAt(Seleccion,0).toString()); 
+        
+    }//GEN-LAST:event_TBRiesgosMMouseClicked
 
     void BorrarE() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgos.getModel();

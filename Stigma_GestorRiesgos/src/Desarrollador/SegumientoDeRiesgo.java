@@ -5,6 +5,7 @@
  */
 package Desarrollador;
 
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +18,9 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
     /**
      * Creates new form SegumientoDeRiesgo
      */
+    
+    boolean listo=false;
+    int ID = 0;
     BD mBD = new BD();
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     
@@ -57,18 +61,18 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
         jLabel1.setText("Clave De Proyecto:");
 
         CBproyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        TBProyecto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        CBproyecto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBproyectoItemStateChanged(evt);
             }
-        ));
+        });
+
+        TBProyecto.setModel(ModeloTabla);
+        TBProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBProyectoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TBProyecto);
 
         CBEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un estado", "Presentado", "No presentado", "Controlado", " " }));
@@ -145,6 +149,24 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void CBproyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBproyectoItemStateChanged
+        // TODO add your handling code here:
+                if(listo) {
+       if (mBD.Conectar())  {
+            String C = "";
+            C = CBproyecto.getSelectedItem().toString();
+            ResultSet Lista = mBD.ConsultaRiesgos(C);
+            
+            this.TBProyecto.setModel(Convertidor.convertir(Lista));
+        }
+        mBD.Desconectar();
+      }
+    }//GEN-LAST:event_CBproyectoItemStateChanged
+
+    private void TBProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBProyectoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TBProyectoMouseClicked
 
     /**
      * @param args the command line arguments
