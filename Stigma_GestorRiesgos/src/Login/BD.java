@@ -57,7 +57,6 @@ public class BD {
             while (resultado.next()) {
                 Usuario = resultado.getString("nombreuser");
             }
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No Existe");
             e.printStackTrace();
@@ -120,5 +119,24 @@ public class BD {
         }
 
         return Tipo;
+    }
+    
+    public int ConsultaID(String User) {
+        int ID = 0;
+        Statement consulta;
+        ResultSet resultado;
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idusuario from usuarios where nombreuser  = '" + User + "' or email = '" + User + "';");
+            while (resultado.next()) {
+                ID = resultado.getInt("idusuario");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No Existe");
+            e.printStackTrace();
+        }
+
+        return ID;
     }
 }

@@ -166,6 +166,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
 
     private void TBProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBProyectoMouseClicked
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_TBProyectoMouseClicked
 
     /**

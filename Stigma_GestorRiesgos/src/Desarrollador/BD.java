@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 
 
@@ -67,6 +68,25 @@ public class BD {
         }
     }
     
+    public String ConsultaUser(int ID) {
+        Statement consulta;
+        ResultSet resultado;
+        String User = "";
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select nombreuser from usuarios where idusuario  = '" + Usuario.IdUser + "';");
+            while (resultado.next()) {
+                User = resultado.getString("nombreuser");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No Existe");
+            e.printStackTrace();
+        }
+
+        return User;
+    }
+    
     public ResultSet ConsultaRiesgos(String C){
         Statement consulta;
         ResultSet resultado = null;
@@ -78,5 +98,22 @@ public class BD {
             e.printStackTrace();
         }
         return resultado;
+    }
+    
+    public boolean AltaSeguimiento(Riesgo mR){
+        Statement consulta;
+        String sql = "";
+        try {
+            consulta = Conexion.createStatement();
+            sql = "update riesgo set " + 
+                        "estado = '" + mR.getEstado() + "'," +
+                        "fecharevicion = '" + mR.getFechaRevicion() + "'" +
+                        " where idriesgo = '" + mR.getID() + "';";
+            consulta.execute(sql);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

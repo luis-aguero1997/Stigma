@@ -7,6 +7,7 @@ package Login;
 
 import Administrador.PrincipalAdmin;
 import Desarrollador.PrincipalDesarrollador;
+import Desarrollador.Usuario;
 import Lider_Tecnico.PrincipalLider;
 import javax.swing.JOptionPane;
 
@@ -112,6 +113,9 @@ public class Login extends javax.swing.JFrame {
                                 this.dispose();
                                 break;
                             case "Desarrollador":
+                                int ID = 0;
+                                ID = mBD.ConsultaID(User);
+                                Usuario.IdUser = ID;
                                 PrincipalDesarrollador Des = new PrincipalDesarrollador();
                                 Des.setVisible(true);;
                                 this.dispose();
@@ -134,7 +138,7 @@ public class Login extends javax.swing.JFrame {
 
     private void BtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirActionPerformed
         // TODO add your handling code here:
-        
+        System.exit(WIDTH);
     }//GEN-LAST:event_BtnSalirActionPerformed
 
     /**
