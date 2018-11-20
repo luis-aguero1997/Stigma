@@ -26,7 +26,7 @@ public class BDUsuario {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/riesgos", "root", "");
+                    "jdbc:mysql://localhost:3306/riesgos", "root", "");
             if (Conexion != null) {
                 return true;
             } else {

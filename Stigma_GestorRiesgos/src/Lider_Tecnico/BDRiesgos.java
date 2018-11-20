@@ -26,7 +26,7 @@ public class BDRiesgos {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/riesgos", "root", "");
+                    "jdbc:mysql://localhost:3306/riesgos", "root", "");
             if (Conexion != null) {
                 return true;
             } else {
@@ -81,6 +81,21 @@ public class BDRiesgos {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean ModificarRiesgo(Riesgo mRiesgo, Riesgo nRiesgo){
+        Statement consulta;
+        try {
+            consulta = Conexion.createStatement();
+            String SQL = "UPDATE riesgos.riesgo SET " 
+                    + "nombre = '" + nRiesgo.getTitulo()+ "'," 
+                    + "detalles = '" + nRiesgo.getDetalles()+ "'"
+                    + " where clave = '" + mRiesgo.getClave()+ "';";
+            consulta.execute(SQL);
+            return true; 
+        } catch (Exception e) {
+              e.printStackTrace();
             return false;
         }
     }

@@ -27,7 +27,7 @@ public class BDProyecto {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/riesgos", "root", "");
+                    "jdbc:mysql://localhost:3306/riesgos", "root", "");
             if (Conexion != null) {
                 return true;
             } else {
@@ -114,8 +114,8 @@ public class BDProyecto {
         Statement consulta;
         try {
             consulta = Conexion.createStatement();
-            String SQL = "UPDATE riesgos.Proyecto SET " 
-                    + "nombre = '" + nProyecto.getNombre()+ "'"
+            String SQL = "UPDATE riesgos.proyecto SET " 
+                    + "nombre = '" + nProyecto.getNombre()+ "'," 
                     + "descripcion = '" + nProyecto.getDescripcion()+ "'"
                     + " where clave = '" + mProyecto.getClave()+ "';";
             consulta.execute(SQL);

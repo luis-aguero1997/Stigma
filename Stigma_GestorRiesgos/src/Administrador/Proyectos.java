@@ -191,12 +191,12 @@ public class Proyectos extends javax.swing.JFrame {
         TBProyecto.setModel(ModeloTabla);
         TBProyecto.setEnabled(false);
         TBProyecto.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 TBProyectoAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         TBProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -292,11 +292,6 @@ public class Proyectos extends javax.swing.JFrame {
         BtnAdd1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BtnAdd1MouseClicked(evt);
-            }
-        });
-        BtnAdd1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAdd1ActionPerformed(evt);
             }
         });
 
@@ -528,6 +523,32 @@ public class Proyectos extends javax.swing.JFrame {
 
     private void BtnAdd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAdd1MouseClicked
         // TODO add your handling code here:
+        if (this.TxtNom1.equals("") || this.TxtDes1.equals("") || CBProyecto.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Proyecto y llene los campos");
+        } else{
+            if (mBD.ConectarProyecto()) {
+                
+                Proyecto mProyecto = new Proyecto();
+                Proyecto nProyecto = new Proyecto();
+                String T1 = "";
+                
+                
+                        mProyecto.setClave(TxtClave.getText());
+                        nProyecto.setNombre(TxtNom1.getText());
+                        nProyecto.setDescripcion(TxtDes1.getText());
+                    if (mBD.ModificarProyecto(mProyecto, nProyecto)) {
+                         JOptionPane.showMessageDialog(null, "Proyecto Modificado con Exito");
+                         TxtClave.setText("");
+                         TxtNom1.setText("");
+                         TxtDes1.setText((""));
+                         Borrar();
+                         setFilas();
+                    }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la BD");
+            }
+            mBD.DesconectarProyecto();
+        }
     }//GEN-LAST:event_BtnAdd1MouseClicked
 
     private void BtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEliminarMouseClicked
@@ -549,11 +570,6 @@ public class Proyectos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_BtnEliminarMouseClicked
-
-    private void BtnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAdd1ActionPerformed
-        //Modificar
-        
-    }//GEN-LAST:event_BtnAdd1ActionPerformed
 
     private void TxtCriterioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCriterioKeyTyped
         // TODO add your handling code here:
@@ -586,15 +602,11 @@ public class Proyectos extends javax.swing.JFrame {
     private void TBProyecto4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBProyecto4MouseClicked
         // TODO add your handling code here:
         int Seleccion = 0;
-        this.CBProyecto.setSelectedItem("");
-        
-        this.TxtNom1.setText(null);
-        this.TxtDes1.setText(null);
-        
-        Seleccion = this.TBProyecto.rowAtPoint(evt.getPoint());
-        this.CBProyecto.setSelectedItem(Integer.parseInt(this.CBProyecto.getSelectedItem().toString()));
-        this.TxtNom1.setText(this.TBProyecto.getModel().getValueAt(Seleccion, 2).toString());
-        this.TxtDes1.setText(this.TBProyecto.getModel().getValueAt(Seleccion, 3).toString());
+        Clave = "";
+        Seleccion = this.TBProyecto4.rowAtPoint(evt.getPoint());
+        this.TxtNom1.setText(this.TBProyecto4.getModel().getValueAt(Seleccion, 1).toString());
+        this.TxtDes1.setText(this.TBProyecto4.getModel().getValueAt(Seleccion, 2).toString());
+        Clave = TBProyecto4.getModel().getValueAt(Seleccion,0).toString(); 
     }//GEN-LAST:event_TBProyecto4MouseClicked
 
     private void Llenar() {
@@ -636,6 +648,22 @@ public class Proyectos extends javax.swing.JFrame {
         for (int i = c; i >= 0; i--) {
             LimpiadoTabla2.removeRow(LimpiadoTabla2.getRowCount() - 1);
         }
+    }
+    private void setFilas() {
+        
+        
+        
+        if (mBD.ConectarProyecto()) {
+            
+            ResultSet ListaE = mBD.ConsultaProyectos();
+            ResultSet ListaM = mBD.ConsultaProyectos();
+            ResultSet ListaC = mBD.ConsultaProyectos();
+            
+            this.TBProyecto.setModel(Convertidor.convertir(ListaE));
+            this.TBProyecto3.setModel(Convertidor.convertir(ListaM));
+            this.TBProyecto4.setModel(Convertidor.convertir(ListaC));
+        }
+        mBD.DesconectarProyecto();
     }
     /**
      * @param args the command line arguments

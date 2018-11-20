@@ -269,6 +269,11 @@ public class Riesgos extends javax.swing.JFrame {
         jScrollPane5.setViewportView(TBRiesgosM);
 
         BtnModificar.setText("Modificar");
+        BtnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnModificarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -594,6 +599,35 @@ public class Riesgos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_TBRiesgosMMouseClicked
 
+    private void BtnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnModificarMouseClicked
+        // TODO add your handling code here
+        
+        if (this.TxtTituo1.equals("") || this.TxtDes1.equals("") || CBProyecto3.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Riesgo y llene los campos");
+        } else{
+            if (mBD.ConectarRiesgos()) {
+                
+                Riesgo mRiesgo = new Riesgo();
+                Riesgo nRiesgo = new Riesgo();
+                String T1 = "";
+                
+                
+                        mRiesgo.setClave(TxtID.getText());
+                        nRiesgo.setTitulo(TxtTituo1.getText());
+                        nRiesgo.setDetalles(TxtDes1.getText());
+                    if (mBD.ModificarRiesgo(mRiesgo, nRiesgo)) {
+                         JOptionPane.showMessageDialog(null, "Proyecto Modificado con Exito");
+                         TxtID.setText("");
+                         TxtTituo1.setText("");
+                         TxtDes1.setText((""));
+                    }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en la BD");
+            }
+            mBD.DesconectarRiesgos();
+        }
+    }//GEN-LAST:event_BtnModificarMouseClicked
+
     void BorrarE() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgos.getModel();
         //Borramosla tabla...
@@ -613,7 +647,6 @@ public class Riesgos extends javax.swing.JFrame {
             LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
         }
     }
-    
     
     
     /**
