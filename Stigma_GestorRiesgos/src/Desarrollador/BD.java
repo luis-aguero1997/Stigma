@@ -25,7 +25,6 @@ public class BD {
     static Statement Sentencia;
     static ResultSet Resultado;
     private Connection Conexion;
-    
     public boolean Conectar() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -68,24 +67,8 @@ public class BD {
         }
     }
     
-    public String ConsultaUser(int ID) {
-        Statement consulta;
-        ResultSet resultado;
-        String User = "";
-        try {
-            consulta = Conexion.createStatement();
-            resultado = consulta.executeQuery("select nombreuser from usuarios where idusuario  = '" + Usuario.IdUser + "';");
-            while (resultado.next()) {
-                User = resultado.getString("nombreuser");
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No Existe");
-            e.printStackTrace();
-        }
-
-        return User;
-    }
+    
+    
     
     public ResultSet ConsultaRiesgos(String C){
         Statement consulta;
@@ -93,7 +76,8 @@ public class BD {
 
         try {
             consulta = Conexion.createStatement();
-            resultado = consulta.executeQuery("select idriesgo, nombre, estado, fecharevicion from riesgo where clave ='" + C + "';");
+            resultado = consulta.executeQuery("select idriesgo, nombre, estado, fecharevicion from riesgo "
+                    + "where clave ='" + C + " AND nombreuser ='" + Usuario.User + "';");
         } catch (Exception e) {
             e.printStackTrace();
         }

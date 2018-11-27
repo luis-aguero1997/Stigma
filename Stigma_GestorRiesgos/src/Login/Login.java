@@ -113,9 +113,10 @@ public class Login extends javax.swing.JFrame {
                                 this.dispose();
                                 break;
                             case "Desarrollador":
-                                int ID = 0;
-                                ID = mBD.ConsultaID(User);
-                                Usuario.IdUser = ID;
+                                Usuario.User = "";
+                                Usuario.User = mBD.ConsultaUser(User);
+                                
+                                System.out.printf(Usuario.User);
                                 PrincipalDesarrollador Des = new PrincipalDesarrollador();
                                 Des.setVisible(true);;
                                 this.dispose();

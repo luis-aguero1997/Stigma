@@ -6,6 +6,7 @@
 package Desarrollador;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,17 +24,10 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
     int ID = 0;
     BD mBD = new BD();
     DefaultTableModel ModeloTabla = new DefaultTableModel();
-    
+    SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy/MM/dd");
     public SegumientoDeRiesgo() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        CBproyecto.removeAllItems();
-        if (mBD.Conectar()) {
-            mBD.ConsultarCombo(CBproyecto);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error BD");
-        }
-        mBD.Desconectar();
+        Llenar();
     }
 
     /**
@@ -75,13 +69,18 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TBProyecto);
 
-        CBEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un estado", "Presentado", "No presentado", "Controlado", " " }));
+        CBEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione un estado--", "No Presentado", "Presentado", "Controlado" }));
 
         jLabel2.setText("Estado:");
 
         jLabel3.setText("Fecha de Seguimiento:");
 
         BTNAgregar.setText("Agregar");
+        BTNAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTNAgregarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,7 +151,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
 
     private void CBproyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBproyectoItemStateChanged
         // TODO add your handling code here:
-                if(listo) {
+        if(listo) {
        if (mBD.Conectar())  {
             String C = "";
             C = CBproyecto.getSelectedItem().toString();
@@ -166,9 +165,61 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
 
     private void TBProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBProyectoMouseClicked
         // TODO add your handling code here:
+        int Seleccion = 0;
+        ID = 0;
         
+        Seleccion = this.TBProyecto.rowAtPoint(evt.getPoint());
+        this.CBEstado.setSelectedItem(this.TBProyecto.getModel().getValueAt(Seleccion, 1).toString());
+        ID = Integer.parseInt(TBProyecto.getModel().getValueAt(Seleccion,0).toString()); 
     }//GEN-LAST:event_TBProyectoMouseClicked
 
+    private void BTNAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNAgregarMouseClicked
+        // TODO add your handling code here:
+        if ((CBEstado.getSelectedIndex() == 0) || (this.jDateChooser1.getDate() == null) || (ID == 0)) {
+           JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue los datos necesarios");
+        } else{
+            Riesgo mR = new Riesgo();
+            mR.setEstado(CBEstado.getSelectedItem().toString());
+            mR.setFechaRevicion(formatofecha.format(this.jDateChooser1.getDate()) );
+            mR.setID(ID);
+            if (mBD.Conectar()) {
+                if (mBD.AltaSeguimiento(mR)) {
+                    JOptionPane.showMessageDialog(null, "Estado dado de alta");
+                    listo = false;
+                    CBEstado.setSelectedIndex(0);
+                    jDateChooser1 = null;
+                    Borrar();
+                    Llenar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en BD");
+            }
+        }
+    }//GEN-LAST:event_BTNAgregarMouseClicked
+
+    public void Llenar(){
+        this.setLocationRelativeTo(null);
+        CBproyecto.removeAllItems();
+        if (mBD.Conectar()) {
+            mBD.ConsultarCombo(CBproyecto);
+            listo = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.Desconectar();
+    }
+    void Borrar() {
+        DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBProyecto.getModel();
+        //Borramosla tabla...
+        int c = this.TBProyecto.getRowCount() - 1;
+        
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

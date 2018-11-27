@@ -11,4 +11,5 @@ package Desarrollador;
  */
 public class Usuario {
     public static int IdUser;
+    public static String User;
 }

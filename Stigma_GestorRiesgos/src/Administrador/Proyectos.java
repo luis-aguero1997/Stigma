@@ -191,12 +191,12 @@ public class Proyectos extends javax.swing.JFrame {
         TBProyecto.setModel(ModeloTabla);
         TBProyecto.setEnabled(false);
         TBProyecto.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 TBProyectoAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         TBProyecto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,6 +294,11 @@ public class Proyectos extends javax.swing.JFrame {
                 BtnAdd1MouseClicked(evt);
             }
         });
+        BtnAdd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAdd1ActionPerformed(evt);
+            }
+        });
 
         BtnCan1.setText("Cancelar");
 
@@ -330,11 +335,6 @@ public class Proyectos extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(TxtNom1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -344,14 +344,18 @@ public class Proyectos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(BtnAdd1)
                         .addGap(148, 148, 148)
-                        .addComponent(BtnCan1)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                        .addComponent(BtnCan1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -543,7 +547,9 @@ public class Proyectos extends javax.swing.JFrame {
                          TxtDes1.setText((""));
                          Borrar();
                          setFilas();
-                    }
+                    } else {
+                    JOptionPane.showMessageDialog(null, "Error al Modificado");    
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Error en la BD");
             }
@@ -608,6 +614,10 @@ public class Proyectos extends javax.swing.JFrame {
         this.TxtDes1.setText(this.TBProyecto4.getModel().getValueAt(Seleccion, 2).toString());
         Clave = TBProyecto4.getModel().getValueAt(Seleccion,0).toString(); 
     }//GEN-LAST:event_TBProyecto4MouseClicked
+
+    private void BtnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAdd1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnAdd1ActionPerformed
 
     private void Llenar() {
         if (mBD.ConectarProyecto()) {

@@ -517,7 +517,7 @@ public class Riesgos extends javax.swing.JFrame {
 
     private void TBRiesgosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMouseClicked
         // TODO add your handling code here:
-                int Seleccion = 0;
+        int Seleccion = 0;
         ID = 0;
         this.TxtID.setText("");
         Seleccion = this.TBRiesgos.rowAtPoint(evt.getPoint());

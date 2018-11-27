@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JComboBox;
 
 /**
@@ -48,11 +50,14 @@ public class BDRiesgos {
     
     public boolean AgregarRiesgo(Riesgo mRiesgo) {
         Statement consulta;
+        Date Hoy = new Date();
+        SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy/MM/dd");
         try {
+            
             consulta = Conexion.createStatement();
             String SQL = "INSERT INTO riesgos.riesgo "
                     + "(idriesgo,clave,nombre,detalles,npro,nimp,exposicion,accmitigacion,"
-                    + "acccontingencia)"
+                    + "acccontingencia, fecharevicion, estado,nombreuser)"
                     + "VALUES ("
                     + "NULL" + ",'"
                     + mRiesgo.getClave() + "','" 
@@ -62,7 +67,10 @@ public class BDRiesgos {
                     + "0" + ","
                     + "0" + ",'"
                     + "-" + "','"
-                    + "-" + "'"                    
+                    + "-" + "','"
+                    + formatofecha.format(Hoy) + "','"
+                    + "No Presentado" + "','"
+                    + "-" + "'"
                     + ");";
             consulta.execute(SQL);
             return true; 

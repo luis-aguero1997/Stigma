@@ -18,9 +18,13 @@ public class PrincipalDesarrollador extends javax.swing.JFrame {
      * Creates new form PrincipalDesarrollador
      */
     BD mBD = new BD();
+    
     DefaultTableModel ModeloTabla = new DefaultTableModel();
+    int ID = 0;
     public PrincipalDesarrollador() {
         initComponents();
+        
+        System.out.printf(Usuario.User);
     }
 
     /**
@@ -119,19 +123,17 @@ public class PrincipalDesarrollador extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
+    /*
     void Llenar(){
         if (mBD.Conectar())  {
             
-            String C = mBD.ConsultaUser(Usuario.IdUser);
-            
-            ResultSet Lista = mBD.ConsultaRiesgos(C);
+            ResultSet Lista = mBD.ConsultaRiesgos(Usuario.User);
             
             this.TBAsignar.setModel(Desarrollador.Convertidor.convertir(Lista));
         }
         mBD.Desconectar();
     }
-    
+    */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
