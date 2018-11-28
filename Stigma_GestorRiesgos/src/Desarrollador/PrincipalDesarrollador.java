@@ -5,6 +5,7 @@
  */
 package Desarrollador;
 
+import Login.Login;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,13 +19,14 @@ public class PrincipalDesarrollador extends javax.swing.JFrame {
      * Creates new form PrincipalDesarrollador
      */
     BD mBD = new BD();
-    
+
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     int ID = 0;
+
     public PrincipalDesarrollador() {
         initComponents();
-        
-        System.out.printf(Usuario.User);
+        Llenar();
+        //System.out.printf(Usuario.User);
     }
 
     /**
@@ -78,6 +80,11 @@ public class PrincipalDesarrollador extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Salir");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -120,20 +127,26 @@ public class PrincipalDesarrollador extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu4MouseClicked
 
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        // TODO add your handling code here:
+        Login mL = new Login();
+        mL.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu5MouseClicked
+
     /**
      * @param args the command line arguments
      */
-    /*
-    void Llenar(){
-        if (mBD.Conectar())  {
-            
+    void Llenar() {
+        if (mBD.Conectar()) {
+
             ResultSet Lista = mBD.ConsultaRiesgos(Usuario.User);
-            
+
             this.TBAsignar.setModel(Desarrollador.Convertidor.convertir(Lista));
         }
         mBD.Desconectar();
     }
-    */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

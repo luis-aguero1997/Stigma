@@ -5,6 +5,8 @@
  */
 package Desarrollador;
 
+import Login.Login;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,17 +21,10 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
      */
     BD mBD = new BD();
     DefaultTableModel ModeloTabla = new DefaultTableModel();
-    
+    boolean listo = false;
     public AsignarProbabilidad() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        CBProyecto.removeAllItems();
-        if (mBD.Conectar()) {
-            mBD.ConsultarCombo(CBProyecto);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error BD");
-        }
-        mBD.Desconectar();
+        Llenar();
     }
 
     /**
@@ -44,45 +39,78 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         CBProyecto = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TBRisgos = new javax.swing.JTable();
+        TBRiesgos = new javax.swing.JTable();
         CBProbabailidad = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         CBImpacto = new javax.swing.JComboBox<>();
         BTNAceptar = new javax.swing.JButton();
         BTNConctar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Clave Del Proyecto:");
 
         CBProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        TBRisgos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+        CBProyecto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBProyectoItemStateChanged(evt);
             }
-        ));
-        jScrollPane1.setViewportView(TBRisgos);
+        });
 
-        CBProbabailidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        TBRiesgos.setModel(ModeloTabla);
+        jScrollPane1.setViewportView(TBRiesgos);
+
+        CBProbabailidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione un Numero-", "1", "2", "3", "4" }));
 
         jLabel2.setText("Asignar Probabilidad:");
 
         jLabel3.setText("Impacto:");
 
-        CBImpacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        CBImpacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccine un Numero-", "1", "2", "3", "4" }));
 
         BTNAceptar.setText("Aceptar");
 
         BTNConctar.setText("Conectar");
+
+        jMenu1.setText("Inicio");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Asignar Probabilidad e Impacto");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Seguimiento");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Salir");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu5);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,12 +160,73 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTNConctar)
                     .addComponent(BTNAceptar))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        new PrincipalDesarrollador().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        new AsignarProbabilidad().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        // TODO add your handling code here:
+        new SegumientoDeRiesgo().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        // TODO add your handling code here:
+        Login mL = new Login();
+        mL.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
+        // TODO add your handling code here:
+        if(listo) {
+       if (mBD.Conectar())  {
+            String C = "";
+            C = CBProyecto.getSelectedItem().toString();
+            ResultSet Lista = mBD.ConsultaRiesgos2(C);
+            
+            this.TBRiesgos.setModel(Convertidor.convertir(Lista));
+        }
+        mBD.Desconectar();
+      }
+    }//GEN-LAST:event_CBProyectoItemStateChanged
+
+    
+    public void Llenar(){
+        this.setLocationRelativeTo(null);
+        CBProyecto.removeAllItems();
+        if (mBD.Conectar()) {
+            mBD.ConsultarCombo(CBProyecto);
+            listo = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.Desconectar();
+    }
+    void Borrar() {
+        DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgos.getModel();
+        //Borramosla tabla...
+        int c = this.TBRiesgos.getRowCount() - 1;
+        
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -179,10 +268,15 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBImpacto;
     private javax.swing.JComboBox<String> CBProbabailidad;
     private javax.swing.JComboBox<String> CBProyecto;
-    private javax.swing.JTable TBRisgos;
+    private javax.swing.JTable TBRiesgos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

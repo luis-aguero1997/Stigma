@@ -77,7 +77,23 @@ public class BD {
         try {
             consulta = Conexion.createStatement();
             resultado = consulta.executeQuery("select idriesgo, nombre, estado, fecharevicion from riesgo "
-                    + "where clave ='" + C + " AND nombreuser ='" + Usuario.User + "';");
+                    + "where nombreuser ='" + Usuario.User + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    
+    public ResultSet ConsultaRiesgos2(String C){
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, nombre, npro, nimp, exposicion from riesgo "
+                    + "where nombreuser ='" + Usuario.User 
+                    + "AND clave ='" + C + "'"
+                    + "';");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,6 +109,24 @@ public class BD {
                         "estado = '" + mR.getEstado() + "'," +
                         "fecharevicion = '" + mR.getFechaRevicion() + "'" +
                         " where idriesgo = '" + mR.getID() + "';";
+            consulta.execute(sql);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean AltaPIE(Riesgo mR){
+        Statement consulta;
+        String sql = "";
+        try {
+            consulta = Conexion.createStatement();
+            sql = "update riesgo set " + 
+                        "npro = '" + mR.getNpro() + "'," +
+                        "nimp = '" + mR.getNimp() + "'," +
+                        "exposicion = '" + mR.getExp() + "'" +
+                        "where idriesgo = '" + mR.getID() + "';";
             consulta.execute(sql);
             return true;
         } catch (Exception e) {
