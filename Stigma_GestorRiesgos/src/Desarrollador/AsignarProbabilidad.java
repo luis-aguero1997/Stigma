@@ -6,6 +6,7 @@
 package Desarrollador;
 
 import Login.Login;
+import java.awt.Color;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,9 +23,17 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     BD mBD = new BD();
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     boolean listo = false;
+    Riesgo mR = new Riesgo();
+    int ID = 0;
+
     public AsignarProbabilidad() {
         initComponents();
         Llenar();
+        IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
+        jPanel1.add(Fondoq).repaint();
+        jPanel1.setOpaque(false);
+        jPanel1.setBorder(null);
+        jPanel1.setBackground(new Color(0, 0, 0, 64));
     }
 
     /**
@@ -36,14 +45,15 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         CBProyecto = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBRiesgos = new javax.swing.JTable();
-        CBProbabailidad = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        CBProbabailidad = new javax.swing.JComboBox<>();
         CBImpacto = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
         BTNAceptar = new javax.swing.JButton();
         BTNConctar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -64,19 +74,83 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
         });
 
         TBRiesgos.setModel(ModeloTabla);
+        TBRiesgos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBRiesgosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TBRiesgos);
-
-        CBProbabailidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione un Numero-", "1", "2", "3", "4" }));
 
         jLabel2.setText("Asignar Probabilidad:");
 
-        jLabel3.setText("Impacto:");
+        CBProbabailidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione un Numero-", "1", "2", "3", "4" }));
 
         CBImpacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccine un Numero-", "1", "2", "3", "4" }));
 
+        jLabel3.setText("Impacto:");
+
         BTNAceptar.setText("Aceptar");
+        BTNAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTNAceptarMouseClicked(evt);
+            }
+        });
 
         BTNConctar.setText("Conectar");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(BTNAceptar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(BTNConctar))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CBImpacto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(CBProbabailidad, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(133, 133, 133))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(CBProbabailidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CBImpacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BTNConctar)
+                    .addComponent(BTNAceptar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jMenu1.setText("Inicio");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -116,51 +190,11 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(BTNAceptar)
-                            .addGap(18, 18, 18)
-                            .addComponent(BTNConctar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(CBImpacto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(CBProbabailidad, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(41, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(CBProbabailidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CBImpacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BTNConctar)
-                    .addComponent(BTNAceptar))
-                .addContainerGap(16, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -193,20 +227,66 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
         // TODO add your handling code here:
-        if(listo) {
-       if (mBD.Conectar())  {
-            String C = "";
-            C = CBProyecto.getSelectedItem().toString();
-            ResultSet Lista = mBD.ConsultaRiesgos2(C);
-            
-            this.TBRiesgos.setModel(Convertidor.convertir(Lista));
+        if (listo) {
+            if (mBD.Conectar()) {
+                String C = "";
+                C = CBProyecto.getSelectedItem().toString();
+                ResultSet Lista = mBD.ConsultaRiesgos2(C);
+
+                this.TBRiesgos.setModel(Convertidor.convertir(Lista));
+            }
+            mBD.Desconectar();
         }
-        mBD.Desconectar();
-      }
     }//GEN-LAST:event_CBProyectoItemStateChanged
 
-    
-    public void Llenar(){
+    private void TBRiesgosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMouseClicked
+        // TODO add your handling code here:
+        int Seleccion = 0;
+        ID = 0;
+
+        Seleccion = this.TBRiesgos.rowAtPoint(evt.getPoint());
+        this.CBProbabailidad.setSelectedItem(this.TBRiesgos.getModel().getValueAt(Seleccion, 2).toString());
+        this.CBImpacto.setSelectedItem(this.TBRiesgos.getModel().getValueAt(Seleccion, 3).toString());
+
+        ID = Integer.parseInt(TBRiesgos.getModel().getValueAt(Seleccion, 0).toString());
+    }//GEN-LAST:event_TBRiesgosMouseClicked
+
+    private void BTNAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNAceptarMouseClicked
+        // TODO add your handling code here:
+        if (ID == 0 || CBProbabailidad.getSelectedIndex() == 0 || CBImpacto.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un riesgo y llene los datos que se piden");
+        } else {
+            mR.setID(ID);
+            mR.setNpro(this.CBProbabailidad.getSelectedIndex());
+            mR.setNimp(this.CBImpacto.getSelectedIndex());
+            mR.setExp(mR.getNimp() * mR.getNpro());
+            if (mBD.Conectar()) {
+                if (mBD.AltaPIE(mR)) {
+                    JOptionPane.showMessageDialog(null, "Valores agregados exitosamente");
+                    this.CBProbabailidad.setSelectedIndex(0);
+                    this.CBImpacto.setSelectedIndex(0);
+                    Borrar();
+                    if (listo) {
+                        if (mBD.Conectar()) {
+                            String C = "";
+                            C = CBProyecto.getSelectedItem().toString();
+                            ResultSet Lista = mBD.ConsultaRiesgos2(C);
+
+                            this.TBRiesgos.setModel(Convertidor.convertir(Lista));
+                        }
+                        mBD.Desconectar();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al agregar");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en BD");
+            }
+            mBD.Desconectar();
+        }
+    }//GEN-LAST:event_BTNAceptarMouseClicked
+
+    public void Llenar() {
         this.setLocationRelativeTo(null);
         CBProyecto.removeAllItems();
         if (mBD.Conectar()) {
@@ -217,16 +297,17 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
         }
         mBD.Desconectar();
     }
+
     void Borrar() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgos.getModel();
         //Borramosla tabla...
         int c = this.TBRiesgos.getRowCount() - 1;
-        
+
         for (int i = c; i >= 0; i--) {
             LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -277,6 +358,7 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

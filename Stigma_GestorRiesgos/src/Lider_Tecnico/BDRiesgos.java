@@ -138,4 +138,20 @@ public class BDRiesgos {
         }
         return resultado;
     }
+     
+     public ResultSet Matriz(String C) {
+        ArrayList mLista = new ArrayList();
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, clave, nombre, npro, nimp, "
+                    + "exposicion, accmitigacion, acccontingencia, fecharevicion, estado, nombreuser from riesgo"
+                    + " where clave ='" + C + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
 }

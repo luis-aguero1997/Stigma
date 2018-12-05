@@ -110,14 +110,14 @@ public class BDProyecto {
         }
         return resultado;
     }
-     public boolean ModificarProyecto(Proyecto mProyecto, Proyecto nProyecto){
+     public boolean ModificarProyecto(Proyecto mP){
         Statement consulta;
         try {
             consulta = Conexion.createStatement();
             String SQL = "UPDATE riesgos.proyecto SET " 
-                    + "nombre = '" + nProyecto.getNombre()+ "'," 
-                    + "descripcion = '" + nProyecto.getDescripcion()+ "'"
-                    + " where clave = '" + mProyecto.getClave()+ "';";
+                    + "nombre = '" + mP.getNombre()+ "'," 
+                    + "descripcion = '" + mP.getDescripcion()+ "'"
+                    + " where clave = '" + mP.getClave()+ "';";
             consulta.execute(SQL);
             return true; 
         } catch (Exception e) {
@@ -155,4 +155,21 @@ public class BDProyecto {
         }
     }
 
+    public ResultSet Matriz(String C) {
+        ArrayList mLista = new ArrayList();
+        Proyecto mProyecto = new Proyecto();
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, clave, nombre, npro, nimp, "
+                    + "exposicion, accmitigacion, acccontingencia, fecharevicion, estado, nombreuser from riesgo"
+                    + " where clave ='" + C + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    
 }

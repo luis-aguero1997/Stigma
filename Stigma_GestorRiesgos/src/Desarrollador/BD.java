@@ -92,8 +92,8 @@ public class BD {
             consulta = Conexion.createStatement();
             resultado = consulta.executeQuery("select idriesgo, nombre, npro, nimp, exposicion from riesgo "
                     + "where nombreuser ='" + Usuario.User 
-                    + "AND clave ='" + C + "'"
-                    + "';");
+                    + "' AND clave ='" + C + "'"
+                    + ";");
         } catch (Exception e) {
             e.printStackTrace();
         }

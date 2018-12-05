@@ -27,7 +27,7 @@ public class BD {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/riesgos", "root", "");
+                    "jdbc:mysql://localhost/riesgos", "root", "");
             if (Conexion != null) {
                 return true;
             } else {

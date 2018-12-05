@@ -7,6 +7,9 @@ package Lider_Tecnico;
 
 import Administrador.*;
 import Login.Login;
+import java.awt.Color;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,9 +19,17 @@ import javax.swing.table.DefaultTableModel;
 public class Matriz extends javax.swing.JFrame {
 
     DefaultTableModel ModeloTabla = new DefaultTableModel();
+    BDRiesgos mBD = new BDRiesgos();
+    boolean listo = false;
     public Matriz() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Llenar();
+        IMG.Fondo FondoA = new IMG.Fondo(Fondo);
+        Fondo.add(FondoA).repaint();
+        Fondo.setOpaque(false);
+        Fondo.setBorder(null);
+        Fondo.setBackground(new Color(0, 0, 0, 64));
     }
 
     /**
@@ -30,6 +41,7 @@ public class Matriz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Fondo = new javax.swing.JPanel();
         CBProyecto = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBProyecto = new javax.swing.JTable();
@@ -45,9 +57,34 @@ public class Matriz extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         CBProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CBProyecto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CBProyectoItemStateChanged(evt);
+            }
+        });
 
         TBProyecto.setModel(ModeloTabla);
         jScrollPane1.setViewportView(TBProyecto);
+
+        javax.swing.GroupLayout FondoLayout = new javax.swing.GroupLayout(Fondo);
+        Fondo.setLayout(FondoLayout);
+        FondoLayout.setHorizontalGroup(
+            FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FondoLayout.createSequentialGroup()
+                .addGap(237, 237, 237)
+                .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(337, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        FondoLayout.setVerticalGroup(
+            FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
 
         jMenu1.setText("Inicio");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -111,23 +148,13 @@ public class Matriz extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(CBProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -182,6 +209,42 @@ public class Matriz extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu5MouseClicked
 
+    private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
+        // TODO add your handling code here:
+        if (listo) {
+            if (mBD.ConectarRiesgos() ) {
+                String C = "";
+                C = CBProyecto.getSelectedItem().toString();
+                ResultSet Lista = mBD.Matriz(C);
+                this.TBProyecto.setModel(Desarrollador.Convertidor.convertir(Lista));
+            }
+            mBD.DesconectarRiesgos();
+        }
+    }//GEN-LAST:event_CBProyectoItemStateChanged
+
+    
+    public void Llenar() {
+        this.setLocationRelativeTo(null);
+        CBProyecto.removeAllItems();
+        if (mBD.ConectarRiesgos()) {
+            mBD.ComboClaveProyecto(CBProyecto);
+            listo = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error BD");
+        }
+        mBD.DesconectarRiesgos();
+    }
+
+    void Borrar() {
+        DefaultTableModel LimpiadoTabla = (DefaultTableModel) this.TBProyecto.getModel();
+        //Borramosla tabla...
+        int c = this.TBProyecto.getRowCount() - 1;
+
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -220,6 +283,7 @@ public class Matriz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CBProyecto;
+    private javax.swing.JPanel Fondo;
     private javax.swing.JTable TBProyecto;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
