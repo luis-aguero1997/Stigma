@@ -500,7 +500,7 @@ public class Proyectos extends javax.swing.JFrame {
 
     private void BtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEliminarMouseClicked
         // TODO add your handling code here:
-        if (TxtEliminar.equals("")) {
+        if ( Clave == "") {
             JOptionPane.showMessageDialog(null, "Seleccine un proyecto");
         } else {
             if (mBD.ConectarProyecto()) {
@@ -536,7 +536,7 @@ public class Proyectos extends javax.swing.JFrame {
 
     private void BtnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAddMouseClicked
         // TODO add your handling code here:
-        if (TxtClave.equals("") || TxtNom.equals("") || TxtDes.equals("") || Inicio.equals(null) || Fin.equals(null)) {
+        if (TxtClave.equals("") || TxtNom.equals("") || TxtDes.equals("") || Inicio.getDate() == null || Fin.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Llena los campos antes de guardar");
         } else {
             if (mBD.ConectarProyecto()) {
@@ -586,7 +586,7 @@ public class Proyectos extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        if (TxtNom1.equals("") || TxtDes1.equals("") || ClaveM.equals("")) {
+        if (TxtNom1.getText() == "" || TxtDes1.getText() == "" || ClaveM == "") {
             JOptionPane.showMessageDialog(null, "Seleccione un Proyecto y llene los campos a modificar");
         } else {
             Proyecto mP = new Proyecto();

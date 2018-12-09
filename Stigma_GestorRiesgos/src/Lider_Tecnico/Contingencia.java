@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package Lider_Tecnico;
+
 import Login.Login;
 import java.awt.Color;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Luis
@@ -19,13 +21,14 @@ public class Contingencia extends javax.swing.JFrame {
      * Creates new form Contingencia
      */
     DefaultTableModel ModeloTabla = new DefaultTableModel();
-    boolean listo=false;
-    int ID = 0;
+    boolean listo = false;
+    int ID;
     BDAcciones mBD = new BDAcciones();
+
     public Contingencia() {
         initComponents();
-       LlenarC();
-       IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
+        LlenarC();
+        IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
         jPanel1.add(Fondoq).repaint();
         jPanel1.setOpaque(false);
         jPanel1.setBorder(null);
@@ -61,6 +64,7 @@ public class Contingencia extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Asignar Accion de Contingencia");
 
         jLabel1.setText("Clave De Proyecto:");
 
@@ -221,35 +225,39 @@ public class Contingencia extends javax.swing.JFrame {
         Riesgo mR = new Riesgo();
         mR.setID(ID);
         mR.setContingencia(this.TXTmit.getText());
-        
-        if (mBD.ConectarAcciones()) {
-            if (mBD.AgregarContingencia(mR)) {
-                JOptionPane.showMessageDialog(null, "Se agrego Accion de Contingencia\ncon Exito");
-                listo = false;
-                LlenarC();
-                TXTmit.setText("");
-                CBProyecto.setSelectedIndex(0);
-                Borrar();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al agregar Accion de Contingencia");
-            }
+
+        if (this.TXTmit.getText() == "" || this.CBProyecto.getSelectedIndex() == 0 || ID == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue la accion de Contingencia");
         } else {
-            JOptionPane.showMessageDialog(null, "Error en BD");
+            if (mBD.ConectarAcciones()) {
+                if (mBD.AgregarContingencia(mR)) {
+                    JOptionPane.showMessageDialog(null, "Se agrego Accion de Contingencia\ncon Exito");
+                    listo = false;
+                    LlenarC();
+                    TXTmit.setText("");
+                    CBProyecto.setSelectedIndex(0);
+                    Borrar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al agregar Accion de Contingencia");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en BD");
+            }
         }
     }//GEN-LAST:event_BTNagrearMouseClicked
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
         // TODO add your handling code here:
-        if(listo) {
-       if (mBD.ConectarAcciones())  {
-            String C = "";
-            C = CBProyecto.getSelectedItem().toString();
-            ResultSet Lista = mBD.ConsultaRiesgos1(C);
-            
-            this.TBproyecto.setModel(Convertidor.convertir(Lista));
+        if (listo) {
+            if (mBD.ConectarAcciones()) {
+                String C = "";
+                C = CBProyecto.getSelectedItem().toString();
+                ResultSet Lista = mBD.ConsultaRiesgos1(C);
+
+                this.TBproyecto.setModel(Convertidor.convertir(Lista));
+            }
+            mBD.DesconectarAcciones();
         }
-        mBD.DesconectarAcciones();
-      }
     }//GEN-LAST:event_CBProyectoItemStateChanged
 
     private void TBproyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBproyectoMouseClicked
@@ -262,8 +270,8 @@ public class Contingencia extends javax.swing.JFrame {
         } else {
             TXTmit.setText("");
         }
-        
-        ID = Integer.parseInt(TBproyecto.getModel().getValueAt(Seleccion,0).toString());
+
+        ID = Integer.parseInt(TBproyecto.getModel().getValueAt(Seleccion, 0).toString());
     }//GEN-LAST:event_TBproyectoMouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
@@ -308,28 +316,28 @@ public class Contingencia extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu5MouseClicked
 
-    void LlenarC(){
+    void LlenarC() {
         this.setLocationRelativeTo(null);
         CBProyecto.removeAllItems();
         if (mBD.ConectarAcciones()) {
             mBD.ConsultarCombo(CBProyecto);
-            listo=true;
+            listo = true;
         } else {
             JOptionPane.showMessageDialog(null, "Error BD");
         }
         mBD.DesconectarAcciones();
     }
-    
+
     void Borrar() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBproyecto.getModel();
         //Borramosla tabla...
         int c = this.TBproyecto.getRowCount() - 1;
-        
+
         for (int i = c; i >= 0; i--) {
             LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

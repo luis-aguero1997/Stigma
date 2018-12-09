@@ -25,6 +25,7 @@ public class Usuarios extends javax.swing.JFrame {
     BDUsuario mBD = new BDUsuario();
     int ID = 0;
     String Clave = "";
+
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -58,7 +59,7 @@ public class Usuarios extends javax.swing.JFrame {
         Fondo4.setOpaque(false);
         Fondo4.setBorder(null);
         Fondo4.setBackground(new Color(0, 0, 0, 64));
-        
+
         //AutoSizeMode = GrowAndShrink;
     }
 
@@ -114,6 +115,7 @@ public class Usuarios extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion de Usuarios");
         setBackground(new java.awt.Color(204, 0, 204));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -420,25 +422,21 @@ public class Usuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void setFilas() {
-        
-        
-        
+
         if (mBD.ConectarUsuario()) {
-            
+
             ResultSet ListaE = mBD.Consulta();
             ResultSet ListaM = mBD.Consulta();
             ResultSet ListaC = mBD.Consulta();
-            
+
             this.TBUsuarios1.setModel(Convertidor.convertir(ListaE));
             this.TBUsuarios2.setModel(Convertidor.convertir(ListaM));
             this.TBUsuarios3.setModel(Convertidor.convertir(ListaC));
         }
         mBD.DesconectarUsuario();
     }
-   
-   
+
     void Borrar() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBUsuarios1.getModel();
         DefaultTableModel LimpiadoTabla2 = (DefaultTableModel) TBUsuarios2.getModel();
@@ -451,28 +449,28 @@ public class Usuarios extends javax.swing.JFrame {
         for (int i = a; i >= 0; i--) {
             LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
         }
-        
+
         for (int i = b; i >= 0; i--) {
             LimpiadoTabla2.removeRow(LimpiadoTabla2.getRowCount() - 1);
         }
-        
-        for (int i = c; i >= 0; i--) {
-            LimpiadoTabla3.removeRow(LimpiadoTabla3.getRowCount() - 1);
-        }
-    }    
-    
-    void BorrarC() {
-        DefaultTableModel LimpiadoTabla3 = (DefaultTableModel) TBUsuarios3.getModel();
-        //Borramosla tabla...
-        int c = TBUsuarios3.getRowCount() - 1;
-        
+
         for (int i = c; i >= 0; i--) {
             LimpiadoTabla3.removeRow(LimpiadoTabla3.getRowCount() - 1);
         }
     }
-   
+
+    void BorrarC() {
+        DefaultTableModel LimpiadoTabla3 = (DefaultTableModel) TBUsuarios3.getModel();
+        //Borramosla tabla...
+        int c = TBUsuarios3.getRowCount() - 1;
+
+        for (int i = c; i >= 0; i--) {
+            LimpiadoTabla3.removeRow(LimpiadoTabla3.getRowCount() - 1);
+        }
+    }
+
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+
     }//GEN-LAST:event_formWindowActivated
 
     private void TBUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios1MouseClicked
@@ -481,16 +479,16 @@ public class Usuarios extends javax.swing.JFrame {
         this.TxtEliminar.setText("");
         Seleccion = this.TBUsuarios1.rowAtPoint(evt.getPoint());
         this.TxtEliminar.setText(this.TBUsuarios1.getModel().getValueAt(Seleccion, 1).toString());
-        ID = Integer.parseInt(TBUsuarios1.getModel().getValueAt(Seleccion,0).toString()); 
+        ID = Integer.parseInt(TBUsuarios1.getModel().getValueAt(Seleccion, 0).toString());
     }//GEN-LAST:event_TBUsuarios1MouseClicked
 
     private void TBUsuarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios2MouseClicked
         int Seleccion = 0;
         this.TxtID.setText("");
-        
+
         this.TxtNomUser1.setText(null);
         this.TxtPass.setText(null);
-        
+
         Seleccion = this.TBUsuarios2.rowAtPoint(evt.getPoint());
         this.TxtID.setText(this.TBUsuarios2.getModel().getValueAt(Seleccion, 0).toString());
         this.TxtNomUser1.setText(this.TBUsuarios2.getModel().getValueAt(Seleccion, 2).toString());
@@ -506,8 +504,7 @@ public class Usuarios extends javax.swing.JFrame {
                     TxtEliminar.setText("");
                     Borrar();
                     this.setFilas();
-                    
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al Eliminar");
                 }
@@ -531,10 +528,10 @@ public class Usuarios extends javax.swing.JFrame {
         } else {
             BorrarC();
             if (mBD.ConectarUsuario()) {
-                
+
                 ResultSet Lista = null;
                 Lista = mBD.ConsultaFiltro(TxtCriterio.getText());
-                
+
                 this.TBUsuarios3.setModel(Convertidor.convertir(Lista));
 
             } else {
@@ -548,7 +545,7 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         if ((this.TxtNom.equals(null)) || (this.TxtNomUser.equals(null)) || (this.TxtEmail.equals(null)) || (TxtPass.equals(null)) || CBTipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Llene todos los campos antes de guardar");
-            
+
         } else {
             Usuario mUsuario = new Usuario();
             mUsuario.setNombre(TxtNom.getText());
@@ -556,7 +553,7 @@ public class Usuarios extends javax.swing.JFrame {
             mUsuario.setEmail(TxtEmail.getText());
             mUsuario.setPassword(TxtPass.getText());
             mUsuario.setTipoUser(CBTipo.getSelectedItem().toString());
-            
+
             if (mBD.ConectarUsuario()) {
                 if (mBD.AgregarUsuario(mUsuario)) {
                     JOptionPane.showMessageDialog(null, "Usuario Dado de alta de forma exitosa");
@@ -615,37 +612,34 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void BtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnModMouseClicked
         // TODO add your handling code here:
-        if (this.TxtNomUser1.equals("") || this.TxtPass1.equals("") || this.TxtID.equals("")) {
+        if (this.TxtNomUser1.getText() == "" || this.TxtPass1.getText() == "" || this.TxtID.getText() == "") {
             JOptionPane.showMessageDialog(null, "Seleccione un usuario y llene los campos");
-        } else{
+        } else {
             if (mBD.ConectarUsuario()) {
-                
+
                 Usuario mUsuario = new Usuario();
                 Usuario nUsuario = new Usuario();
                 String T1 = "";
-                
-                
-                        mUsuario.setID(Integer.parseInt(TxtID.getText()));
-                        nUsuario.setNomUser(TxtNomUser1.getText());
-                        nUsuario.setPassword(TxtPass1.getText());
-                    if (mBD.ModificarUsuario(mUsuario, nUsuario)) {
-                         JOptionPane.showMessageDialog(null, "Usuario Modificado con Exito");
-                         TxtID.setText("");
-                         TxtNomUser.setText("");
-                         TxtPass1.setText((""));
-                         Borrar();
-                         setFilas();
-                    }
+
+                mUsuario.setID(Integer.parseInt(TxtID.getText()));
+                nUsuario.setNomUser(TxtNomUser1.getText());
+                nUsuario.setPassword(TxtPass1.getText());
+                if (mBD.ModificarUsuario(mUsuario, nUsuario)) {
+                    JOptionPane.showMessageDialog(null, "Usuario Modificado con Exito");
+                    TxtID.setText("");
+                    TxtNomUser1.setText("");
+                    TxtPass1.setText((""));
+                    Borrar();
+                    setFilas();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Error en la BD");
             }
             mBD.DesconectarUsuario();
         }
-      
+
     }//GEN-LAST:event_BtnModMouseClicked
 
-    
-    
     /**
      * @param args the command line arguments
      */

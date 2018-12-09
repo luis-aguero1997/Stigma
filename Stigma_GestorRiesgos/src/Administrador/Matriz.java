@@ -52,6 +52,7 @@ public class Matriz extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Matriz de Riesgos");
         setResizable(false);
 
         TBProyecto.setModel(ModeloTabla);

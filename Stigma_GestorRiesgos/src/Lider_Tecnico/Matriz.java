@@ -55,6 +55,7 @@ public class Matriz extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Matriz de Riesgos");
 
         CBProyecto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         CBProyecto.addItemListener(new java.awt.event.ItemListener() {

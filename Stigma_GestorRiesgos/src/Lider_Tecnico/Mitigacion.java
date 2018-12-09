@@ -21,9 +21,10 @@ public class Mitigacion extends javax.swing.JFrame {
      * Creates new form Mitigacion
      */
     DefaultTableModel ModeloTabla = new DefaultTableModel();
-    boolean listo=false;
+    boolean listo = false;
     int ID = 0;
     BDAcciones mBD = new BDAcciones();
+
     public Mitigacion() {
         initComponents();
         LlenarC();
@@ -33,6 +34,7 @@ public class Mitigacion extends javax.swing.JFrame {
         jPanel1.setBorder(null);
         jPanel1.setBackground(new Color(0, 0, 0, 64));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,6 +128,7 @@ public class Mitigacion extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Asignar Accion de Mitigacion");
 
         jLabel1.setText("Clave De Proyecto:");
 
@@ -278,16 +281,16 @@ public class Mitigacion extends javax.swing.JFrame {
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
         // TODO add your handling code here:
-        if(listo) {
-       if (mBD.ConectarAcciones())  {
-            String C = "";
-            C = CBProyecto.getSelectedItem().toString();
-            ResultSet Lista = mBD.ConsultaRiesgos(C);
-            
-            this.TBproyecto.setModel(Convertidor.convertir(Lista));
+        if (listo) {
+            if (mBD.ConectarAcciones()) {
+                String C = "";
+                C = CBProyecto.getSelectedItem().toString();
+                ResultSet Lista = mBD.ConsultaRiesgos(C);
+
+                this.TBproyecto.setModel(Convertidor.convertir(Lista));
+            }
+            mBD.DesconectarAcciones();
         }
-        mBD.DesconectarAcciones();
-      }
     }//GEN-LAST:event_CBProyectoItemStateChanged
 
     private void TBproyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBproyectoMouseClicked
@@ -300,7 +303,7 @@ public class Mitigacion extends javax.swing.JFrame {
         } else {
             TXTmit.setText("");
         }
-        ID = Integer.parseInt(TBproyecto.getModel().getValueAt(Seleccion,0).toString()); 
+        ID = Integer.parseInt(TBproyecto.getModel().getValueAt(Seleccion, 0).toString());
     }//GEN-LAST:event_TBproyectoMouseClicked
 
     private void BTNagrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNagrearMouseClicked
@@ -308,20 +311,25 @@ public class Mitigacion extends javax.swing.JFrame {
         Riesgo mR = new Riesgo();
         mR.setID(ID);
         mR.setMitigacion(this.TXTmit.getText());
-        
-        if (mBD.ConectarAcciones()) {
-            if (mBD.AgregarMitigacion(mR)) {
-                listo = false;
-                LlenarC();
-                JOptionPane.showMessageDialog(null, "Se agrego Accion de Mitigacion\n\tcon Exito");
-                TXTmit.setText("");
-                CBProyecto.setSelectedIndex(0);
-                Borrar();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al agregar Accion de Mitigacion");
-            }
+
+        if (this.TXTmit.getText() == "" || this.CBProyecto.getSelectedIndex() == 0 || ID == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue la accion de Mitigacion");
         } else {
-            JOptionPane.showMessageDialog(null, "Error en BD");
+
+            if (mBD.ConectarAcciones()) {
+                if (mBD.AgregarMitigacion(mR)) {
+                    listo = false;
+                    LlenarC();
+                    JOptionPane.showMessageDialog(null, "Se agrego Accion de Mitigacion\n\tcon Exito");
+                    TXTmit.setText("");
+                    CBProyecto.setSelectedIndex(0);
+                    Borrar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al agregar Accion de Mitigacion");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Error en BD");
+            }
         }
     }//GEN-LAST:event_BTNagrearMouseClicked
 
@@ -416,27 +424,28 @@ public class Mitigacion extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenu16MouseClicked
 
-    void LlenarC(){
+    void LlenarC() {
         this.setLocationRelativeTo(null);
         CBProyecto.removeAllItems();
         if (mBD.ConectarAcciones()) {
             mBD.ConsultarCombo(CBProyecto);
-            listo=true;
+            listo = true;
         } else {
             JOptionPane.showMessageDialog(null, "Error BD");
         }
         mBD.DesconectarAcciones();
     }
-    
+
     void Borrar() {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBproyecto.getModel();
         //Borramosla tabla...
         int c = this.TBproyecto.getRowCount() - 1;
-        
+
         for (int i = c; i >= 0; i--) {
             LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
         }
     }
+
     /**
      * @param args the command line arguments
      */

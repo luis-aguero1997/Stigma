@@ -63,6 +63,7 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Asignar Probabilidad e Impacto");
 
         jLabel1.setText("Clave Del Proyecto:");
 

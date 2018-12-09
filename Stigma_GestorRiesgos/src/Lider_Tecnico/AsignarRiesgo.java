@@ -65,6 +65,7 @@ public class AsignarRiesgo extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Asignacion de Riesgos");
 
         BTNasignar.setText("Asignar");
         BTNasignar.addMouseListener(new java.awt.event.MouseAdapter() {

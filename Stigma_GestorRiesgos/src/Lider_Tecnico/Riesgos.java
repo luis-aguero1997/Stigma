@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Lider_Tecnico;
+
 import Login.Login;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -21,8 +22,9 @@ public class Riesgos extends javax.swing.JFrame {
      */
     BDRiesgos mBD = new BDRiesgos();
     DefaultTableModel ModeloTabla = new DefaultTableModel();
-    boolean listo=false;
+    boolean listo = false;
     int ID = 0;
+
     public Riesgos() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -35,13 +37,12 @@ public class Riesgos extends javax.swing.JFrame {
             mBD.ComboClaveProyecto(CBProyecto1);
             mBD.ComboClaveProyecto(CBProyecto2);
             mBD.ComboClaveProyecto(CBProyecto3);
-            listo=true;
+            listo = true;
         } else {
             JOptionPane.showMessageDialog(null, "Error BD");
         }
         mBD.DesconectarRiesgos();
-        
-        
+
         IMG.Fondo Fondoq = new IMG.Fondo(Fondo);
         Fondo.add(Fondoq).repaint();
         Fondo.setOpaque(false);
@@ -149,6 +150,9 @@ public class Riesgos extends javax.swing.JFrame {
 
         BtnAceptar.setText("Aceptar");
         BtnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnAceptarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 BtnAceptarMouseExited(evt);
             }
@@ -241,19 +245,21 @@ public class Riesgos extends javax.swing.JFrame {
             .addGroup(Fondo2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Fondo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                     .addGroup(Fondo2Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
                         .addGroup(Fondo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(Fondo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Fondo2Layout.createSequentialGroup()
-                                .addComponent(TxtID, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                .addComponent(TxtID)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BtnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(CBProyecto1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(95, Short.MAX_VALUE))
+                            .addComponent(CBProyecto1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         Fondo2Layout.setVerticalGroup(
             Fondo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,42 +497,20 @@ public class Riesgos extends javax.swing.JFrame {
 
     private void BtnAceptarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAceptarMouseExited
         // TODO add your handling code here:
-        if (CBProyecto.getSelectedIndex() == 0 || this.TxtTitulo.equals("") || TxtDes.equals("")) {
-            JOptionPane.showMessageDialog(null, "Llene los Campos antes de Guardar");
-        } else{
-            Riesgo mRiesgo = new Riesgo();
-            mRiesgo.setClave(CBProyecto.getSelectedItem().toString());
-            mRiesgo.setTitulo(TxtTitulo.getText());
-            mRiesgo.setDetalles(TxtDes.getText());
-            
-            if (mBD.ConectarRiesgos()) {
-                if (mBD.AgregarRiesgo(mRiesgo)) {
-                    JOptionPane.showMessageDialog(null, "Riesgo dado de Alta exitosamente");
-                    CBProyecto.setSelectedIndex(0);
-                    TxtTitulo.setText("");
-                    TxtDes.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al dar de Alta");
-                }
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Error en BD");
-            }
-        }
     }//GEN-LAST:event_BtnAceptarMouseExited
 
     private void CBProyecto1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto1ItemStateChanged
         // TODO add your handling code here:
-      if(listo) {
-       if (mBD.ConectarRiesgos())  {
-            String C = "";
-            C = CBProyecto1.getSelectedItem().toString();
-            ResultSet ListaE = mBD.ConsultaRiesgos(C);
-            
-            this.TBRiesgos.setModel(Convertidor.convertir(ListaE));
+        if (listo) {
+            if (mBD.ConectarRiesgos()) {
+                String C = "";
+                C = CBProyecto1.getSelectedItem().toString();
+                ResultSet ListaE = mBD.ConsultaRiesgos(C);
+
+                this.TBRiesgos.setModel(Convertidor.convertir(ListaE));
+            }
+            mBD.DesconectarRiesgos();
         }
-        mBD.DesconectarRiesgos();
-      }
     }//GEN-LAST:event_CBProyecto1ItemStateChanged
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
@@ -535,30 +519,30 @@ public class Riesgos extends javax.swing.JFrame {
 
     private void CBProyecto3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto3ItemStateChanged
         // TODO add your handling code here:
-         if(listo) {
-       if (mBD.ConectarRiesgos())  {
-            String C = "";
-            C = CBProyecto3.getSelectedItem().toString();
-            ResultSet ListaM = mBD.ConsultaRiesgos(C);
-            
-            this.TBRiesgosM.setModel(Convertidor.convertir(ListaM));
+        if (listo) {
+            if (mBD.ConectarRiesgos()) {
+                String C = "";
+                C = CBProyecto3.getSelectedItem().toString();
+                ResultSet ListaM = mBD.ConsultaRiesgos(C);
+
+                this.TBRiesgosM.setModel(Convertidor.convertir(ListaM));
+            }
+            mBD.DesconectarRiesgos();
         }
-        mBD.DesconectarRiesgos();
-      }
     }//GEN-LAST:event_CBProyecto3ItemStateChanged
 
     private void CBProyecto2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto2ItemStateChanged
         // TODO add your handling code here:
-        if(listo) {
-       if (mBD.ConectarRiesgos())  {
-            String C = "";
-            C = CBProyecto2.getSelectedItem().toString();
-            ResultSet ListaC = mBD.ConsultaRiesgos(C);
-            
-            this.TBRiesgosC.setModel(Convertidor.convertir(ListaC));
+        if (listo) {
+            if (mBD.ConectarRiesgos()) {
+                String C = "";
+                C = CBProyecto2.getSelectedItem().toString();
+                ResultSet ListaC = mBD.ConsultaRiesgos(C);
+
+                this.TBRiesgosC.setModel(Convertidor.convertir(ListaC));
+            }
+            mBD.DesconectarRiesgos();
         }
-        mBD.DesconectarRiesgos();
-      }
     }//GEN-LAST:event_CBProyecto2ItemStateChanged
 
     private void TBRiesgosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMouseClicked
@@ -568,12 +552,12 @@ public class Riesgos extends javax.swing.JFrame {
         this.TxtID.setText("");
         Seleccion = this.TBRiesgos.rowAtPoint(evt.getPoint());
         this.TxtID.setText(this.TBRiesgos.getModel().getValueAt(Seleccion, 1).toString());
-        ID = Integer.parseInt(TBRiesgos.getModel().getValueAt(Seleccion,0).toString()); 
+        ID = Integer.parseInt(TBRiesgos.getModel().getValueAt(Seleccion, 0).toString());
     }//GEN-LAST:event_TBRiesgosMouseClicked
 
     private void BtnDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDelMouseClicked
         // TODO add your handling code here:
-                if (this.TxtID.getText().equals("")) {
+        if (this.TxtID.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Selecione un riesgo antes");
         } else {
             if (mBD.ConectarRiesgos()) {
@@ -641,32 +625,31 @@ public class Riesgos extends javax.swing.JFrame {
         Seleccion = this.TBRiesgosM.rowAtPoint(evt.getPoint());
         this.TxtTituo1.setText(this.TBRiesgosM.getModel().getValueAt(Seleccion, 1).toString());
         this.TxtDes1.setText(this.TBRiesgosM.getModel().getValueAt(Seleccion, 2).toString());
-        ID = Integer.parseInt(TBRiesgosM.getModel().getValueAt(Seleccion,0).toString()); 
-        
+        ID = Integer.parseInt(TBRiesgosM.getModel().getValueAt(Seleccion, 0).toString());
+
     }//GEN-LAST:event_TBRiesgosMMouseClicked
 
     private void BtnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnModificarMouseClicked
         // TODO add your handling code here
-        
+
         if (this.TxtTituo1.equals("") || this.TxtDes1.equals("") || CBProyecto3.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un Riesgo y llene los campos");
-        } else{
+        } else {
             if (mBD.ConectarRiesgos()) {
-                
+
                 Riesgo mRiesgo = new Riesgo();
                 Riesgo nRiesgo = new Riesgo();
                 String T1 = "";
-                
-                
-                        mRiesgo.setClave(TxtID.getText());
-                        nRiesgo.setTitulo(TxtTituo1.getText());
-                        nRiesgo.setDetalles(TxtDes1.getText());
-                    if (mBD.ModificarRiesgo(mRiesgo, nRiesgo)) {
-                         JOptionPane.showMessageDialog(null, "Proyecto Modificado con Exito");
-                         TxtID.setText("");
-                         TxtTituo1.setText("");
-                         TxtDes1.setText((""));
-                    }
+
+                mRiesgo.setClave(TxtID.getText());
+                nRiesgo.setTitulo(TxtTituo1.getText());
+                nRiesgo.setDetalles(TxtDes1.getText());
+                if (mBD.ModificarRiesgo(mRiesgo, nRiesgo)) {
+                    JOptionPane.showMessageDialog(null, "Proyecto Modificado con Exito");
+                    TxtID.setText("");
+                    TxtTituo1.setText("");
+                    TxtDes1.setText((""));
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Error en la BD");
             }
@@ -678,30 +661,59 @@ public class Riesgos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtTituo1ActionPerformed
 
-    void BorrarE() {
+    private void BtnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAceptarMouseClicked
+        // TODO add your handling code here:
+        if ((CBProyecto.getSelectedIndex() == 0)) {
+            JOptionPane.showMessageDialog(null, "Llene los Campos antes de Guardar");
+        } else if ((this.TxtTitulo.getText() == "")) {
+            JOptionPane.showMessageDialog(null, "Llene los Campos antes de Guardar");
+        } else if ((TxtDes.getText() == "")) {
+            JOptionPane.showMessageDialog(null, "Llene los Campos antes de Guardar");
+        } else {
+            Riesgo mRiesgo = new Riesgo();
+            mRiesgo.setClave(CBProyecto.getSelectedItem().toString());
+            mRiesgo.setTitulo(TxtTitulo.getText());
+            mRiesgo.setDetalles(TxtDes.getText());
+
+            if (mBD.ConectarRiesgos()) {
+                if (mBD.AgregarRiesgo(mRiesgo)) {
+                    JOptionPane.showMessageDialog(null, "Riesgo dado de Alta exitosamente");
+                    CBProyecto.setSelectedIndex(0);
+                    TxtTitulo.setText("");
+                    TxtDes.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al dar de Alta");
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnAceptarMouseClicked
+
+        void BorrarE
+        
+            () {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgos.getModel();
-        //Borramosla tabla...
-        int c = TBRiesgos.getRowCount() - 1;
-        
-        for (int i = c; i >= 0; i--) {
-            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+            //Borramosla tabla...
+            int c = TBRiesgos.getRowCount() - 1;
+
+            for (int i = c; i >= 0; i--) {
+                LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+            }
         }
-    }
-    
-    void BorrarM() {
+
+        void BorrarM
+        
+            () {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBRiesgosM.getModel();
-        //Borramosla tabla...
-        int c = TBRiesgosM.getRowCount() - 1;
-        
-        for (int i = c; i >= 0; i--) {
-            LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+            //Borramosla tabla...
+            int c = TBRiesgosM.getRowCount() - 1;
+
+            for (int i = c; i >= 0; i--) {
+                LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
+            }
         }
-    }
-    
-    
-    /**
-     * @param args the command line arguments
-     */
+        /**
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
