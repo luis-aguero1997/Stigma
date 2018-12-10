@@ -22,7 +22,7 @@ public class Mitigacion extends javax.swing.JFrame {
      */
     DefaultTableModel ModeloTabla = new DefaultTableModel();
     boolean listo = false;
-    int ID = 0;
+    int ID;
     BDAcciones mBD = new BDAcciones();
 
     public Mitigacion() {
@@ -296,7 +296,6 @@ public class Mitigacion extends javax.swing.JFrame {
     private void TBproyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBproyectoMouseClicked
         // TODO add your handling code here:
         int Seleccion = 0;
-        ID = 0;
         Seleccion = this.TBproyecto.rowAtPoint(evt.getPoint());
         if (!this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString().equals("-")) {
             this.TXTmit.setText(this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString());
@@ -308,14 +307,13 @@ public class Mitigacion extends javax.swing.JFrame {
 
     private void BTNagrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNagrearMouseClicked
         // TODO add your handling code here:
-        Riesgo mR = new Riesgo();
-        mR.setID(ID);
-        mR.setMitigacion(this.TXTmit.getText());
 
         if (this.TXTmit.getText() == "" || this.CBProyecto.getSelectedIndex() == 0 || ID == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue la accion de Mitigacion");
         } else {
-
+            Riesgo mR = new Riesgo();
+            mR.setID(ID);
+            mR.setMitigacion(this.TXTmit.getText());
             if (mBD.ConectarAcciones()) {
                 if (mBD.AgregarMitigacion(mR)) {
                     listo = false;

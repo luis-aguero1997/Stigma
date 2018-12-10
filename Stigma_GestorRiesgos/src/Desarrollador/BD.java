@@ -13,18 +13,17 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-
-
 /**
  *
  * @author Stigma
  */
 public class BD {
-    
+
     static Connection Conection = null;
     static Statement Sentencia;
     static ResultSet Resultado;
     private Connection Conexion;
+
     public boolean Conectar() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -48,29 +47,27 @@ public class BD {
             System.err.println(e.getMessage());
         }
     }
-    public void ConsultarCombo(JComboBox CBProyecto)
-    {
+
+    public void ConsultarCombo(JComboBox CBProyecto) {
         Statement consulta;
         ResultSet resultado = null;
-        
-        try{
+
+        try {
             String SQL = "select clave from proyecto order by clave";
             consulta = Conexion.createStatement();
             resultado = consulta.executeQuery(SQL);
             CBProyecto.addItem("Seleccione un Proyecto");
-            
-            while(resultado.next()){
+
+            while (resultado.next()) {
                 CBProyecto.addItem(resultado.getString("clave"));
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    
-    
-    
-    public ResultSet ConsultaRiesgos(String C){
+
+    //Principal Desarrollador
+    public ResultSet ConsultaRiesgos(String C) {
         Statement consulta;
         ResultSet resultado = null;
 
@@ -83,15 +80,32 @@ public class BD {
         }
         return resultado;
     }
-    
-    public ResultSet ConsultaRiesgos2(String C){
+
+    //Seguimiento
+    public ResultSet ConsultaRiesgos2(String C) {
         Statement consulta;
         ResultSet resultado = null;
 
         try {
             consulta = Conexion.createStatement();
             resultado = consulta.executeQuery("select idriesgo, nombre, npro, nimp, exposicion from riesgo "
-                    + "where nombreuser ='" + Usuario.User 
+                    + "where clave ='" + C + "'"
+                    + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
+    //
+    public ResultSet ConsultaValores(String C) {
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, nombre, npro, nimp, exposicion from riesgo "
+                    + "where nombreuser ='" + Usuario.User
                     + "' AND clave ='" + C + "'"
                     + ";");
         } catch (Exception e) {
@@ -99,16 +113,16 @@ public class BD {
         }
         return resultado;
     }
-    
-    public boolean AltaSeguimiento(Riesgo mR){
+
+    public boolean AltaSeguimiento(Riesgo mR) {
         Statement consulta;
         String sql = "";
         try {
             consulta = Conexion.createStatement();
-            sql = "update riesgo set " + 
-                        "estado = '" + mR.getEstado() + "'," +
-                        "fecharevicion = '" + mR.getFechaRevicion() + "'" +
-                        " where idriesgo = '" + mR.getID() + "';";
+            sql = "update riesgo set "
+                    + "estado = '" + mR.getEstado() + "',"
+                    + "fecharevicion = '" + mR.getFechaRevicion() + "'"
+                    + " where idriesgo = '" + mR.getID() + "';";
             consulta.execute(sql);
             return true;
         } catch (Exception e) {
@@ -116,22 +130,107 @@ public class BD {
             return false;
         }
     }
-    
-    public boolean AltaPIE(Riesgo mR){
+    //Alta de valores para tabla valores
+    public boolean AltaPIE(Riesgo mR) {
         Statement consulta;
-        String sql = "";
         try {
             consulta = Conexion.createStatement();
-            sql = "update riesgo set " + 
-                        "npro = '" + mR.getNpro() + "'," +
-                        "nimp = '" + mR.getNimp() + "'," +
-                        "exposicion = '" + mR.getExp() + "'" +
-                        "where idriesgo = '" + mR.getID() + "';";
-            consulta.execute(sql);
+            String SQL = "INSERT INTO riesgos.valores "
+                    + "(idvalor, idriesgo, probabilidad, impacto, nombreuser) "
+                    + "VALUES ("
+                    + "null" + ","
+                    + mR.getID() + ","
+                    + mR.getNpro() + ","
+                    + mR.getNimp() + ",'"
+                    + mR.getNombreUser() + "');";
+            consulta.execute(SQL);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public boolean ValoresRiesgo(Riesgo mR) {
+        Statement consulta;
+        try {
+            consulta = Conexion.createStatement();
+            String SQL = "update riesgo set "
+                    + "npro = " + mR.getNpro() + ","
+                    + "nimp = " + mR.getNimp() + ","
+                    + "exposicion = " + mR.getExp() 
+                    + " where idriesgo = '" + mR.getID() + "';";
+            consulta.execute(SQL);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    //Alta de Valores para tala riesgos
+    public boolean Duplicidad(Riesgo mR) {
+        Statement consulta;
+        ResultSet resultado;
+        String Res = "";
+        String Sentencia = null;
+        try {
+            consulta = Conexion.createStatement();
+            Sentencia = "SELECT idvalor FROM valores " + "WHERE nombreuser = '" + mR.getNombreUser()
+                    + "' and idriesgo =" + mR.getID() + ";";
+            resultado = consulta.executeQuery(Sentencia);
+            while (resultado.next()) {
+                Res = resultado.getString("idvalor");
+            }
+            if (Res.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public int Probabiidad (Riesgo mR){
+        int valor = 0;
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select avg(probabilidad) AS promedio from valores " +
+                     "where idriesgo =' " + mR.getID() + "';");   
+            
+            while (resultado.next()) {
+                valor = resultado.getInt("promedio");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return valor;
+    }
+
+    public int Impacto(Riesgo mR) {
+        int impacto = 0;
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select avg(impacto) AS promedio from valores " +
+                     "where idriesgo ='" + mR.getID() + "';");   
+            
+            while (resultado.next()) {
+                impacto = resultado.getInt("promedio");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return impacto;
     }
 }
+

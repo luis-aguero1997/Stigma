@@ -244,11 +244,7 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
         // TODO add your handling code here:
         int Seleccion = 0;
         ID = 0;
-
         Seleccion = this.TBRiesgos.rowAtPoint(evt.getPoint());
-        this.CBProbabailidad.setSelectedItem(this.TBRiesgos.getModel().getValueAt(Seleccion, 2).toString());
-        this.CBImpacto.setSelectedItem(this.TBRiesgos.getModel().getValueAt(Seleccion, 3).toString());
-
         ID = Integer.parseInt(TBRiesgos.getModel().getValueAt(Seleccion, 0).toString());
     }//GEN-LAST:event_TBRiesgosMouseClicked
 
@@ -260,25 +256,41 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
             mR.setID(ID);
             mR.setNpro(this.CBProbabailidad.getSelectedIndex());
             mR.setNimp(this.CBImpacto.getSelectedIndex());
-            mR.setExp(mR.getNimp() * mR.getNpro());
+            mR.setNombreUser(Usuario.User);
             if (mBD.Conectar()) {
-                if (mBD.AltaPIE(mR)) {
-                    JOptionPane.showMessageDialog(null, "Valores agregados exitosamente");
-                    this.CBProbabailidad.setSelectedIndex(0);
-                    this.CBImpacto.setSelectedIndex(0);
-                    Borrar();
-                    if (listo) {
-                        if (mBD.Conectar()) {
-                            String C = "";
-                            C = CBProyecto.getSelectedItem().toString();
-                            ResultSet Lista = mBD.ConsultaRiesgos2(C);
-
-                            this.TBRiesgos.setModel(Convertidor.convertir(Lista));
-                        }
-                        mBD.Desconectar();
-                    }
+                if (mBD.Duplicidad(mR)) {
+                    JOptionPane.showMessageDialog(null, "Ya se a asignado una prbabilidad y un impacto con este usuario");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al agregar");
+                    if (mBD.AltaPIE(mR)) {
+                        JOptionPane.showMessageDialog(null, "Valores agregados exitosamente");
+                        this.CBProbabailidad.setSelectedIndex(0);
+                        this.CBImpacto.setSelectedIndex(0);
+                        
+                        /*ACtualizar tabla riesgo
+                        */
+                        
+                        mR = new Riesgo();
+                        mR.setID(ID);
+                        mR.setNpro(mBD.Probabiidad(mR));
+                        mR.setNimp(mBD.Impacto(mR));
+                        mR.setExp(mBD.Impacto(mR) * mBD.Probabiidad(mR));
+                        mBD.ValoresRiesgo(mR);
+                        
+                        //Actuaizarr tabla
+                        Borrar();
+                        if (listo) {
+                            if (mBD.Conectar()) {
+                                String C = "";
+                                C = CBProyecto.getSelectedItem().toString();
+                                ResultSet Lista = mBD.ConsultaRiesgos2(C);
+                                this.TBRiesgos.setModel(Convertidor.convertir(Lista));
+
+                            }
+                            mBD.Desconectar();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al agregar");
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Error en BD");

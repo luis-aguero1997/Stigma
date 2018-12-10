@@ -13,6 +13,7 @@ import Lider_Tecnico.*;
  */
 public class Riesgo {
     private int ID;
+    private int idvalor;
     private String Clave;
     private String Titulo;
     private String Detalles;
@@ -40,8 +41,18 @@ public class Riesgo {
         Estado = "";
         IdUsuario = 0;
         NombreUser = "";
+        idvalor = 0;
     }
 
+    public int getIdvalor() {
+        return idvalor;
+    }
+
+    public void setIdvalor(int idvalor) {
+        this.idvalor = idvalor;
+    }
+
+    
     public int getID() {
         return ID;
     }
