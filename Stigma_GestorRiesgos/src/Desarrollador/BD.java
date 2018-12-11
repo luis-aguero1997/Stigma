@@ -80,8 +80,25 @@ public class BD {
         }
         return resultado;
     }
-
+    
     //Seguimiento
+    public ResultSet Consulta(String C) {
+        Statement consulta;
+        ResultSet resultado = null;
+
+        try {
+            consulta = Conexion.createStatement();
+            resultado = consulta.executeQuery("select idriesgo, nombre, estado, fecharevicion from riesgo "
+                    + "where clave ='" + C + "'"
+                    + "and nombreuser ='" + Usuario.User + "'"
+                    + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
+    //Probabilidad
     public ResultSet ConsultaRiesgos2(String C) {
         Statement consulta;
         ResultSet resultado = null;
@@ -194,8 +211,8 @@ public class BD {
 
     }
 
-    public int Probabiidad (Riesgo mR){
-        int valor = 0;
+    public float Probabiidad (Riesgo mR){
+        float valor = 0;
         Statement consulta;
         ResultSet resultado = null;
 
@@ -205,7 +222,7 @@ public class BD {
                      "where idriesgo =' " + mR.getID() + "';");   
             
             while (resultado.next()) {
-                valor = resultado.getInt("promedio");
+                valor = resultado.getFloat("promedio");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,8 +230,8 @@ public class BD {
         return valor;
     }
 
-    public int Impacto(Riesgo mR) {
-        int impacto = 0;
+    public float Impacto(Riesgo mR) {
+        float impacto = 0;
         Statement consulta;
         ResultSet resultado = null;
 
@@ -224,7 +241,7 @@ public class BD {
                      "where idriesgo ='" + mR.getID() + "';");   
             
             while (resultado.next()) {
-                impacto = resultado.getInt("promedio");
+                impacto = resultado.getFloat("promedio");
             }
         } catch (Exception e) {
             e.printStackTrace();

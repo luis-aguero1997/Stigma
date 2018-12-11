@@ -308,7 +308,7 @@ public class Mitigacion extends javax.swing.JFrame {
     private void BTNagrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNagrearMouseClicked
         // TODO add your handling code here:
 
-        if (this.TXTmit.getText() == "" || this.CBProyecto.getSelectedIndex() == 0 || ID == 0) {
+        if (ID == 0 || this.TXTmit.getText() == "" || this.CBProyecto.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue la accion de Mitigacion");
         } else {
             Riesgo mR = new Riesgo();

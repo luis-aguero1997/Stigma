@@ -211,8 +211,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
             if (mBD.Conectar()) {
                 String C = "";
                 C = CBproyecto.getSelectedItem().toString();
-                ResultSet Lista = mBD.ConsultaRiesgos(C);
-
+                ResultSet Lista = mBD.Consulta(C);
                 this.TBProyecto.setModel(Convertidor.convertir(Lista));
             }
             mBD.Desconectar();
@@ -223,7 +222,6 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
         // TODO add your handling code here:
         int Seleccion = 0;
         ID = 0;
-
         Seleccion = this.TBProyecto.rowAtPoint(evt.getPoint());
         this.CBEstado.setSelectedItem(this.TBProyecto.getModel().getValueAt(Seleccion, 1).toString());
         ID = Integer.parseInt(TBProyecto.getModel().getValueAt(Seleccion, 0).toString());
@@ -243,7 +241,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Estado dado de alta");
                     
                     CBEstado.setSelectedIndex(0);
-                    jDateChooser1 = null;
+                    jDateChooser1.setDate(null);
                     Borrar();
                     if (listo) {
                         if (mBD.Conectar()) {

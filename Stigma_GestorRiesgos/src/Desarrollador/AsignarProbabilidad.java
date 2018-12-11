@@ -233,7 +233,6 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
                 String C = "";
                 C = CBProyecto.getSelectedItem().toString();
                 ResultSet Lista = mBD.ConsultaRiesgos2(C);
-
                 this.TBRiesgos.setModel(Convertidor.convertir(Lista));
             }
             mBD.Desconectar();
@@ -266,14 +265,12 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
                         this.CBProbabailidad.setSelectedIndex(0);
                         this.CBImpacto.setSelectedIndex(0);
                         
-                        /*ACtualizar tabla riesgo
-                        */
-                        
+                        //Agregar campos a tabla riesgos
                         mR = new Riesgo();
                         mR.setID(ID);
-                        mR.setNpro(mBD.Probabiidad(mR));
-                        mR.setNimp(mBD.Impacto(mR));
-                        mR.setExp(mBD.Impacto(mR) * mBD.Probabiidad(mR));
+                        mR.setNpro((int)mBD.Probabiidad(mR));
+                        mR.setNimp((int)mBD.Impacto(mR));
+                        mR.setExp((int)(mBD.Impacto(mR) * mBD.Probabiidad(mR)));
                         mBD.ValoresRiesgo(mR);
                         
                         //Actuaizarr tabla
