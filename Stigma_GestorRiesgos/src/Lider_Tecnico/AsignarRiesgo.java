@@ -22,13 +22,15 @@ public class AsignarRiesgo extends javax.swing.JFrame {
      * Creates new form AsignarRiesgo
      */
     DefaultTableModel ModeloTabla = new DefaultTableModel();
-    boolean listo=false;
-    boolean listo2=false;
+    boolean listo = false;
+    boolean listo2 = false;
     int ID = 0;
     BDUsuario mBDU = new BDUsuario();
     BDAcciones mBD = new BDAcciones();
+
     public AsignarRiesgo() {
         initComponents();
+        //Llena los combos en el formulario
         LlenarC();
         LlenarD();
         IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
@@ -231,21 +233,21 @@ public class AsignarRiesgo extends javax.swing.JFrame {
 
     private void CBproyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CBproyectoMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_CBproyectoMouseClicked
 
     private void CBproyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBproyectoItemStateChanged
         // TODO add your handling code here:
-        if(listo) {
-       if (mBD.ConectarAcciones())  {
-            String C = "";
-            C = CBproyecto.getSelectedItem().toString();
-            ResultSet Lista = mBD.ConsultaRiesgos2(C);
-            
-            this.TBrisgos.setModel(Convertidor.convertir(Lista));
+        if (listo) {
+            if (mBD.ConectarAcciones()) {
+                String C = "";
+                C = CBproyecto.getSelectedItem().toString();
+                ResultSet Lista = mBD.ConsultaRiesgos2(C);
+
+                this.TBrisgos.setModel(Convertidor.convertir(Lista));
+            }
+            mBD.DesconectarAcciones();
         }
-        mBD.DesconectarAcciones();
-      }
     }//GEN-LAST:event_CBproyectoItemStateChanged
 
     private void BTNasignarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNasignarMouseClicked
@@ -253,37 +255,38 @@ public class AsignarRiesgo extends javax.swing.JFrame {
         Riesgo mR = new Riesgo();
         mR.setID(ID);
         mR.setNombreUser(this.CBDesarrolladores.getSelectedItem().toString());
-        
+        //Verifica que los campos necesarios no esten vacios
         if (CBDesarrolladores.getSelectedIndex() == 0 || CBproyecto.getSelectedIndex() == 0 || ID == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un Riesgo y un Desarrollador");
         } else {
             if (mBD.ConectarAcciones()) {
-            if (mBD.AgregarUsuario(mR)) {
-                JOptionPane.showMessageDialog(null, "Se Asigno Desarrollador a Riesgo\ncon Exito");
-                listo = false;
-                listo2 = false;
-                LlenarC();
-                LlenarD();
-                CBproyecto.setSelectedIndex(0);
-                CBDesarrolladores.setSelectedIndex(0);
-                Borrar();
-                ID = 0;
+                //Guarda los datos
+                if (mBD.AgregarUsuario(mR)) {
+                    JOptionPane.showMessageDialog(null, "Se Asigno Desarrollador a Riesgo\ncon Exito");
+                    listo = false;
+                    listo2 = false;
+                    LlenarC();
+                    LlenarD();
+                    CBproyecto.setSelectedIndex(0);
+                    CBDesarrolladores.setSelectedIndex(0);
+                    Borrar();
+                    ID = 0;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al agregar Accion de Contingencia");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Error al agregar Accion de Contingencia");
+                JOptionPane.showMessageDialog(null, "Error en BD");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error en BD");
-        }
         }
     }//GEN-LAST:event_BTNasignarMouseClicked
 
     private void TBrisgosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBrisgosMouseClicked
         // TODO add your handling code here:
-         int Seleccion = 0;
+        int Seleccion = 0;
         ID = 0;
         Seleccion = this.TBrisgos.rowAtPoint(evt.getPoint());
-        
-        ID = Integer.parseInt(TBrisgos.getModel().getValueAt(Seleccion,0).toString());
+
+        ID = Integer.parseInt(TBrisgos.getModel().getValueAt(Seleccion, 0).toString());
     }//GEN-LAST:event_TBrisgosMouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
@@ -332,24 +335,24 @@ public class AsignarRiesgo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CBproyectoActionPerformed
 
-    void LlenarC(){
+    void LlenarC() {
         this.setLocationRelativeTo(null);
         CBproyecto.removeAllItems();
-        if (mBD.ConectarAcciones() ) {
+        if (mBD.ConectarAcciones()) {
             mBD.ConsultarCombo(CBproyecto);
-            listo=true;
+            listo = true;
         } else {
             JOptionPane.showMessageDialog(null, "Error BD");
         }
         mBD.DesconectarAcciones();
     }
 
-    void LlenarD(){
+    void LlenarD() {
         this.setLocationRelativeTo(null);
         CBDesarrolladores.removeAllItems();
-        if (mBDU.ConectarUsuario() ) {
+        if (mBDU.ConectarUsuario()) {
             mBDU.ConsultarComboU(this.CBDesarrolladores);
-            listo2=true;
+            listo2 = true;
         } else {
             JOptionPane.showMessageDialog(null, "Error BD");
         }
@@ -360,12 +363,12 @@ public class AsignarRiesgo extends javax.swing.JFrame {
         DefaultTableModel LimpiadoTabla = (DefaultTableModel) TBrisgos.getModel();
         //Borramosla tabla...
         int c = this.TBrisgos.getRowCount() - 1;
-        
+
         for (int i = c; i >= 0; i--) {
             LimpiadoTabla.removeRow(LimpiadoTabla.getRowCount() - 1);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

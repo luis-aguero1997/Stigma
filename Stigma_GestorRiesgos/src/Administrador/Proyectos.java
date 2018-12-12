@@ -27,6 +27,7 @@ public class Proyectos extends javax.swing.JFrame {
 
     public Proyectos() {
         initComponents();
+        //Llena los combobox de cada pestaña en el formulario
         setFilas();
         IMG.Fondo Fondoq = new IMG.Fondo(Fondo);
         Fondo.add(Fondoq).repaint();
@@ -490,7 +491,7 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_TBProyectoAncestorAdded
 
     private void TBProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBProyectoMouseClicked
-        // TODO add your handling code here:
+        // Obtiene el ID del proyecto seleccionado y muestra el nombre del proyecto en la caja de texto
         int Seleccion = 0;
         this.TxtEliminar.setText("");
         Seleccion = this.TBProyecto.rowAtPoint(evt.getPoint());
@@ -499,11 +500,12 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_TBProyectoMouseClicked
 
     private void BtnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnEliminarMouseClicked
-        // TODO add your handling code here:
+        // Verifica que a Clave noe ste vacia
         if ( Clave == "") {
             JOptionPane.showMessageDialog(null, "Seleccine un proyecto");
         } else {
             if (mBD.ConectarProyecto()) {
+                //Elimina el proyecto seleccionado
                 if (mBD.EliminarProyecto(Clave)) {
                     JOptionPane.showMessageDialog(null, "Proyecto Dado de Baja");
                     TxtEliminar.setText("");
@@ -519,11 +521,12 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEliminarMouseClicked
 
     private void TxtCriterioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCriterioKeyTyped
-        // TODO add your handling code here:
+        // Verifica que en caso de que el criterio este vacio, se hafa una consulta general de los proyectos
         if (this.TxtCriterio.equals("")) {
             Borrar();
             Llenar();
         }
+        //Borra el contenido de la tabla y la llena de acuerdo con el criterio de busqueda
         BorrarC();
         if (this.mBD.ConectarProyecto()) {
             ResultSet Lista = null;
@@ -535,7 +538,7 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtCriterioKeyTyped
 
     private void BtnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAddMouseClicked
-        // TODO add your handling code here:
+        // Verifica que los elementos necesarios no esten vacios
         if (TxtClave.equals("") || TxtNom.equals("") || TxtDes.equals("") || Inicio.getDate() == null || Fin.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Llena los campos antes de guardar");
         } else {
@@ -546,7 +549,7 @@ public class Proyectos extends javax.swing.JFrame {
                 mProyecto.setDescripcion(TxtDes.getText());
                 mProyecto.setFechaInicio(formatofecha.format(Inicio.getDate()));
                 mProyecto.setFechaFin(formatofecha.format(Fin.getDate()));
-
+                //Da de alta el proyecto
                 if (mBD.AgregarProyecto(mProyecto)) {
                     JOptionPane.showMessageDialog(null, "Proyecto Agreagado con Exito");
                     Borrar();
@@ -571,7 +574,7 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtNom1ActionPerformed
 
     private void TBProyecto4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBProyecto4MouseClicked
-        // TODO add your handling code here:
+        // Obtiene la clave del proyecto y muestra el nombre y descipcion del proyecto seleccionado
         int Seleccion = 0;
         ClaveM = "";
         this.TxtNom1.setText("");
@@ -585,7 +588,7 @@ public class Proyectos extends javax.swing.JFrame {
     }//GEN-LAST:event_TBProyecto4MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
+        // Verifica que los elementos necesarios no esten vacios
         if (TxtNom1.getText() == "" || TxtDes1.getText() == "" || ClaveM == "") {
             JOptionPane.showMessageDialog(null, "Seleccione un Proyecto y llene los campos a modificar");
         } else {
@@ -595,6 +598,7 @@ public class Proyectos extends javax.swing.JFrame {
             mP.setDescripcion(TxtDes1.getText());
 
             if (mBD.ConectarProyecto()) {
+                //Modifica el Proyecto seleccionado
                 if (mBD.ModificarProyecto(mP)) {
                     JOptionPane.showMessageDialog(null, "Modificacion realizada con exito");
                     TxtNom1.setText("");

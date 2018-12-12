@@ -23,6 +23,7 @@ public class Matriz extends javax.swing.JFrame {
     public Matriz() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //Llena el combobox
         Llenar();
         IMG.Fondo FondoA = new IMG.Fondo(Fondo);
         Fondo.add(FondoA).repaint();
@@ -169,7 +170,7 @@ public class Matriz extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
-        // TODO add your handling code here:
+        // Llena la tabla dependiendo del elemento seleccionado
         if (listo) {
             if (mBD.ConectarProyecto()) {
                 String C = "";

@@ -27,6 +27,7 @@ public class Mitigacion extends javax.swing.JFrame {
 
     public Mitigacion() {
         initComponents();
+        //Llena el ComboBox
         LlenarC();
         IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
         jPanel1.add(Fondoq).repaint();
@@ -280,7 +281,7 @@ public class Mitigacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
-        // TODO add your handling code here:
+        // Llena la tabla dependiendo del elemento seleccionado en el combobox
         if (listo) {
             if (mBD.ConectarAcciones()) {
                 String C = "";
@@ -294,7 +295,8 @@ public class Mitigacion extends javax.swing.JFrame {
     }//GEN-LAST:event_CBProyectoItemStateChanged
 
     private void TBproyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBproyectoMouseClicked
-        // TODO add your handling code here:
+        // Se obtiene el Id del riesgo seleccionado y 
+        //en caso de que ya tenga una accion de mitigacion asignada a muestra
         int Seleccion = 0;
         Seleccion = this.TBproyecto.rowAtPoint(evt.getPoint());
         if (!this.TBproyecto.getModel().getValueAt(Seleccion, 2).toString().equals("-")) {
@@ -306,8 +308,7 @@ public class Mitigacion extends javax.swing.JFrame {
     }//GEN-LAST:event_TBproyectoMouseClicked
 
     private void BTNagrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNagrearMouseClicked
-        // TODO add your handling code here:
-
+        //Verifica que los campos no esten vacios
         if (ID == 0 || this.TXTmit.getText() == "" || this.CBProyecto.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue la accion de Mitigacion");
         } else {
@@ -315,6 +316,7 @@ public class Mitigacion extends javax.swing.JFrame {
             mR.setID(ID);
             mR.setMitigacion(this.TXTmit.getText());
             if (mBD.ConectarAcciones()) {
+                //Da de alta la accion de mitigacion o la modifica
                 if (mBD.AgregarMitigacion(mR)) {
                     listo = false;
                     LlenarC();

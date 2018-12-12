@@ -29,6 +29,7 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //Llena los combobox en las distintas pestañas
         setFilas();
         IMG.Fondo Fondoq = new IMG.Fondo(Fondo);
         Fondo.add(Fondoq).repaint();
@@ -474,6 +475,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void TBUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios1MouseClicked
+        //Obtiene el ID del usuario seleccionado ademas de llenar de mostrar el nombre del usuario en la caja de texto
         int Seleccion = 0;
         ID = 0;
         this.TxtEliminar.setText("");
@@ -483,6 +485,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_TBUsuarios1MouseClicked
 
     private void TBUsuarios2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBUsuarios2MouseClicked
+        //Obtiene el ID del usuario seleccionado ademas de llenar de mostrar el nombre de usuario en la caja de texto
         int Seleccion = 0;
         this.TxtID.setText("");
 
@@ -495,10 +498,12 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_TBUsuarios2MouseClicked
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
+        //Verifica que el ID del usuario no este vacio
         if (this.TxtEliminar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Selecione un usuario antes");
         } else {
             if (mBD.ConectarUsuario()) {
+                //Elimina al usuario seleccionado
                 if (mBD.EliminarUsuario(ID)) {
                     JOptionPane.showMessageDialog(null, "Usuario dado de baja");
                     TxtEliminar.setText("");
@@ -520,12 +525,13 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtNomActionPerformed
 
     private void TxtCriterioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtCriterioKeyTyped
-        // TODO add your handling code here:
+        // Verifica que en caso de que el criterio de busqueda este vacio presente todos los usuarios
         if (TxtCriterio.equals("")) {
             Borrar();
             setFilas();
             JOptionPane.showMessageDialog(null, "Indique un criterio para realizar busqueda");
         } else {
+            //Borra los elementos de la tabla y vuelve a llenarla dependiendo del criterio escrito en a caja de texto
             BorrarC();
             if (mBD.ConectarUsuario()) {
 
@@ -542,7 +548,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtCriterioKeyTyped
 
     private void BtnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAddMouseClicked
-        // TODO add your handling code here:
+        // Verifica que los elementos necesarios no esten vacios
         if ((this.TxtNom.equals(null)) || (this.TxtNomUser.equals(null)) || (this.TxtEmail.equals(null)) || (TxtPass.equals(null)) || CBTipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Llene todos los campos antes de guardar");
 
@@ -553,7 +559,7 @@ public class Usuarios extends javax.swing.JFrame {
             mUsuario.setEmail(TxtEmail.getText());
             mUsuario.setPassword(TxtPass.getText());
             mUsuario.setTipoUser(CBTipo.getSelectedItem().toString());
-
+            //Da de alta el usuario
             if (mBD.ConectarUsuario()) {
                 if (mBD.AgregarUsuario(mUsuario)) {
                     JOptionPane.showMessageDialog(null, "Usuario Dado de alta de forma exitosa");
@@ -611,7 +617,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void BtnModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnModMouseClicked
-        // TODO add your handling code here:
+        // Verifica que los elementos necesarios no esten vacios
         if (this.TxtNomUser1.getText() == "" || this.TxtPass1.getText() == "" || this.TxtID.getText() == "") {
             JOptionPane.showMessageDialog(null, "Seleccione un usuario y llene los campos");
         } else {
@@ -624,6 +630,7 @@ public class Usuarios extends javax.swing.JFrame {
                 mUsuario.setID(Integer.parseInt(TxtID.getText()));
                 nUsuario.setNomUser(TxtNomUser1.getText());
                 nUsuario.setPassword(TxtPass1.getText());
+                //Modifica el usuario seleccionado
                 if (mBD.ModificarUsuario(mUsuario, nUsuario)) {
                     JOptionPane.showMessageDialog(null, "Usuario Modificado con Exito");
                     TxtID.setText("");

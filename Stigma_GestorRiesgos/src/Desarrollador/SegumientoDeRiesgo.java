@@ -29,6 +29,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
 
     public SegumientoDeRiesgo() {
         initComponents();
+        //Llena el ComboBox
         Llenar();
         IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
         jPanel1.add(Fondoq).repaint();
@@ -206,7 +207,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CBproyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBproyectoItemStateChanged
-        // TODO add your handling code here:
+        // Modifica la tabla de acuerdo a el elemento seleccionado en el ComboBox
         if (listo) {
             if (mBD.Conectar()) {
                 String C = "";
@@ -219,7 +220,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
     }//GEN-LAST:event_CBproyectoItemStateChanged
 
     private void TBProyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBProyectoMouseClicked
-        // TODO add your handling code here:
+        // Obtiene el ID del riesgo seleccionado
         int Seleccion = 0;
         ID = 0;
         Seleccion = this.TBProyecto.rowAtPoint(evt.getPoint());
@@ -228,7 +229,7 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
     }//GEN-LAST:event_TBProyectoMouseClicked
 
     private void BTNAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNAgregarMouseClicked
-        // TODO add your handling code here:
+        // Verifica que os campos no esten vacios 
         if ((CBEstado.getSelectedIndex() == 0) || (this.jDateChooser1.getDate() == null) || (ID == 0)) {
             JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue los datos necesarios");
         } else {
@@ -237,11 +238,16 @@ public class SegumientoDeRiesgo extends javax.swing.JFrame {
             mR.setFechaRevicion(formatofecha.format(this.jDateChooser1.getDate()));
             mR.setID(ID);
             if (mBD.Conectar()) {
+                //Guarda los elementos de seguimiento
                 if (mBD.AltaSeguimiento(mR)) {
                     JOptionPane.showMessageDialog(null, "Estado dado de alta");
                     
                     CBEstado.setSelectedIndex(0);
                     jDateChooser1.setDate(null);
+                    /*
+                    Borra los elementos de la tabla despues de dar de alta los elementos 
+                    y lo vuelve a llenar
+                    */
                     Borrar();
                     if (listo) {
                         if (mBD.Conectar()) {

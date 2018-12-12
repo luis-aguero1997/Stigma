@@ -28,6 +28,7 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
 
     public AsignarProbabilidad() {
         initComponents();
+        //Llena el combobox
         Llenar();
         IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
         jPanel1.add(Fondoq).repaint();
@@ -227,7 +228,7 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
-        // TODO add your handling code here:
+        // LLena la tabla dependiendo del objeto seleccionado en el combobox
         if (listo) {
             if (mBD.Conectar()) {
                 String C = "";
@@ -240,7 +241,7 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     }//GEN-LAST:event_CBProyectoItemStateChanged
 
     private void TBRiesgosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMouseClicked
-        // TODO add your handling code here:
+        // Toma el ID del riesgo que se ha seleccionado en la tabla        
         int Seleccion = 0;
         ID = 0;
         Seleccion = this.TBRiesgos.rowAtPoint(evt.getPoint());
@@ -248,7 +249,7 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
     }//GEN-LAST:event_TBRiesgosMouseClicked
 
     private void BTNAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNAceptarMouseClicked
-        // TODO add your handling code here:
+        // Verifica que los campos no esten vacios
         if (ID == 0 || CBProbabailidad.getSelectedIndex() == 0 || CBImpacto.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un riesgo y llene los datos que se piden");
         } else {
@@ -257,9 +258,11 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
             mR.setNimp(this.CBImpacto.getSelectedIndex());
             mR.setNombreUser(Usuario.User);
             if (mBD.Conectar()) {
+                //Verificacion de que el usuario no ala dado de alta valores a e mismo riesgo anteriormente
                 if (mBD.Duplicidad(mR)) {
                     JOptionPane.showMessageDialog(null, "Ya se a asignado una prbabilidad y un impacto con este usuario");
                 } else {
+                    //Se dan de alta los valores en la tabla para sacar probabiidad e impacto
                     if (mBD.AltaPIE(mR)) {
                         JOptionPane.showMessageDialog(null, "Valores agregados exitosamente");
                         this.CBProbabailidad.setSelectedIndex(0);
@@ -268,19 +271,12 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
                         //Agregar campos a tabla riesgos
                         mR = new Riesgo();
                         mR.setID(ID);
-                        System.out.print("\n" + mBD.Probabiidad(mR));
-                        System.out.print("\n" + mBD.Impacto(mR));
-                        
-                        System.out.print("\n" + Math.round(mBD.Probabiidad(mR)));
-                        System.out.print("\n" + Math.round(mBD.Probabiidad(mR)));
-                        Math.round(mBD.Probabiidad(mR));
-                        Math.round(mBD.Impacto(mR));
                         mR.setNpro(Math.round(mBD.Probabiidad(mR)));
                         mR.setNimp(Math.round(mBD.Impacto(mR)));
                         mR.setExp((mR.getNpro() * mR.getNimp()));
                         mBD.ValoresRiesgo(mR);
                         
-                        //Actuaizarr tabla
+                        //Actualiza la tabla
                         Borrar();
                         if (listo) {
                             if (mBD.Conectar()) {

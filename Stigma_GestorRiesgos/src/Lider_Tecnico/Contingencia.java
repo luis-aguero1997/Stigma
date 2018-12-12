@@ -27,6 +27,7 @@ public class Contingencia extends javax.swing.JFrame {
 
     public Contingencia() {
         initComponents();
+        //Llena ComboBox
         LlenarC();
         IMG.Fondo Fondoq = new IMG.Fondo(jPanel1);
         jPanel1.add(Fondoq).repaint();
@@ -225,11 +226,12 @@ public class Contingencia extends javax.swing.JFrame {
         Riesgo mR = new Riesgo();
         mR.setID(ID);
         mR.setContingencia(this.TXTmit.getText());
-
+        //Verifica que los Campos necesarios no esten vacios 
         if (this.TXTmit.getText() == "" || this.CBProyecto.getSelectedIndex() == 0 || ID == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un riesgo y agregue la accion de Contingencia");
         } else {
             if (mBD.ConectarAcciones()) {
+                //Agrega o Modifica la Accion de mitigacion a el riesgo seleccionado
                 if (mBD.AgregarContingencia(mR)) {
                     JOptionPane.showMessageDialog(null, "Se agrego Accion de Contingencia\ncon Exito");
                     listo = false;
@@ -247,7 +249,7 @@ public class Contingencia extends javax.swing.JFrame {
     }//GEN-LAST:event_BTNagrearMouseClicked
 
     private void CBProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyectoItemStateChanged
-        // TODO add your handling code here:
+        // Llena la tabla segun el elemento seleccionado
         if (listo) {
             if (mBD.ConectarAcciones()) {
                 String C = "";
@@ -261,7 +263,7 @@ public class Contingencia extends javax.swing.JFrame {
     }//GEN-LAST:event_CBProyectoItemStateChanged
 
     private void TBproyectoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBproyectoMouseClicked
-        // TODO add your handling code here:
+        // Obtiene el ID del riesgo seleccionado y en caso de ya exista a muestra en la caja de texto 
         int Seleccion = 0;
         ID = 0;
         Seleccion = this.TBproyecto.rowAtPoint(evt.getPoint());

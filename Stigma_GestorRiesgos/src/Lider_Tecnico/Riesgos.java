@@ -28,6 +28,7 @@ public class Riesgos extends javax.swing.JFrame {
     public Riesgos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //Llena los combobox de cada pestaña ddel formulario
         CBProyecto.removeAllItems();
         CBProyecto1.removeAllItems();
         CBProyecto2.removeAllItems();
@@ -500,7 +501,7 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnAceptarMouseExited
 
     private void CBProyecto1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto1ItemStateChanged
-        // TODO add your handling code here:
+        // Llena la tabla en a pestaña de Baja de riesgo
         if (listo) {
             if (mBD.ConectarRiesgos()) {
                 String C = "";
@@ -532,7 +533,7 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_CBProyecto3ItemStateChanged
 
     private void CBProyecto2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto2ItemStateChanged
-        // TODO add your handling code here:
+        // Llena la tabla en a pestaña de Modificar riesgo
         if (listo) {
             if (mBD.ConectarRiesgos()) {
                 String C = "";
@@ -546,7 +547,7 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_CBProyecto2ItemStateChanged
 
     private void TBRiesgosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMouseClicked
-        // TODO add your handling code here:
+        // Obtiene ID del riesgo seleccionado en la tabla ubicada en la pestaña de baja
         int Seleccion = 0;
         ID = 0;
         this.TxtID.setText("");
@@ -556,11 +557,12 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_TBRiesgosMouseClicked
 
     private void BtnDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnDelMouseClicked
-        // TODO add your handling code here:
+        // Verifica que el ID se haya obtenido
         if (this.TxtID.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Selecione un riesgo antes");
         } else {
             if (mBD.ConectarRiesgos()) {
+                //Elimina el riesgo seleccionado
                 if (mBD.EliminarRiesgo(ID)) {
                     JOptionPane.showMessageDialog(null, "Riesgo dado de baja");
                     TxtID.setText("");
@@ -619,7 +621,7 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void TBRiesgosMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBRiesgosMMouseClicked
-        // TODO add your handling code here:
+        // Obtiene el ID del riesgo seleccionado y muestra e titulo y descripcion en las cajas de texto
         int Seleccion = 0;
         ID = 0;
         Seleccion = this.TBRiesgosM.rowAtPoint(evt.getPoint());
@@ -630,8 +632,7 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_TBRiesgosMMouseClicked
 
     private void BtnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnModificarMouseClicked
-        // TODO add your handling code here
-
+        // Verifica que los campos necesarios no esten vacios
         if (this.TxtTituo1.equals("") || this.TxtDes1.equals("") || CBProyecto3.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un Riesgo y llene los campos");
         } else {
@@ -644,6 +645,7 @@ public class Riesgos extends javax.swing.JFrame {
                 mRiesgo.setClave(TxtID.getText());
                 nRiesgo.setTitulo(TxtTituo1.getText());
                 nRiesgo.setDetalles(TxtDes1.getText());
+                //Modifica el riesgo seleccionado
                 if (mBD.ModificarRiesgo(mRiesgo, nRiesgo)) {
                     JOptionPane.showMessageDialog(null, "Proyecto Modificado con Exito");
                     TxtID.setText("");
@@ -662,7 +664,7 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtTituo1ActionPerformed
 
     private void BtnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAceptarMouseClicked
-        // TODO add your handling code here:
+        // Verifica que los campos necesarios no esten vacios
         if ((CBProyecto.getSelectedIndex() == 0)) {
             JOptionPane.showMessageDialog(null, "Llene los Campos antes de Guardar");
         } else if ((this.TxtTitulo.getText() == "")) {
@@ -676,6 +678,7 @@ public class Riesgos extends javax.swing.JFrame {
             mRiesgo.setDetalles(TxtDes.getText());
 
             if (mBD.ConectarRiesgos()) {
+                //Da de alta el riesgo
                 if (mBD.AgregarRiesgo(mRiesgo)) {
                     JOptionPane.showMessageDialog(null, "Riesgo dado de Alta exitosamente");
                     CBProyecto.setSelectedIndex(0);
