@@ -268,9 +268,16 @@ public class AsignarProbabilidad extends javax.swing.JFrame {
                         //Agregar campos a tabla riesgos
                         mR = new Riesgo();
                         mR.setID(ID);
-                        mR.setNpro((int)mBD.Probabiidad(mR));
-                        mR.setNimp((int)mBD.Impacto(mR));
-                        mR.setExp((int)(mBD.Impacto(mR) * mBD.Probabiidad(mR)));
+                        System.out.print("\n" + mBD.Probabiidad(mR));
+                        System.out.print("\n" + mBD.Impacto(mR));
+                        
+                        System.out.print("\n" + Math.round(mBD.Probabiidad(mR)));
+                        System.out.print("\n" + Math.round(mBD.Probabiidad(mR)));
+                        Math.round(mBD.Probabiidad(mR));
+                        Math.round(mBD.Impacto(mR));
+                        mR.setNpro(Math.round(mBD.Probabiidad(mR)));
+                        mR.setNimp(Math.round(mBD.Impacto(mR)));
+                        mR.setExp((mR.getNpro() * mR.getNimp()));
                         mBD.ValoresRiesgo(mR);
                         
                         //Actuaizarr tabla
