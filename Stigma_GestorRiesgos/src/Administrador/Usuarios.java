@@ -549,7 +549,8 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void BtnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnAddMouseClicked
         // Verifica que los elementos necesarios no esten vacios
-        if ((this.TxtNom.equals(null)) || (this.TxtNomUser.equals(null)) || (this.TxtEmail.equals(null)) || (TxtPass.equals(null)) || CBTipo.getSelectedIndex() == 0) {
+        if ((this.TxtNom.equals(null)) || (this.TxtNomUser.equals(null)) || (this.TxtEmail.equals(null)) 
+                || (TxtPass.equals(null)) || CBTipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Llene todos los campos antes de guardar");
 
         } else {

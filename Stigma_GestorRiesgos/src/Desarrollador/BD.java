@@ -215,12 +215,10 @@ public class BD {
         float valor = 0;
         Statement consulta;
         ResultSet resultado = null;
-
         try {
             consulta = Conexion.createStatement();
             resultado = consulta.executeQuery("select avg(probabilidad) AS promedio from valores " +
                      "where idriesgo =' " + mR.getID() + "';");   
-            
             while (resultado.next()) {
                 valor = resultado.getFloat("promedio");
             }
@@ -234,7 +232,6 @@ public class BD {
         float impacto = 0;
         Statement consulta;
         ResultSet resultado = null;
-
         try {
             consulta = Conexion.createStatement();
             resultado = consulta.executeQuery("select avg(impacto) AS promedio from valores " +

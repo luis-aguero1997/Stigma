@@ -533,7 +533,7 @@ public class Riesgos extends javax.swing.JFrame {
     }//GEN-LAST:event_CBProyecto3ItemStateChanged
 
     private void CBProyecto2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CBProyecto2ItemStateChanged
-        // Llena la tabla en a pestaña de Modificar riesgo
+        // Llena la tabla en a pestaña de Consulta de riesgo
         if (listo) {
             if (mBD.ConectarRiesgos()) {
                 String C = "";
